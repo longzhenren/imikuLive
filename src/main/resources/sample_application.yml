@@ -27,15 +27,6 @@ spring:
           starttls:
             enabled: false
             required: false
-  cloud:
-    gateway:
-      routes:
-        - id: ws_service
-          uri: localhost:7005
-          predicates:
-            - Path=/api/ws/**
-          filters:
-            - StripPrefix=2
 
 socketio:
   host: localhost
