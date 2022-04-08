@@ -1,0 +1,16 @@
+server:
+  port: 7004 # 设置端口
+
+spring:
+  application:
+    name: imikuLive
+  datasource:
+    url: # 数据源
+    username:
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
