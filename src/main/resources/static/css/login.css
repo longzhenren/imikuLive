@@ -1,0 +1,56 @@
+body {
+    overflow: hidden;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+}
+.bg {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-position: center, center;
+    background-size: cover;
+}
+.lgbg {
+    height: 60%;
+    width: 100%;
+    position: absolute;
+    top: 10%;
+    background-position: left, center;
+    background-size: cover;
+}
+input {
+    background-color: transparent;
+    width: 28vw;
+    height: 4vw;
+    border-style: dashed solid solid solid;
+    border-width: 0.6vh 0 0.6vh 0;
+    border-color: #f07d58 #f07d58 #3ba8ab #f07d58;
+    font-size: 2vw;
+    font-weight: 350;
+    color: aliceblue;
+    margin: 5vh 0 5vh 0;
+    letter-spacing: 0.3vw;
+}
+input:focus {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.input {
+    position: relative;
+    left: 25%;
+    top: 10%;
+    width: 35vw;
+}
+.passsvg {
+    margin-right: 0.6vw;
+    width: 3vw;
+    height: 3vw;
+    fill: #3ba8ab;
+    transform: translateY(17%);
+}
+.mailsvg {
+    margin-right: 0.6vw;
+    width: 3vw;
+    height: 3vw;
+    fill: #f07d58;
+    transform: translateY(17%);
+}

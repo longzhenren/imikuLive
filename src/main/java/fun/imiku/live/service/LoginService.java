@@ -15,6 +15,7 @@ import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -22,19 +23,30 @@ public class LoginService {
     @Autowired
     UserDAO userDAO;
 
-    public boolean checkLogin(String email, String password, HttpSession session){
+    public void checkLogin(String email, String password, HttpSession session, HashMap<String, Object> ret) {
         List<User> res = userDAO.findByEmail(email);
-        if (res.size() == 0) return false;
+        if (res.size() == 0) {
+            ret.put("result", false);
+            ret.put("message", "邮箱或密码错误");
+            return;
+        }
         try {
             String bufPass = DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8)).substring(5, 29);
-            if (!res.get(0).getPassword().equals(bufPass)) return false;
+            if (!res.get(0).getPassword().equals(bufPass)) {
+                ret.put("result", false);
+                ret.put("message", "邮箱或密码错误");
+                return;
+            }
             User tar = res.get(0);
             session.setAttribute("id", tar.getId());
             session.setAttribute("nickname", tar.getNickname());
             session.setAttribute("avatar", tar.getAvatar());
-            return true;
+            ret.put("result", true);
+            return;
         } catch (Exception e) {
-            return false;
+            ret.put("result", false);
+            ret.put("message", "内部服务器错误");
+            return;
         }
     }
 }
