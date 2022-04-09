@@ -11,7 +11,7 @@ body {
     background-size: cover;
 }
 .lgbg {
-    height: 60%;
+    height: 70%;
     width: 100%;
     position: absolute;
     top: 10%;
@@ -20,37 +20,108 @@ body {
 }
 input {
     background-color: transparent;
-    width: 28vw;
-    height: 4vw;
+    width: 320px;
+    height: 54px;
     border-style: dashed solid solid solid;
-    border-width: 0.6vh 0 0.6vh 0;
+    border-width: 4px 0 4px 0;
     border-color: #f07d58 #f07d58 #3ba8ab #f07d58;
-    font-size: 2vw;
+    font-size: 20px;
     font-weight: 350;
     color: aliceblue;
     margin: 5vh 0 5vh 0;
-    letter-spacing: 0.3vw;
+    letter-spacing: 4px;
 }
 input:focus {
     background-color: rgba(0, 0, 0, 0.8);
 }
 .input {
-    position: relative;
-    left: 25%;
-    top: 10%;
-    width: 35vw;
+    position: absolute;
+    left: 45vh;
+    top: 8%;
+    width: 400px;
 }
 .passsvg {
-    margin-right: 0.6vw;
-    width: 3vw;
-    height: 3vw;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
     fill: #3ba8ab;
     transform: translateY(17%);
 }
 .mailsvg {
-    margin-right: 0.6vw;
-    width: 3vw;
-    height: 3vw;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
     fill: #f07d58;
     transform: translateY(17%);
+}
+.regsvg {
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+    fill: #f07d58;
+    cursor: pointer;
+}
+.sigsvg {
+    width: 60px;
+    height: 30px;
+    fill: #3ba8ab;
+    transform: scale(4, 1.2);
+    cursor: pointer;
+}
+.reg {
+    width: 60px;
+    margin-right: 20px;
+    display: inline;
+}
+.tip {
+    font-size: large;
+    color: #3ba8ab;
+    visibility: hidden;
+}
+.sign {
+    margin-left: 40px;
+    display: inline;
+}
+.fail {
+    height: 37%;
+    width: 100%;
+    position: relative;
+    top: 100%;
+    background-position: center, center;
+    background-size: cover;
+}
+#fail-cont {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: large;
+    color: white;
+    letter-spacing: 4px;
+}
+.forg {
+    height: 37%;
+    width: 100%;
+    position: relative;
+    top: 100%;
+    background-position: center, center;
+    background-size: cover;
+}
+#forg-cont {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: large;
+    color: white;
+    letter-spacing: 4px;
+}
+#succ {
+    height: 53%;
+    width: 100%;
+    position: absolute;
+    top: 10%;
+    left: -100%;
+    background-position: left, center;
+    background-size: cover;
 }

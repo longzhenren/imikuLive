@@ -30,6 +30,11 @@
             th:style="'background-image: url('+'/img/bg.jpg'+')'"
         >
             <div
+                id="succ"
+                style="background-image: url('../static/img/succ.png')"
+                th:style="'background-image: url('+'/img/succ.png'+')'"
+            ></div>
+            <div
                 class="lgbg"
                 style="background-image: url('../static/img/loginbg2.png')"
                 th:style="'background-image: url('+'/img/loginbg2.png'+')'"
@@ -40,6 +45,8 @@
                             class="mailsvg bi bi-mailbox2"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 16 16"
+                            width="16"
+                            height="16"
                         >
                             <path
                                 d="M9 8.5h2.793l.853.854A.5.5 0 0 0 13 9.5h1a.5.5 0 0 0 .5-.5V8a.5.5 0 0 0-.5-.5H9v1z"
@@ -49,18 +56,73 @@
                             />
                         </svg>
                         <input
-                            type="email"
+                            type="text"
                             id="email"
-                            placeholder="电子邮件地址"
+                            placeholder="电邮"
                             autocomplete="on"
-                            onkeydown="if(event.keyCode==13){button.click()}"
+                            onkeydown="if(event.keyCode==13){submit()}"
                         />
+                        <div class="reg">
+                            <svg
+                                class="regsvg bi bi-person-plus-fill"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 16 16"
+                                onclick="reg()"
+                                onmouseover="tip('1')"
+                                onmouseout="tip('-1')"
+                                width="16"
+                                height="16"
+                            >
+                                <path
+                                    d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                                />
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"
+                                />
+                            </svg>
+                            <span id="tip1" class="tip">注册</span>
+                        </div>
+                        <div class="reg">
+                            <svg
+                                class="regsvg bi bi-person-plus-fill"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 16 16"
+                                onclick="forget()"
+                                onmouseover="tip('2')"
+                                onmouseout="tip('-2')"
+                                width="16"
+                                height="16"
+                            >
+                                <path
+                                    d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM5.496 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25h-.825zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z"
+                                />
+                            </svg>
+                            <span id="tip2" class="tip">忘记密码</span>
+                        </div>
+                        <div class="sign">
+                            <svg
+                                class="sigsvg bi bi-arrow-right-square"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 16 16"
+                                onclick="submit()"
+                                width="16"
+                                height="16"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"
+                                />
+                            </svg>
+                        </div>
                     </div>
                     <div>
                         <svg
                             class="passsvg bi bi-lock"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 16 16"
+                            width="16"
+                            height="16"
                         >
                             <path
                                 d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"
@@ -70,11 +132,26 @@
                             type="password"
                             id="password"
                             placeholder="密码"
-                            autocomplete="on"
-                            onkeydown="if(event.keyCode==13){button.click()}"
+                            onkeydown="if(event.keyCode==13){submit()}"
                         />
                     </div>
                 </div>
+            </div>
+            <div
+                class="fail"
+                id="fail"
+                style="background-image: url('../static/img/fail.png')"
+                th:style="'background-image: url('+'/img/fail.png'+')'"
+            >
+                <div id="fail-cont">失败了</div>
+            </div>
+            <div
+                class="forg"
+                id="forg"
+                style="background-image: url('../static/img/forg.png')"
+                th:style="'background-image: url('+'/img/forg.png'+')'"
+            >
+                <div id="forg-cont">收到，请检查您的收件箱和垃圾邮件</div>
             </div>
         </div>
     </body>

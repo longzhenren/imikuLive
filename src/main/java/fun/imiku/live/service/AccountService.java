@@ -17,9 +17,10 @@ import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 @Service
-public class LoginService {
+public class AccountService {
     @Autowired
     UserDAO userDAO;
 
@@ -32,21 +33,40 @@ public class LoginService {
         }
         try {
             String bufPass = DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8)).substring(5, 29);
-            if (!res.get(0).getPassword().equals(bufPass)) {
+            User tar = res.get(0);
+            if (!tar.getPassword().equals(bufPass)) {
                 ret.put("result", false);
                 ret.put("message", "邮箱或密码错误");
                 return;
             }
-            User tar = res.get(0);
+            if (tar.getInnerCode() > 0) {
+                ret.put("result", false);
+                ret.put("message", "请验证您的邮箱");
+                return;
+            }
             session.setAttribute("id", tar.getId());
             session.setAttribute("nickname", tar.getNickname());
             session.setAttribute("avatar", tar.getAvatar());
             ret.put("result", true);
-            return;
         } catch (Exception e) {
             ret.put("result", false);
             ret.put("message", "内部服务器错误");
+        }
+    }
+
+    public void forget(String email, HashMap<String, Object> ret){
+        List<User> res = userDAO.findByEmail(email);
+        if (res.size() == 0) {
+            ret.put("result", false);
+            ret.put("message", "邮箱地址不存在");
             return;
         }
+        User tar = res.get(0);
+        int innerCode = -(int)(System.currentTimeMillis() % 1000000000 + Math.round(Math.random() % 1000000000));
+        tar.setInnerCode(innerCode);
+        userDAO.save(tar);
+        // TODO: 发邮件
+
+        ret.put("result", true);
     }
 }
