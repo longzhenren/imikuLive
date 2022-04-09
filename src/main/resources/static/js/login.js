@@ -2,6 +2,9 @@ var url = "http://localhost:7004";
 function reg() {
     window.location.href = url + "/register";
 }
+function tk() {
+    window.location.href = url + "/terms";
+}
 function checkEmail(s) {
     var re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
     if (re.test(s)) return true;
@@ -37,7 +40,7 @@ function submit() {
                 fail(result.message);
                 return;
             }
-            $("#succ").animate({ left: "+=200%" }, "1s");
+            $("#succ").animate({ left: "+=200%" }, "2s");
             setTimeout(function () {
                 window.location.href = url;
             }, 1000);
@@ -63,7 +66,7 @@ function forget() {
                 fail(result.message);
                 return;
             }
-            $(".forg").animate({ top: "-=37%" }, "1s");
+            $(".forg").animate({ top: "+=37%" }, "1s");
             return;
         },
     });

@@ -16,4 +16,9 @@ public class PageController {
     public String loginPage() {
         return "login";
     }
+
+    @RequestMapping("/terms")
+    public String termsPage() {
+        return "terms";
+    }
 }
