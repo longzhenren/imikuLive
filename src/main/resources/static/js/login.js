@@ -3,7 +3,7 @@ function reg() {
     window.location.href = url + "/register";
 }
 function tk() {
-    window.location.href = url + "/terms";
+    window.open(url + "/terms");
 }
 function checkEmail(s) {
     var re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;

@@ -32,13 +32,14 @@ input {
     letter-spacing: 4px;
 }
 input:focus {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.6);
+    outline: none;
 }
 .input {
     position: absolute;
     left: 45vh;
     top: 8%;
-    width: 400px;
+    width: 440px;
 }
 .passsvg {
     margin-right: 10px;
@@ -66,6 +67,17 @@ input:focus {
     height: 30px;
     fill: #3ba8ab;
     transform: scale(4, 1.2);
+    cursor: pointer;
+}
+.refsvg {
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    fill: #3ba8ab;
+    transform: translateY(17%);
+    display: none;
+}
+.refsvg:hover {
     cursor: pointer;
 }
 .reg {
@@ -96,7 +108,7 @@ input:focus {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: large;
-    color: white;
+    color: aliceblue;
     letter-spacing: 4px;
 }
 .forg {
@@ -113,7 +125,7 @@ input:focus {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: large;
-    color: white;
+    color: aliceblue;
     letter-spacing: 4px;
 }
 #succ {
@@ -130,10 +142,32 @@ input:focus {
     display: inline;
     top: 95%;
     left: 2%;
-    color: white;
+    color: aliceblue;
 }
 #tk:hover {
     cursor: pointer;
     color: #f07d58;
     text-decoration: underline;
+}
+.figm {
+    font-size: x-large;
+    width: 320px;
+    height: 54px;
+}
+#ts {
+    width: 60px;
+    margin-right: 70px;
+    display: inline;
+    transform: translateY(-50%);
+    font-size: 40px;
+    color: #3ba8ab;
+}
+#mes {
+    font-size: medium;
+    color: #ff0000;
+    margin-top: -16px;
+    margin-left: 40px;
+}
+#email {
+    margin-right: 40px;
 }

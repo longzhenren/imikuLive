@@ -28,23 +28,36 @@ public class AccountController {
     ObjectMapper objectMapper;
 
     @PostMapping("/api/login")
-    public String login(@RequestBody Map<String,Object> param, HttpSession session) {
+    public String login(@RequestBody Map<String, Object> param, HttpSession session) {
         HashMap<String, Object> ret = new HashMap<>();
-        accountService.checkLogin((String)param.get("email"), (String)param.get("password"), session, ret);
         try {
+            accountService.checkLogin((String) param.get("email"), (String) param.get("password"), session, ret);
             return objectMapper.writeValueAsString(ret);
-        }catch (Exception e){
+        } catch (Exception e) {
             return "{\"result\":false;\"message\":\"内部服务器错误\";}";
         }
     }
 
     @PostMapping("/api/forgot")
-    public String forgot(@RequestBody Map<String,Object> param) {
+    public String forgot(@RequestBody Map<String, Object> param) {
         HashMap<String, Object> ret = new HashMap<>();
-        accountService.forget((String)param.get("email"), ret);
         try {
+            accountService.forget((String) param.get("email"), ret);
             return objectMapper.writeValueAsString(ret);
-        }catch (Exception e){
+        } catch (Exception e) {
+            return "{\"result\":false;\"message\":\"内部服务器错误\";}";
+        }
+    }
+
+    @PostMapping("/api/resetpassword")
+    public String reset(@RequestBody Map<String, Object> param) {
+        HashMap<String, Object> ret = new HashMap<>();
+        try {
+            accountService.reset((String) param.get("e"), Integer.parseInt((String) param.get("i")),
+                    (String) param.get("p"), ret);
+            return objectMapper.writeValueAsString(ret);
+        } catch (Exception e) {
+            e.printStackTrace();
             return "{\"result\":false;\"message\":\"内部服务器错误\";}";
         }
     }
