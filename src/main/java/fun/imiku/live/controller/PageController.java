@@ -7,26 +7,42 @@
  */
 package fun.imiku.live.controller;
 
+import fun.imiku.live.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Map;
 
 @Controller
 public class PageController {
+    @Autowired
+    AccountService accountService;
+
     @RequestMapping("/login")
     public String loginPage(@RequestParam Map<String, Object> param, Model model) {
-        if(param.containsKey("e")) model.addAttribute("email", param.get("e"));
+        if (param.containsKey("e")) model.addAttribute("email", param.get("e"));
         return "login";
     }
 
     @RequestMapping("/resetpassword")
-    public String resetPassword(@RequestParam Map<String, Object> param, Model model) {
+    public String resetPasswordPage(@RequestParam Map<String, Object> param, Model model) {
         model.addAttribute("email", param.get("e"));
         model.addAttribute("id", param.get("i"));
         return "reset";
+    }
+
+    @RequestMapping("/confirm")
+    public String confirmPage(@RequestParam Map<String, Object> param, Model model) {
+        if (accountService.confirm((String) param.get("e"), Integer.parseInt((String) param.get("i")))) {
+            model.addAttribute("email", param.get("e"));
+            return "confirm";
+        } else {
+            return "error/400";
+        }
     }
 
     @RequestMapping("/terms")

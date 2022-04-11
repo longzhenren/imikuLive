@@ -114,7 +114,7 @@ public class AccountService {
             return;
         }
         User tar = res.get(0);
-        if (tar.getInnerCode() != -id) {
+        if (tar.getInnerCode() != -id || tar.getInnerCode() == 0) {
             ret.put("result", false);
             ret.put("message", "请勿冒充其他用户");
             return;
@@ -125,14 +125,49 @@ public class AccountService {
         ret.put("result", true);
     }
 
-    public void register(String email, String pass, String nick, HashMap<String, Object> ret) {
+    public void register(String email, String pass, String nick, HashMap<String, Object> ret) throws MessagingException {
         if (!checkEmail(email, ret) || !checkNick(nick, ret)) return;
         User tar = new User();
         tar.setEmail(email);
         tar.setNickname(nick);
         tar.setPassword(DigestUtils.md5DigestAsHex(pass.getBytes(StandardCharsets.UTF_8)).substring(5, 29));
+        int innerCode = (int) (System.currentTimeMillis() % 1000000000 + Math.round(Math.random() % 1000000000));
+        tar.setInnerCode(innerCode);
         userDAO.saveAndFlush(tar);
-        // TODO: 邮件发送
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setFrom("live@imiku.fun");
+        helper.setTo(email);
+        helper.setSubject("【imikuLive】验证您的邮箱");
+        String text = "<body style=\"margin:0;padding:0\"><style>.mail-confirm-button:hover{background-color:#479db4}" +
+                "</style><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tr><td><table align=" +
+                "\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"690\" style=\"border-collapse:" +
+                "collapse\"><div class=\"mail-wrapper\" style=\"background-color:#1e1e1e;padding:40px 40px\">" +
+                "<div class=\"mail-card\" style=\"margin:0 auto;max-width:630px;background-color:#333;box-shadow:" +
+                "0 0 15px rgb(0 0 0 / 10%);border-radius:4px;text-align:center;padding:30px;color:#fff\"><div" +
+                " class=\"mail-title\" style=\"font-size:20px;font-weight:600;padding:15px 0;color:#3ba8ab;" +
+                "letter-spacing:8px\">验证您的 <span style=\"letter-spacing:2px;color:#f07d58\">imikuLive</span>" +
+                " 注册邮箱</div><div class=\"mail-desc\" style=\"padding:15px 0\">您刚刚使用此邮箱地址注册了账号</div>" +
+                "<div class=\"mail-desc\" style=\"padding:15px 0\">请点击以下链接进行验证</div><div class=\"mail-" +
+                "confirm\" style=\"padding:15px 0\"><div class=\"mail-confirm-button\" style=\"background-color" +
+                ":#3ba8ab;display:inline-block;padding:12px;color:#fff;border-radius:4px;cursor:pointer;width:36%" +
+                ";letter-spacing:8px\"><a href=\"LLLLlink\" target=\"_blank\" style=\"text-decoration:none;" +
+                "color:inherit\">验证邮箱</a></div></div><div class=\"mail-tip\" style=\"color:#aaa;padding:15px" +
+                " 0\">*如果这不是您本人执行的操作，请忽略此邮件</div></div></div></table></td></tr></table></body>";
+        text = text.replace("LLLLlink",
+                url + "/confirm?e=" + email + "&i=" + innerCode);
+        helper.setText(text, true);
+        mailSender.send(message);
+    }
+
+    public boolean confirm(String email, int id) {
+        List<User> res = userDAO.findByEmail(email);
+        if (res.size() == 0) return false;
+        User tar = res.get(0);
+        if (tar.getInnerCode() != id || tar.getInnerCode() == 0) return false;
+        tar.setInnerCode(0);
+        userDAO.saveAndFlush(tar);
+        return true;
     }
 
     public boolean checkEmail(String email, HashMap<String, Object> ret) {
