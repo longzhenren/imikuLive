@@ -26,7 +26,9 @@ public class User {
     private int gender;
     @ColumnDefault("default.png")
     private String avatar;
+    @ColumnDefault("0")
     private int innerCode;
     private String intro;
+    @ColumnDefault("未知")
     private String ip;
 }

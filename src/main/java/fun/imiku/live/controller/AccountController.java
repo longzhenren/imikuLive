@@ -62,4 +62,29 @@ public class AccountController {
             return "{\"result\":false;\"message\":\"内部服务器错误\";}";
         }
     }
+
+    @PostMapping("/api/register")
+    public String register(@RequestBody Map<String, Object> param) {
+        HashMap<String, Object> ret = new HashMap<>();
+        try {
+            accountService.register((String) param.get("email"), (String) param.get("password"),
+                    (String) param.get("nickname"), ret);
+            return objectMapper.writeValueAsString(ret);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"result\":false;\"message\":\"内部服务器错误\";}";
+        }
+    }
+
+    @PostMapping("/api/checkemail")
+    public String checkEmail(@RequestBody Map<String, Object> param) {
+        HashMap<String, Object> ret = new HashMap<>();
+        try {
+            accountService.checkEmail((String) param.get("email"), ret);
+            return objectMapper.writeValueAsString(ret);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"result\":false;\"message\":\"内部服务器错误\";}";
+        }
+    }
 }

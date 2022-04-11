@@ -1,6 +1,9 @@
 server:
   port: 7004 # 设置端口
 
+site:
+  url: http://localhost:7004 # 指明项目部署的 url
+
 spring:
   application:
     name: imikuLive
