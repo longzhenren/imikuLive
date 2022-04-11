@@ -31,7 +31,8 @@ public class AccountController {
     public String login(@RequestBody Map<String, Object> param, HttpSession session) {
         HashMap<String, Object> ret = new HashMap<>();
         try {
-            accountService.checkLogin((String) param.get("email"), (String) param.get("password"), session, ret);
+            accountService.checkLogin((String) param.get("email"), (String) param.get("password"),
+                    (String) param.get("ip"), session, ret);
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             return "{\"result\":false;\"message\":\"内部服务器错误\";}";

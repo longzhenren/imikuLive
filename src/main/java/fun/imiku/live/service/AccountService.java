@@ -29,7 +29,7 @@ public class AccountService {
     @Autowired
     JavaMailSender mailSender;
 
-    public void checkLogin(String email, String password, HttpSession session, HashMap<String, Object> ret) {
+    public void checkLogin(String email, String password, String ip, HttpSession session, HashMap<String, Object> ret) {
         List<User> res = userDAO.findByEmail(email);
         if (res.size() == 0) {
             ret.put("result", false);
@@ -51,6 +51,8 @@ public class AccountService {
         session.setAttribute("id", tar.getId());
         session.setAttribute("nickname", tar.getNickname());
         session.setAttribute("avatar", tar.getAvatar());
+        tar.setIp(ip);
+        userDAO.saveAndFlush(tar);
         ret.put("result", true);
     }
 

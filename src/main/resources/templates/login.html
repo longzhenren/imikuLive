@@ -23,7 +23,7 @@
         />
         <script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
     </head>
-    <body>
+    <body onload="ipg()">
         <div
             class="bg"
             style="background-image: url('../static/img/bg.jpg')"
@@ -158,5 +158,6 @@
                 使用本站，代表您已阅读并同意我们的服务条款
             </div>
         </div>
+        <div id="ips" class="bg" style="background-color: aliceblue"></div>
     </body>
 </html>

@@ -1,4 +1,29 @@
 var url = "http://localhost:7004";
+var ip;
+function ipg() {
+    $.ajax({
+        method: "GET",
+        url: "http://v6.ip.zxinc.org/info.php?type=json",
+        success: function (result) {
+            ip = result.data.myip;
+            $("#ips").fadeOut("0.3s");
+        },
+        fail: function () {
+            $.ajax({
+                method: "GET",
+                url: "http://v4.ip.zxinc.org/info.php?type=json",
+                success: function (result) {
+                    ip = result.data.myip;
+                    $("#ips").fadeOut("0.3s");
+                },
+                fail: function () {
+                    ip = "未知";
+                    $("#ips").fadeOut("0.3s");
+                },
+            });
+        },
+    });
+}
 function reg() {
     window.location.href = url + "/register";
 }
@@ -33,6 +58,7 @@ function submit() {
         data: JSON.stringify({
             email: email,
             password: pass,
+            ip: ip,
         }),
         success: function (result) {
             result = JSON.parse(result);

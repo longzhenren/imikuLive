@@ -28,4 +28,5 @@ public class User {
     private String avatar;
     private int innerCode;
     private String intro;
+    private String ip;
 }
