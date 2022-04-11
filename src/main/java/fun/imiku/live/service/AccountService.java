@@ -131,6 +131,9 @@ public class AccountService {
         tar.setEmail(email);
         tar.setNickname(nick);
         tar.setPassword(DigestUtils.md5DigestAsHex(pass.getBytes(StandardCharsets.UTF_8)).substring(5, 29));
+        tar.setAvatar("default.png");
+        tar.setIp("未知");
+        tar.setGender(3);
         int innerCode = (int) (System.currentTimeMillis() % 1000000000 + Math.round(Math.random() % 1000000000));
         tar.setInnerCode(innerCode);
         userDAO.saveAndFlush(tar);
@@ -138,7 +141,7 @@ public class AccountService {
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom("live@imiku.fun");
         helper.setTo(email);
-        helper.setSubject("【imikuLive】验证您的邮箱");
+        helper.setSubject("【imikuLive】认证您的邮箱");
         String text = "<body style=\"margin:0;padding:0\"><style>.mail-confirm-button:hover{background-color:#479db4}" +
                 "</style><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tr><td><table align=" +
                 "\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"690\" style=\"border-collapse:" +
@@ -146,13 +149,13 @@ public class AccountService {
                 "<div class=\"mail-card\" style=\"margin:0 auto;max-width:630px;background-color:#333;box-shadow:" +
                 "0 0 15px rgb(0 0 0 / 10%);border-radius:4px;text-align:center;padding:30px;color:#fff\"><div" +
                 " class=\"mail-title\" style=\"font-size:20px;font-weight:600;padding:15px 0;color:#3ba8ab;" +
-                "letter-spacing:8px\">验证您的 <span style=\"letter-spacing:2px;color:#f07d58\">imikuLive</span>" +
+                "letter-spacing:8px\">认证您的 <span style=\"letter-spacing:2px;color:#f07d58\">imikuLive</span>" +
                 " 注册邮箱</div><div class=\"mail-desc\" style=\"padding:15px 0\">您刚刚使用此邮箱地址注册了账号</div>" +
-                "<div class=\"mail-desc\" style=\"padding:15px 0\">请点击以下链接进行验证</div><div class=\"mail-" +
+                "<div class=\"mail-desc\" style=\"padding:15px 0\">请点击以下链接进行认证</div><div class=\"mail-" +
                 "confirm\" style=\"padding:15px 0\"><div class=\"mail-confirm-button\" style=\"background-color" +
                 ":#3ba8ab;display:inline-block;padding:12px;color:#fff;border-radius:4px;cursor:pointer;width:36%" +
                 ";letter-spacing:8px\"><a href=\"LLLLlink\" target=\"_blank\" style=\"text-decoration:none;" +
-                "color:inherit\">验证邮箱</a></div></div><div class=\"mail-tip\" style=\"color:#aaa;padding:15px" +
+                "color:inherit\">认证邮箱</a></div></div><div class=\"mail-tip\" style=\"color:#aaa;padding:15px" +
                 " 0\">*如果这不是您本人执行的操作，请忽略此邮件</div></div></div></table></td></tr></table></body>";
         text = text.replace("LLLLlink",
                 url + "/confirm?e=" + email + "&i=" + innerCode);
@@ -200,6 +203,11 @@ public class AccountService {
     }
 
     public boolean checkNick(String nick, HashMap<String, Object> ret) {
+        if(nick.length()<2){
+                ret.put("result", false);
+                ret.put("message", "昵称长度至少为 2");
+                return false;
+        }
         List<User> res = userDAO.findByNickname(nick);
         if (res.size() != 0) {
             ret.put("result", false);

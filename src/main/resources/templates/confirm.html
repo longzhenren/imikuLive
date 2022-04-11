@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, 
+                                     initial-scale=1.0, 
+                                     maximum-scale=1.0, 
+                                     user-scalable=no"
+        />
+        <title>imikuLive - 错误</title>
+        <link
+            href="../../static/css/login.css"
+            th:href="@{/css/login.css}"
+            rel="stylesheet"
+        />
+        <script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
+    </head>
+    <body style="margin: 0" onload="jpo()">
+        <div
+            class="bg"
+            style="background-image: url('../../static/img/bg.jpg')"
+            th:style="'background-image: url('+'/img/bg.jpg'+')'"
+        >
+            <div
+                id="succ"
+                style="background-image: url('../../static/img/succ.png')"
+                th:style="'background-image: url('+'/img/succ.png'+')'"
+            ></div>
+            <div
+                class="lgbg"
+                style="background-image: url('../../static/img/loginbg2.png')"
+                th:style="'background-image: url('+'/img/loginbg2.png'+')'"
+            >
+                <div class="input" style="width: 80%">
+                    <div>
+                        <div id="ts" style="font-size: 10vw">认证成功</div>
+                        <br />
+                        <div
+                            id="ts"
+                            style="font-size: 6vw; color: #f07d58"
+                            th:text="${email}"
+                        >
+                            email
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="e" th:text="${email}" style="visibility: hidden">
+                live@imiku.fun
+            </div>
+        </div>
+    </body>
+</html>

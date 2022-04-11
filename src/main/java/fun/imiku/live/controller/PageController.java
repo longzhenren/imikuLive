@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Map;
 
@@ -26,6 +25,12 @@ public class PageController {
     public String loginPage(@RequestParam Map<String, Object> param, Model model) {
         if (param.containsKey("e")) model.addAttribute("email", param.get("e"));
         return "login";
+    }
+
+    @RequestMapping("/register")
+    public String registerPage(@RequestParam Map<String, Object> param, Model model) {
+        if (param.containsKey("e")) model.addAttribute("email", param.get("e"));
+        return "register";
     }
 
     @RequestMapping("/resetpassword")

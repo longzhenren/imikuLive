@@ -15,5 +15,6 @@ import java.util.List;
 public interface UserDAO extends JpaRepository<User, Integer> {
     // https://docs.spring.io/spring-data/jpa/docs/2.2.x/reference/html/#repositories.query-methods
     List<User> findByEmail(String email);
+
     List<User> findByNickname(String nickname);
 }

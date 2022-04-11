@@ -102,3 +102,10 @@ function fail(s) {
     $(".fail").animate({ top: "-=37%" }, "1s").delay(2000);
     $(".fail").animate({ top: "+=37%" }, "1s");
 }
+function jpo() {
+    setTimeout(function () {
+        $("#succ").animate({ left: "+=200%" }, "2s");
+        window.location.href =
+            url + "/login?e=" + document.getElementById("e").textContent;
+    }, 2000);
+}
