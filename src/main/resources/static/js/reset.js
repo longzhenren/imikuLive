@@ -8,6 +8,9 @@ var reg3 = /\W/;
 function refresh() {
     location.reload();
 }
+function tk() {
+    window.open(url + "/terms");
+}
 function submit() {
     if (able === false) {
         wr(false, "请正确输入密码");
