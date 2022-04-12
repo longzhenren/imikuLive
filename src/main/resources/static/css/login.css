@@ -171,3 +171,20 @@ input:focus {
 #email {
     margin-right: 40px;
 }
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.loadsvg {
+    width: 30px;
+    height: 30px;
+    fill: #3ba8ab;
+    animation: rotation 0.8s ease-in-out infinite;
+    -moz-animation: rotation 0.8s ease-in-out infinite;
+    -webkit-animation: rotation 0.8s ease-in-out infinite;
+    -o-animation: rotation 0.8s ease-in-out infinite;
+}

@@ -16,6 +16,7 @@ function submit() {
         wr(false, "请正确输入密码");
         return;
     }
+    loading(true);
     if (x === 0) {
         x += 1;
         document.getElementById("ts").textContent = "再输一次";
@@ -26,6 +27,7 @@ function submit() {
         able = false;
         $("#password").css("width", "280px");
         $(".refsvg").css("display", "inline");
+        loading(false);
         return;
     }
     var email = document.getElementById("e").textContent.toLowerCase();
@@ -43,6 +45,7 @@ function submit() {
             result = JSON.parse(result);
             if (result.result === false) {
                 fail(result.message);
+                loading(false);
                 return;
             }
             $(".forg").animate({ top: "+=37%" }, "1s").delay(1000);
@@ -107,4 +110,13 @@ function wr(t, w) {
 function fail(s) {
     document.getElementById("fail-cont").textContent = s;
     $(".fail").animate({ top: "-=37%" }, "1s");
+}
+function loading(e) {
+    if (e === true) {
+        $(".sigsvg").css("visibility", "hidden");
+        $(".loadsvg").fadeIn("0.2s");
+        return;
+    }
+    $(".sigsvg").css("visibility", "visible");
+    $(".loadsvg").fadeOut("0.2s");
 }

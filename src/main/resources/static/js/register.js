@@ -81,6 +81,7 @@ function submit() {
         wr(false, "请正确输入密码");
         return;
     }
+    loading(true);
     if (x === 0) {
         ma = document.getElementById("email").value.toLowerCase();
         pa = document.getElementById("password").value;
@@ -95,6 +96,7 @@ function submit() {
                 result = JSON.parse(result);
                 if (result.result === false) {
                     fail(result.message);
+                    loading(false);
                     return;
                 }
                 x += 1;
@@ -111,6 +113,7 @@ function submit() {
                     '<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>';
                 $("#password").css("width", "280px");
                 $(".refsvg").css("display", "inline");
+                loading(false);
             },
         });
         return;
@@ -133,9 +136,11 @@ function submit() {
                     "border-color",
                     "#f07d58 #f07d58 #ff0000 #f07d58"
                 );
+                loading(false);
                 return;
             }
             $(".forg").animate({ top: "+=37%" }, "1s");
+            loading(false);
         },
     });
 }
@@ -164,4 +169,13 @@ function succ() {
     setTimeout(function () {
         $("#succ").css("left", "-100%");
     }, 2000);
+}
+function loading(e) {
+    if (e === true) {
+        $(".sigsvg").css("visibility", "hidden");
+        $(".loadsvg").fadeIn("0.2s");
+        return;
+    }
+    $(".sigsvg").css("visibility", "visible");
+    $(".loadsvg").fadeOut("0.2s");
 }

@@ -51,6 +51,7 @@ function submit() {
         fail("请输入正确的邮箱地址和密码");
         return;
     }
+    loading(true);
     $.ajax({
         method: "POST",
         url: url + "/api/login",
@@ -64,6 +65,7 @@ function submit() {
             result = JSON.parse(result);
             if (result.result === false) {
                 fail(result.message);
+                loading(false);
                 return;
             }
             $("#succ").animate({ left: "+=200%" }, "2s");
@@ -108,4 +110,13 @@ function jpo() {
         window.location.href =
             url + "/login?e=" + document.getElementById("e").textContent;
     }, 2000);
+}
+function loading(e) {
+    if (e === true) {
+        $(".sigsvg").css("visibility", "hidden");
+        $(".loadsvg").fadeIn("0.2s");
+        return;
+    }
+    $(".sigsvg").css("visibility", "visible");
+    $(".loadsvg").fadeOut("0.2s");
 }
