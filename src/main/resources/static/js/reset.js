@@ -34,7 +34,7 @@ function submit() {
     var id = document.getElementById("i").textContent;
     $.ajax({
         method: "POST",
-        url: url + "/api/resetpassword",
+        url: url + "/api/resetPassword",
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify({
             e: email,

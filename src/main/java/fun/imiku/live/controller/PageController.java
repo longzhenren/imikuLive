@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
@@ -53,5 +54,11 @@ public class PageController {
     @RequestMapping("/terms")
     public String termsPage() {
         return "terms";
+    }
+
+    @RequestMapping("/u/**")
+    public String userPage(HttpServletRequest request) {
+        String nick = request.getRequestURI().substring(3);
+        return nick;
     }
 }

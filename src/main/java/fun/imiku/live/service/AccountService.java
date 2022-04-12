@@ -133,6 +133,7 @@ public class AccountService {
         tar.setAvatar("default.png");
         tar.setIp("未知");
         tar.setGender(3);
+        tar.setRoom(0);
         int innerCode = (int) (System.currentTimeMillis() % 1000000000 + Math.round(Math.random() % 1000000000));
         tar.setInnerCode(innerCode);
         userDAO.saveAndFlush(tar);
@@ -202,10 +203,10 @@ public class AccountService {
     }
 
     public boolean checkNick(String nick, HashMap<String, Object> ret) {
-        if(nick.length()<2){
-                ret.put("result", false);
-                ret.put("message", "昵称长度至少为 2");
-                return false;
+        if (nick.length() < 2) {
+            ret.put("result", false);
+            ret.put("message", "昵称长度至少为 2");
+            return false;
         }
         List<User> res = userDAO.findByNickname(nick);
         if (res.size() != 0) {
@@ -214,6 +215,25 @@ public class AccountService {
             return false;
         }
         ret.put("result", true);
+        return true;
+    }
+
+    public boolean getByNickname(String nickname, HashMap<String, Object> ret) {
+        List<User> res = userDAO.findByNickname(nickname);
+        if (res.size() == 0) {
+            if (ret != null)
+                ret.put("result", false);
+            return false;
+        }
+        User tar = res.get(0);
+        if (ret != null){
+            ret.put("uid", tar.getId());
+            ret.put("email", tar.getEmail());
+            ret.put("gender", tar.getGender());
+            ret.put("avatar", tar.getAvatar());
+            ret.put("intro", tar.getIntro());
+            ret.put("room", tar.getRoom());
+        }
         return true;
     }
 }

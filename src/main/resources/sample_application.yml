@@ -3,6 +3,7 @@ server:
 
 site:
   url: http://localhost:7004 # 指明项目部署的 url
+  files: D:/site # 指明项目用于保存用户上传资源的地址
 
 spring:
   application:

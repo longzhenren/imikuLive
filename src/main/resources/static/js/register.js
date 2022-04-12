@@ -89,7 +89,7 @@ function submit() {
         pa = document.getElementById("password").value;
         $.ajax({
             method: "POST",
-            url: url + "/api/checkemail",
+            url: url + "/api/checkEmail",
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify({
                 email: ma,

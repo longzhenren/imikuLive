@@ -154,11 +154,12 @@ input:focus {
     width: 320px;
     height: 54px;
 }
-#ts #tx {
+#ts {
     margin-right: 70px;
     display: inline;
     transform: translateY(-50%);
     font-size: 40px;
+    color: #3ba8ab;
 }
 #mes {
     font-size: medium;

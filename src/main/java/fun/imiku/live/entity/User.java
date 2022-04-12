@@ -31,4 +31,6 @@ public class User {
     private String intro;
     @ColumnDefault("未知")
     private String ip;
+    @ColumnDefault("0")
+    private int room;
 }

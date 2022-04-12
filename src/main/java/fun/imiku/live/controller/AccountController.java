@@ -10,10 +10,7 @@ package fun.imiku.live.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fun.imiku.live.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -50,7 +47,7 @@ public class AccountController {
         }
     }
 
-    @PostMapping("/api/resetpassword")
+    @PostMapping("/api/resetPassword")
     public String reset(@RequestBody Map<String, Object> param) {
         HashMap<String, Object> ret = new HashMap<>();
         try {
@@ -76,11 +73,23 @@ public class AccountController {
         }
     }
 
-    @PostMapping("/api/checkemail")
+    @PostMapping("/api/checkEmail")
     public String checkEmail(@RequestBody Map<String, Object> param) {
         HashMap<String, Object> ret = new HashMap<>();
         try {
             accountService.checkEmail((String) param.get("email"), ret);
+            return objectMapper.writeValueAsString(ret);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"result\":false;\"message\":\"内部服务器错误\";}";
+        }
+    }
+
+    @GetMapping("/api/getUserByNickname")
+    public String getUser(@RequestBody Map<String, Object> param) {
+        HashMap<String, Object> ret = new HashMap<>();
+        try {
+            accountService.getByNickname((String) param.get("name"), ret);
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             e.printStackTrace();
