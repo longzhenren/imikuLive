@@ -11,7 +11,7 @@ body {
     background-size: cover;
 }
 .lgbg {
-    height: 70%;
+    height: 520px;
     width: 100%;
     position: absolute;
     top: 10%;
@@ -20,7 +20,7 @@ body {
 }
 input {
     background-color: transparent;
-    width: 320px;
+    width: 310px;
     height: 54px;
     border-style: dashed solid solid solid;
     border-width: 4px 0 4px 0;
@@ -28,7 +28,7 @@ input {
     font-size: 20px;
     font-weight: 350;
     color: aliceblue;
-    margin: 5vh 0 5vh 0;
+    margin: 40px 0 40px 0;
     letter-spacing: 4px;
 }
 input:focus {
@@ -37,9 +37,9 @@ input:focus {
 }
 .input {
     position: absolute;
-    left: 45vh;
-    top: 8%;
-    width: 440px;
+    left: 360px;
+    top: 40px;
+    width: 360px;
 }
 .passsvg {
     margin-right: 10px;
@@ -66,7 +66,7 @@ input:focus {
     width: 60px;
     height: 30px;
     fill: #3ba8ab;
-    transform: scale(4, 1.2);
+    transform: scale(3.5, 1.2);
     cursor: pointer;
 }
 .refsvg {
@@ -154,13 +154,11 @@ input:focus {
     width: 320px;
     height: 54px;
 }
-#ts {
-    width: 60px;
+#ts #tx {
     margin-right: 70px;
     display: inline;
     transform: translateY(-50%);
     font-size: 40px;
-    color: #3ba8ab;
 }
 #mes {
     font-size: medium;
@@ -168,8 +166,23 @@ input:focus {
     margin-top: -16px;
     margin-left: 40px;
 }
-#email {
-    margin-right: 40px;
+.mo-t {
+    position: absolute;
+    font-size: 40px;
+    top: -12%;
+    margin-bottom: 20px;
+    letter-spacing: 8px;
+    font-weight: 1000;
+    display: none;
+}
+.mo-tc {
+    display: none;
+    width: 230px;
+    border-color: #3ba8ab;
+    border-style: solid;
+    border-width: 4px;
+    margin-bottom: 30px;
+    font-size: 40px;
 }
 @keyframes rotation {
     from {
@@ -180,11 +193,32 @@ input:focus {
     }
 }
 .loadsvg {
-    width: 30px;
-    height: 30px;
+    position: absolute;
+    top: 44%;
+    left: 77%;
+    width: 50px;
+    height: 50px;
     fill: #3ba8ab;
     animation: rotation 0.8s ease-in-out infinite;
     -moz-animation: rotation 0.8s ease-in-out infinite;
     -webkit-animation: rotation 0.8s ease-in-out infinite;
     -o-animation: rotation 0.8s ease-in-out infinite;
+}
+@media screen and (max-width: 768px) {
+    .lgbg {
+        top: 0;
+        background-image: none !important;
+        backdrop-filter: blur(20px);
+        height: 400px;
+    }
+    .input {
+        top: 60px;
+        left: calc((100vw - 360px) / 2);
+    }
+    .mo-t {
+        display: inline;
+    }
+    .mo-tc {
+        display: block;
+    }
 }

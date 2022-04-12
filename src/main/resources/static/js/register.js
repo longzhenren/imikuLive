@@ -19,7 +19,7 @@ function checkEmail(s) {
     return false;
 }
 function em(e) {
-    var email = document.getElementById("email").value;
+    var email = document.getElementById("email").value.toLowerCase();
     if (x === 0) {
         if (email.length <= 4) return;
         if (checkEmail(email) === false) {
@@ -77,8 +77,10 @@ function un(e) {
     wr(true, "", "password");
 }
 function submit() {
+    if (checkEmail(document.getElementById("email").value.toLowerCase()))
+        wr(true, "", "email");
     if (able === false) {
-        wr(false, "请正确输入密码");
+        wr(false, "请正确输入邮箱和密码", "password");
         return;
     }
     loading(true);
@@ -111,7 +113,7 @@ function submit() {
                 able2 = false;
                 document.getElementById("exasvg").innerHTML =
                     '<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>';
-                $("#password").css("width", "280px");
+                $("#password").css("width", "270px");
                 $(".refsvg").css("display", "inline");
                 loading(false);
             },

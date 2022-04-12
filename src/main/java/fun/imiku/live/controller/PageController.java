@@ -46,7 +46,7 @@ public class PageController {
             model.addAttribute("email", param.get("e"));
             return "confirm";
         } else {
-            return "error/400";
+            return "redirect:/error/400";
         }
     }
 

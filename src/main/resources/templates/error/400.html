@@ -9,7 +9,7 @@
                                      maximum-scale=1.0, 
                                      user-scalable=no"
         />
-        <title>imikuLive - 错误</title>
+        <title>imikuLive - Bad Request</title>
         <link
             href="../../static/css/login.css"
             th:href="@{/css/login.css}"
@@ -33,10 +33,15 @@
                 th:style="'background-image: url('+'/img/loginbg2.png'+')'"
             >
                 <div class="input" style="width: 80%">
+                    <b style="color: #3ba8ab" class="mo-tc"
+                        >&ensp;imiku<b style="color: #f07d58">Live&ensp;</b></b
+                    >
                     <div>
-                        <div id="ts" style="font-size: 10vw">400</div>
+                        <div id="ts" style="font-size: 10vw; color: #3ba8ab">
+                            400
+                        </div>
                         <br />
-                        <div id="ts" style="font-size: 6vw; color: #f07d58">
+                        <div id="tx" style="font-size: 6vw; color: #f07d58">
                             Bad Request
                         </div>
                     </div>

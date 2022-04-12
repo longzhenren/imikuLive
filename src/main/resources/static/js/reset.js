@@ -25,7 +25,7 @@ function submit() {
         document.getElementById("password").value = "";
         document.getElementById("password").placeholder = "确认密码";
         able = false;
-        $("#password").css("width", "280px");
+        $("#password").css("width", "270px");
         $(".refsvg").css("display", "inline");
         loading(false);
         return;
