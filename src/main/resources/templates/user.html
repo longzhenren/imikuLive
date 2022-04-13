@@ -8,14 +8,13 @@
         <script src="https://cdn.bootcdn.net/ajax/libs/identicon.js/2.3.3/identicon.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
         <script src="../static/js/avatar.js" th:src="@{/js/avatar.js}"></script>
-        <script src="../static/js/user.js" th:src="@{/js/user.js}"></script>
         <link
             href="../static/css/index.css"
             th:href="@{/css/index.css}"
             rel="stylesheet"
         />
     </head>
-    <body onload="ifg()">
+    <body onload="geneHead()">
         <div
             id="bg"
             style="background-image: url('../static/img/bg.jpg')"
@@ -44,7 +43,10 @@
                         </svg>
                         <a id="login-btn-t">登录</a>
                     </div>
-                    <div id="logged-btn"></div>
+                    <div id="logged-sw">
+                        <img class="ava ava-s" id="logged-sw-i" />
+                        <a id="logged-sw-t">nickname</a>
+                    </div>
                 </div>
             </div>
         </div>

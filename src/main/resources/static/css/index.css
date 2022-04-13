@@ -35,7 +35,7 @@ body {
 }
 .head-acc {
     position: absolute;
-    right: 64px;
+    right: 86px;
     top: 12px;
 }
 #login-btn {
@@ -50,6 +50,8 @@ body {
     padding: 5px;
     width: 76px;
     height: 24px;
+    transform: translateX(28px);
+    display: none;
 }
 #login-btn:hover {
     cursor: pointer;
@@ -60,4 +62,44 @@ body {
 #login-btn-t {
     position: absolute;
     transform: translate(6px, 1px);
+}
+#logged-sw {
+    color: aliceblue;
+    font-size: 16px;
+    padding: 5px;
+    width: 130px;
+    height: 24px;
+    /* display: none; */
+}
+#logged-sw:hover {
+    cursor: pointer;
+}
+#logged-sw-t {
+    position: absolute;
+    white-space: nowrap;
+    transform: translate(14px, 3px);
+    width: 120px;
+    overflow-x: scroll;
+}
+#logged-sw-t::-webkit-scrollbar {
+    height: 2px;
+    border-radius: 3px;
+}
+#logged-sw-t::-webkit-scrollbar-thumb {
+    background: aliceblue;
+}
+#logged-sw-t::-webkit-scrollbar-track {
+    background: transparent;
+}
+.ava {
+    border-radius: 50%;
+    overflow: hidden;
+}
+.ava-s {
+    width: 30px;
+    height: 30px;
+}
+.ava-b {
+    width: 330px;
+    height: 330px;
 }

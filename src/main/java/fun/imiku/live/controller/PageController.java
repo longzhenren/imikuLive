@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
@@ -56,10 +57,13 @@ public class PageController {
     }
 
     @RequestMapping("/u/**")
-    public String userPage(HttpServletRequest request, Model model) {
+    public String userPage(HttpServletRequest request, Model model, HttpSession session) {
         String nick = request.getRequestURI().substring(3);
-        if (accountService.pageByNickname(nick, model))
+        if (accountService.pageByNickname(nick, model)) {
+            if (session.getAttribute("uid") != null && session.getAttribute("nickname").equals(nick))
+                return "self";
             return "user";
+        }
         return "redirect:/error/404";
     }
 }

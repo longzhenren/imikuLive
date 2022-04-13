@@ -254,6 +254,7 @@ public class AccountService {
         User tar = res.get(0);
         model.addAttribute("title", nickname + " - imikuLive");
         model.addAttribute("uid", tar.getId());
+        model.addAttribute("nickname", nickname);
         model.addAttribute("email", tar.getEmail());
         model.addAttribute("avatar", tar.getAvatar());
         if (tar.getIntro() != null) model.addAttribute("intro", tar.getIntro());
