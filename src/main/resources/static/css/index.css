@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+#bg {
+    margin: 0;
+    height: 120%;
+    width: 100%;
+    position: absolute;
+    background-position: center, center;
+    background-size: cover;
+    overflow: hidden;
+}
+#head {
+    height: 60px;
+    width: 100%;
+    border-width: 2px 0 2px 0;
+    border-style: solid;
+    border-color: #f07d58 #fff #3ba8ab #fff;
+    backdrop-filter: blur(40px);
+}

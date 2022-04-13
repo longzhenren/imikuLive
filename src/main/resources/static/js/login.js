@@ -94,15 +94,15 @@ function forget() {
                 fail(result.message);
                 return;
             }
-            $(".forg").animate({ top: "+=37%" }, "1s");
+            $(".forg").animate({ top: "+=50%" }, "1s");
             return;
         },
     });
 }
 function fail(s) {
     document.getElementById("fail-cont").textContent = s;
-    $(".fail").animate({ top: "-=37%" }, "1s").delay(2000);
-    $(".fail").animate({ top: "+=37%" }, "1s");
+    $(".fail").animate({ top: "-=50%" }, "1s").delay(2000);
+    $(".fail").animate({ top: "+=50%" }, "1s");
 }
 function jpo() {
     setTimeout(function () {

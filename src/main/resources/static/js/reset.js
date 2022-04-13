@@ -48,7 +48,7 @@ function submit() {
                 loading(false);
                 return;
             }
-            $(".forg").animate({ top: "+=37%" }, "1s").delay(1000);
+            $(".forg").animate({ top: "+=50%" }, "1s").delay(1000);
             $("#succ").animate({ left: "+=200%" }, "2s");
             setTimeout(function () {
                 window.location.href = url + "/login?e=" + email;
@@ -109,7 +109,7 @@ function wr(t, w) {
 }
 function fail(s) {
     document.getElementById("fail-cont").textContent = s;
-    $(".fail").animate({ top: "-=37%" }, "1s");
+    $(".fail").animate({ top: "-=50%" }, "1s");
 }
 function loading(e) {
     if (e === true) {

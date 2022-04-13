@@ -238,13 +238,14 @@ public class AccountService {
         List<User> res = userDAO.findByNickname(nickname);
         if (res.size() == 0) return false;
         User tar = res.get(0);
+        model.addAttribute("title", nickname + " - imikuLive");
         model.addAttribute("uid", tar.getId());
         model.addAttribute("email", tar.getEmail());
         model.addAttribute("avatar", tar.getAvatar());
         if (tar.getIntro() != null) model.addAttribute("intro", tar.getIntro());
         if (tar.getGender() == 1) model.addAttribute("gender", "♂️");
         if (tar.getGender() == 2) model.addAttribute("gender", "♀️");
-        if (tar.getGender() == 3) model.addAttribute("gender", "\uD83D\uDC08");
+        if (tar.getGender() == 3) model.addAttribute("gender", "\uD83E\uDD16");
         if (tar.getRoom() != 0) model.addAttribute("room", tar.getRoom());
         return true;
     }

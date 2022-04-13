@@ -141,7 +141,7 @@ function submit() {
                 loading(false);
                 return;
             }
-            $(".forg").animate({ top: "+=37%" }, "1s");
+            $(".forg").animate({ top: "+=50%" }, "1s");
             loading(false);
         },
     });
@@ -163,8 +163,8 @@ function wr(t, w, tt) {
 }
 function fail(s) {
     document.getElementById("fail-cont").textContent = s;
-    $(".fail").animate({ top: "-=37%" }, "1s").delay(2000);
-    $(".fail").animate({ top: "+=37%" }, "1s");
+    $(".fail").animate({ top: "-=50%" }, "1s").delay(2000);
+    $(".fail").animate({ top: "+=50%" }, "1s");
 }
 function succ() {
     $("#succ").animate({ left: "+=200%" }, "2s");

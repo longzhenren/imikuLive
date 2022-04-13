@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title th:text="${title}">用户 - imikuLive</title>
+        <link
+            href="../static/css/index.css"
+            th:href="@{/css/index.css}"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <div
+            id="bg"
+            style="background-image: url('../static/img/bg.jpg')"
+            th:style="'background-image: url('+'/img/bg.jpg'+')'"
+        >
+            <div id="head">
+                <img src="../static/img/logo.png" th:src="/img/logo.png" />
+            </div>
+        </div>
+    </body>
+</html>
