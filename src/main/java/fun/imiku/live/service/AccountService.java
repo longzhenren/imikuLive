@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -99,7 +100,7 @@ public class AccountService {
                 "\"mail-tip\" style=\"color:#aaa;padding:15px 0\">*如果这不是您本人执行的操作，请忽略此邮件</div></div>" +
                 "</div></table></td></tr></table></body>";
         text = text.replace("LLLLlink",
-                url + "/resetpassword?e=" + email + "&i=" + -innerCode);
+                url + "/resetPassword?e=" + email + "&i=" + -innerCode);
         helper.setText(text, true);
         mailSender.send(message);
         ret.put("result", true);
@@ -130,7 +131,7 @@ public class AccountService {
         tar.setEmail(email);
         tar.setNickname(nick);
         tar.setPassword(DigestUtils.md5DigestAsHex(pass.getBytes(StandardCharsets.UTF_8)).substring(5, 29));
-        tar.setAvatar("default.png");
+        tar.setAvatar("auto");
         tar.setIp("未知");
         tar.setGender(3);
         tar.setRoom(0);
@@ -218,22 +219,34 @@ public class AccountService {
         return true;
     }
 
-    public boolean getByNickname(String nickname, HashMap<String, Object> ret) {
+    public void getByNickname(String nickname, HashMap<String, Object> ret) {
         List<User> res = userDAO.findByNickname(nickname);
         if (res.size() == 0) {
-            if (ret != null)
-                ret.put("result", false);
-            return false;
+            ret.put("result", false);
+            return;
         }
         User tar = res.get(0);
-        if (ret != null){
-            ret.put("uid", tar.getId());
-            ret.put("email", tar.getEmail());
-            ret.put("gender", tar.getGender());
-            ret.put("avatar", tar.getAvatar());
-            ret.put("intro", tar.getIntro());
-            ret.put("room", tar.getRoom());
-        }
+        ret.put("uid", tar.getId());
+        ret.put("email", tar.getEmail());
+        ret.put("gender", tar.getGender());
+        ret.put("avatar", tar.getAvatar());
+        ret.put("intro", tar.getIntro());
+        ret.put("room", tar.getRoom());
+    }
+
+    public boolean pageByNickname(String nickname, Model model) {
+        List<User> res = userDAO.findByNickname(nickname);
+        if (res.size() == 0) return false;
+        User tar = res.get(0);
+        model.addAttribute("uid", tar.getId());
+        model.addAttribute("email", tar.getEmail());
+        model.addAttribute("avatar", tar.getAvatar());
+        if (tar.getIntro() != null) model.addAttribute("intro", tar.getIntro());
+        if (tar.getGender() == 1) model.addAttribute("gender", "♂️");
+        if (tar.getGender() == 2) model.addAttribute("gender", "♀️");
+        if (tar.getGender() == 3) model.addAttribute("gender", "\uD83D\uDC08");
+        if (tar.getRoom() != 0) model.addAttribute("room", tar.getRoom());
         return true;
     }
+
 }

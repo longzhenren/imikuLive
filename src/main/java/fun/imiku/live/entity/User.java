@@ -24,7 +24,7 @@ public class User {
     private String password;
     @ColumnDefault("3")
     private int gender;
-    @ColumnDefault("default.png")
+    @ColumnDefault("auto")
     private String avatar;
     @ColumnDefault("0")
     private int innerCode;

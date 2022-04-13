@@ -34,7 +34,7 @@ public class PageController {
         return "register";
     }
 
-    @RequestMapping("/resetpassword")
+    @RequestMapping("/resetPassword")
     public String resetPasswordPage(@RequestParam Map<String, Object> param, Model model) {
         model.addAttribute("email", param.get("e"));
         model.addAttribute("id", param.get("i"));
@@ -46,9 +46,8 @@ public class PageController {
         if (accountService.confirm((String) param.get("e"), Integer.parseInt((String) param.get("i")))) {
             model.addAttribute("email", param.get("e"));
             return "confirm";
-        } else {
-            return "redirect:/error/400";
         }
+        return "redirect:/error/400";
     }
 
     @RequestMapping("/terms")
@@ -57,8 +56,10 @@ public class PageController {
     }
 
     @RequestMapping("/u/**")
-    public String userPage(HttpServletRequest request) {
+    public String userPage(HttpServletRequest request, Model model) {
         String nick = request.getRequestURI().substring(3);
-        return nick;
+        if (accountService.pageByNickname(nick, model))
+            return "user";
+        return "redirect:/error/404";
     }
 }

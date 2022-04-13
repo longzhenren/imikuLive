@@ -4,7 +4,7 @@ body {
         "Lucida Sans", Arial, sans-serif;
 }
 .bg {
-    height: 100%;
+    height: 120%;
     width: 100%;
     position: absolute;
     background-position: center, center;
@@ -140,7 +140,7 @@ input:focus {
 #tk {
     position: absolute;
     display: inline;
-    top: 95%;
+    top: 79%;
     left: 2%;
     color: aliceblue;
 }
