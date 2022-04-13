@@ -26,12 +26,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 @Service
 public class AccountService {
     @Value(value = "${site.url}")
     String url;
+    @Value(value = "#{'${site.nicksBanned:}'.split(',')}")
+    Set<String> nicksBanned;
     @Autowired
     UserDAO userDAO;
     @Autowired
@@ -59,7 +62,8 @@ public class AccountService {
             ret.put("message", "请验证您的邮箱");
             return;
         }
-        session.setAttribute("id", tar.getId());
+        session.setAttribute("uid", tar.getId());
+        session.setAttribute("email", email);
         session.setAttribute("nickname", tar.getNickname());
         session.setAttribute("avatar", tar.getAvatar());
         tar.setIp(ip);
@@ -204,9 +208,19 @@ public class AccountService {
     }
 
     public boolean checkNick(String nick, HashMap<String, Object> ret) {
-        if (nick.length() < 2) {
+        if (nick.length() < 4 || nick.length() > 15) {
             ret.put("result", false);
-            ret.put("message", "昵称长度至少为 2");
+            ret.put("message", "昵称长度应为 4 到 15 位");
+            return false;
+        }
+        if (nicksBanned.contains(nick)) {
+            ret.put("result", false);
+            ret.put("message", "该昵称禁用");
+            return false;
+        }
+        if (nick.contains("/") || nick.contains("\\") || nick.contains("?")) {
+            ret.put("result", false);
+            ret.put("message", "昵称包含非法字符");
             return false;
         }
         List<User> res = userDAO.findByNickname(nick);
@@ -250,4 +264,15 @@ public class AccountService {
         return true;
     }
 
+    public void loginState(HttpSession session, HashMap<String, Object> ret) {
+        if (session.getAttribute("uid") == null) {
+            ret.put("result", false);
+            return;
+        }
+        ret.put("result", true);
+        ret.put("uid", session.getAttribute("uid"));
+        ret.put("email", session.getAttribute("email"));
+        ret.put("nickname", session.getAttribute("nickname"));
+        ret.put("avatar", session.getAttribute("avatar"));
+    }
 }

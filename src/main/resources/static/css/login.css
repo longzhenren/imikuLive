@@ -205,6 +205,10 @@ input:focus {
     -webkit-animation: rotation 0.8s ease-in-out infinite;
     -o-animation: rotation 0.8s ease-in-out infinite;
 }
+.tooltip-inner {
+    color: aliceblue;
+    font-size: large;
+}
 @media screen and (max-width: 768px) {
     .lgbg {
         top: 0;

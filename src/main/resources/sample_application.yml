@@ -4,6 +4,7 @@ server:
 site:
   url: http://localhost:7004 # 指明项目部署的 url
   files: D:/site # 指明项目用于保存用户上传资源的地址
+  nicksBanned: miku,Miku,MIKU,Operacon,operacon # 保留的不能注册 nickname，必须不为空
 
 spring:
   application:

@@ -14,8 +14,50 @@ body {
 #head {
     height: 60px;
     width: 100%;
-    border-width: 2px 0 2px 0;
+    background-color: #1e1e1e;
+    /* border-width: 2px 0 2px 0;
     border-style: solid;
     border-color: #f07d58 #fff #3ba8ab #fff;
-    backdrop-filter: blur(40px);
+    backdrop-filter: blur(40px); */
+}
+.lgsvg {
+    width: 30px;
+    height: 30px;
+    fill: #3ba8ab;
+    transform: translateY(-3px);
+}
+#logo {
+    height: 28px;
+    margin: 16px 64px 16px 64px;
+}
+#logo:hover {
+    cursor: pointer;
+}
+.head-acc {
+    position: absolute;
+    right: 64px;
+    top: 12px;
+}
+#login-btn {
+    color: #3ba8ab;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 2px;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #3ba8ab;
+    padding: 5px;
+    width: 76px;
+    height: 24px;
+}
+#login-btn:hover {
+    cursor: pointer;
+}
+#login-btn:active {
+    background-color: #3ba8ab;
+}
+#login-btn-t {
+    position: absolute;
+    transform: translate(6px, 1px);
 }

@@ -32,7 +32,7 @@ public class AccountController {
                     (String) param.get("ip"), session, ret);
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
-            return "{\"result\":false;\"message\":\"内部服务器错误\";}";
+            return "{\"result\":false;\"message\":\"Bad Request\";}";
         }
     }
 
@@ -43,7 +43,7 @@ public class AccountController {
             accountService.forget((String) param.get("email"), ret);
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
-            return "{\"result\":false;\"message\":\"内部服务器错误\";}";
+            return "{\"result\":false;\"message\":\"Bad Request\";}";
         }
     }
 
@@ -56,7 +56,7 @@ public class AccountController {
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             e.printStackTrace();
-            return "{\"result\":false;\"message\":\"内部服务器错误\";}";
+            return "{\"result\":false;\"message\":\"Bad Request\";}";
         }
     }
 
@@ -69,7 +69,7 @@ public class AccountController {
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             e.printStackTrace();
-            return "{\"result\":false;\"message\":\"内部服务器错误\";}";
+            return "{\"result\":false;\"message\":\"Bad Request\";}";
         }
     }
 
@@ -81,7 +81,7 @@ public class AccountController {
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             e.printStackTrace();
-            return "{\"result\":false;\"message\":\"内部服务器错误\";}";
+            return "{\"result\":false;\"message\":\"Bad Request\";}";
         }
     }
 
@@ -93,7 +93,31 @@ public class AccountController {
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             e.printStackTrace();
-            return "{\"result\":false;\"message\":\"内部服务器错误\";}";
+            return "{\"result\":false;\"message\":\"Bad Request\";}";
+        }
+    }
+
+    @GetMapping("/api/loginState")
+    public String loginState(HttpSession session) {
+        // 网站功能简单，不使用 Cookie
+        HashMap<String, Object> ret = new HashMap<>();
+        try {
+            accountService.loginState(session, ret);
+            return objectMapper.writeValueAsString(ret);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"result\":false;\"message\":\"Bad Request\";}";
+        }
+    }
+
+    @PostMapping("/api/logout")
+    public String logout(HttpSession session) {
+        try {
+            session.invalidate();
+            return "{\"result\":true;}";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"result\":false;\"message\":\"Bad Request\";}";
         }
     }
 }

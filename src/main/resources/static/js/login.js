@@ -3,22 +3,29 @@ var ip;
 function ipg() {
     $.ajax({
         method: "GET",
-        url: "http://v6.ip.zxinc.org/info.php?type=json",
+        url: url + "/api/loginState",
         success: function (result) {
-            ip = result.data.myip;
-            $("#ips").fadeOut("0.3s");
-        },
-        fail: function () {
+            if (result.result) window.location.href = url;
             $.ajax({
                 method: "GET",
-                url: "http://v4.ip.zxinc.org/info.php?type=json",
+                url: "http://v6.ip.zxinc.org/info.php?type=json",
                 success: function (result) {
                     ip = result.data.myip;
                     $("#ips").fadeOut("0.3s");
                 },
                 fail: function () {
-                    ip = "未知";
-                    $("#ips").fadeOut("0.3s");
+                    $.ajax({
+                        method: "GET",
+                        url: "http://v4.ip.zxinc.org/info.php?type=json",
+                        success: function (result) {
+                            ip = result.data.myip;
+                            $("#ips").fadeOut("0.3s");
+                        },
+                        fail: function () {
+                            ip = "未知";
+                            $("#ips").fadeOut("0.3s");
+                        },
+                    });
                 },
             });
         },

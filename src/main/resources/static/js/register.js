@@ -11,6 +11,15 @@ var reg3 = /\W/;
 function tk() {
     window.open(url + "/terms");
 }
+function ifg() {
+    $.ajax({
+        method: "GET",
+        url: url + "/api/loginState",
+        success: function (result) {
+            if (result.result) window.location.href = url;
+        },
+    });
+}
 function refresh() {
     window.location.href = url + "/register?e=" + ma;
 }
@@ -34,8 +43,14 @@ function em(e) {
         wr(true, "", "email");
         return;
     }
-    if (email.length < 2) {
-        wr(false, "昵称长度至少为 2", "email");
+    if (email.length < 4 || email.length > 15) {
+        wr(false, "昵称长度应为 4 到 15 位", "email");
+        if (email.length === 0)
+            $("#email").css("border-color", "#f07d58 #f07d58 #3ba8ab #f07d58");
+        return;
+    }
+    if (email.contains("/") || email.contains("?") || email.contains("\\")) {
+        wr(false, "昵称包含非法字符", "email");
         if (email.length === 0)
             $("#email").css("border-color", "#f07d58 #f07d58 #3ba8ab #f07d58");
         return;

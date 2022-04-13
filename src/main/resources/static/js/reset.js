@@ -8,6 +8,15 @@ var reg3 = /\W/;
 function refresh() {
     location.reload();
 }
+function ifg() {
+    $.ajax({
+        method: "GET",
+        url: url + "/api/loginState",
+        success: function (result) {
+            if (result.result) window.location.href = url;
+        },
+    });
+}
 function tk() {
     window.open(url + "/terms");
 }
