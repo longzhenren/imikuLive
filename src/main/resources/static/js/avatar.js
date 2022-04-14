@@ -1,6 +1,8 @@
 var url = "http://localhost:7004";
 var avatar, sNick;
-var opo = false;
+var opo = false,
+    opn = false;
+var lgd = false;
 var opx = null;
 function geneAvatar(r) {
     if (r.avatar === "auto") {
@@ -21,11 +23,18 @@ function geneHead() {
         url: url + "/api/loginState",
         success: function (result) {
             result = JSON.parse(result);
+            // result = {
+            //     uid: 100000,
+            //     email: "145@1456.15",
+            //     nickname: "Operacon",
+            //     avatar: "233.jpg",
+            // };
             if (result.result === false) return;
+            lgd = true;
             geneAvatar(result);
             sNick = result.nickname;
             $(".ava").attr("src", avatar);
-            $("#logged-sw-t").text(sNick);
+            $(".nic").text(sNick);
             $("#op-nick").text(sNick);
             $("#login-btn").css("display", "none");
             $("#logged-sw").css("display", "block");
@@ -95,4 +104,21 @@ function opsw(e) {
 function search() {
     var con = document.getElementById("head-sr").value;
     alert(con);
+}
+function mofold() {
+    if (!opn) {
+        $("#zd-btn").css("background-color", "#505050");
+        $("#head-xy-sc").css("display", "block");
+        if (lgd === true) {
+            $("#head-xy-ac").css("display", "block");
+        }
+        opn = true;
+        return;
+    }
+    $("#zd-btn").css("background-color", "transparent");
+    $("#head-xy-sc").css("display", "none");
+    if (lgd === true) {
+        $("#head-xy-ac").css("display", "none");
+    }
+    opn = false;
 }

@@ -178,7 +178,7 @@ tbb {
     fill: #f07d58;
     transform: translate(-96px, 4px);
 }
-#head-sc {
+.head-sc {
     width: auto;
     position: absolute;
     display: inline;
@@ -193,11 +193,11 @@ tbb {
     -o-transition: fill 0.3s, border-color 0.3s;
     transition: fill 0.3s, border-color 0.3s;
 }
-#head-sc:focus-within {
+.head-sc:focus-within {
     border-color: #f07d58;
     fill: #f07d58;
 }
-#head-sc:hover {
+.head-sc:hover {
     border-color: #f07d58;
     fill: #f07d58;
 }
@@ -209,9 +209,9 @@ tbb {
 .scsvg:hover {
     cursor: pointer;
 }
-#head-sr {
+.head-sr {
     background-color: transparent;
-    width: min(260px, calc(100vw - 580px));
+    width: min(260px, calc(100vw - 570px));
     height: 32px;
     border-style: none;
     font-size: 16px;
@@ -224,7 +224,107 @@ tbb {
     -o-transition: width 0.3s;
     transition: width 0.3s;
 }
-#head-sr:focus {
-    width: calc(100vw - 580px);
+.head-sr:focus {
+    width: calc(100vw - 570px);
     outline: none;
+}
+#head-xy-sc {
+    display: none;
+}
+#zd-btn {
+    display: none;
+}
+#head-xy-ac {
+    display: none;
+}
+@media screen and (max-width: 768px) {
+    #scd {
+        display: none;
+    }
+    #logo {
+        margin: 0;
+        height: 28px;
+        position: absolute;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    #login-btn {
+        border: 0;
+        width: 44px;
+        transform: translate(63px, -5px);
+    }
+    #login-btn > svg {
+        width: 40px;
+        height: 40px;
+    }
+    #login-btn-t {
+        display: none;
+    }
+    #logged-sw {
+        display: none !important;
+    }
+    .head-sc {
+        padding: 5px 10px 5px 16px;
+        background-color: #1e1e1e;
+        width: 100%;
+        left: 0;
+        top: 60px;
+    }
+    .head-sr {
+        width: calc(100vw - 76px);
+    }
+    .head-sr:focus {
+        width: calc(100vw - 76px);
+        outline: none;
+    }
+    #zd-btn {
+        display: inline;
+        position: absolute;
+        fill: #3ba8ab;
+        width: 40px;
+        height: 40px;
+        left: 20px;
+        top: 10px;
+    }
+    #zd-btn:hover {
+        cursor: pointer;
+    }
+    #head-xy-sc {
+        padding-left: 22px;
+        display: none;
+    }
+    #head-xy-ac {
+        display: none;
+        background-color: #1e1e1e;
+        width: 100%;
+        transform: translateY(104px);
+        padding: 15px 15px 15px 15px;
+    }
+    #xy-ac-cd {
+        background-color: #1e1e1e;
+        width: 100%;
+    }
+    #xy-ac-cd-i {
+        margin: 0 15px 15px 0;
+        margin-right: 15px;
+        width: 60px;
+        height: 60px;
+    }
+    #xy-ac-cd-t {
+        color: aliceblue;
+        font-weight: bolder;
+        font-size: 20px;
+        position: absolute;
+        transform: translateY(15px);
+    }
+    .op-ele {
+        padding-left: 115px;
+    }
+    .op-svg {
+        margin-right: calc(50vw - 140px);
+    }
+    tbb {
+        font-size: 14px;
+    }
 }
