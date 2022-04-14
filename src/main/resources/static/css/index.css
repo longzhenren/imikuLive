@@ -51,6 +51,11 @@ body {
     width: 86px;
     height: 36px;
     transform: translateX(20px);
+    -webkit-transition: background-color 0.3s;
+    -moz-transition: background-color 0.3s;
+    -ms-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+    transition: background-color 0.3s;
 }
 #login-btn:hover {
     cursor: pointer;
@@ -172,4 +177,54 @@ tbb {
     height: 20px;
     fill: #f07d58;
     transform: translate(-96px, 4px);
+}
+#head-sc {
+    width: auto;
+    position: absolute;
+    display: inline;
+    border-style: solid;
+    border-width: 0 0 2px 0;
+    border-color: #3ba8ab;
+    top: 12px;
+    fill: #3ba8ab;
+    -webkit-transition: fill 0.3s, border-color 0.3s;
+    -moz-transition: fill 0.3s, border-color 0.3s;
+    -ms-transition: fill 0.3s, border-color 0.3s;
+    -o-transition: fill 0.3s, border-color 0.3s;
+    transition: fill 0.3s, border-color 0.3s;
+}
+#head-sc:focus-within {
+    border-color: #f07d58;
+    fill: #f07d58;
+}
+#head-sc:hover {
+    border-color: #f07d58;
+    fill: #f07d58;
+}
+.scsvg {
+    margin: 0 6px -4px 0;
+    width: 20px;
+    height: 20px;
+}
+.scsvg:hover {
+    cursor: pointer;
+}
+#head-sr {
+    background-color: transparent;
+    width: min(260px, calc(100vw - 580px));
+    height: 32px;
+    border-style: none;
+    font-size: 16px;
+    font-weight: 350;
+    color: aliceblue;
+    letter-spacing: 1px;
+    -webkit-transition: width 0.3s;
+    -moz-transition: width 0.3s;
+    -ms-transition: width 0.3s;
+    -o-transition: width 0.3s;
+    transition: width 0.3s;
+}
+#head-sr:focus {
+    width: calc(100vw - 580px);
+    outline: none;
 }

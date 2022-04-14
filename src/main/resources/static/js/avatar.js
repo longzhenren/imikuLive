@@ -92,3 +92,7 @@ function opsw(e) {
         }, 100);
     }
 }
+function search() {
+    var con = document.getElementById("head-sr").value;
+    alert(con);
+}
