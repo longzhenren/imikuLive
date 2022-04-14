@@ -19,7 +19,7 @@
             rel="stylesheet"
         />
     </head>
-    <body onload="geneHead()">
+    <body onload="ifg()">
         <div
             id="bg"
             style="background-image: url('../static/img/bg.jpg')"
@@ -217,6 +217,28 @@
                     </div>
                 </div>
             </div>
+            <div id="n-card">
+                <img class="ava ava-b" id="card-i" />
+                <div
+                    id="card-nick"
+                    onmouseover="ss2=true;"
+                    onmouseout="ss2=false;"
+                >
+                    <t id="card-nick-t" th:text="${nickname}">SuperUser</t>
+                    <div id="card-gender" th:text="${gender}">🤖</div>
+                </div>
+                <div id="card-uid" th:text="'UID: ' + ${uid}">UID: 100000</div>
+                <div id="card-mail" th:text="${email}">live@imiku.fun</div>
+                <div id="card-hr"></div>
+                <div id="card-intro" th:text="${intro}">
+                    啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+                </div>
+                <div id="card-room">去直播间</div>
+            </div>
         </div>
+        <data id="d-uid" th:text="${uid}">100000</data>
+        <data id="d-nickname" th:text="${nickname}">SuperUser</data>
+        <data id="d-avatar" th:text="${avatar}">auto</data>
+        <data id="d-room" th:text="${room}">0</data>
     </body>
 </html>

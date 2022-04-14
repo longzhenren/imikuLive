@@ -1,21 +1,31 @@
 var url = "http://localhost:7004";
-var avatar, sNick;
+var sNick;
 var opo = false,
     opn = false;
+var ss1 = false,
+    ss2 = false;
 var lgd = false;
 var opx = null;
-function geneAvatar(r) {
-    if (r.avatar === "auto") {
+function geneAvatar(r, i, n) {
+    var avatar;
+    var options = {
+        background: [255, 255, 255, 100],
+        size: 330,
+        format: "svg",
+        margin: 0,
+    };
+    if (r === "auto") {
         var data = new Identicon(
-            CryptoJS.SHA256(r.uid.toString() + r.nickname.toString()).toString(
+            CryptoJS.SHA256(i.toString() + n.toString()).toString(
                 CryptoJS.enc.Hex
             ),
-            330
+            options
         ).toString();
-        avatar = "data:image/png;base64," + data;
-        return;
+        avatar = "data:image/svg+xml;base64," + data;
+        return avatar;
     }
     avatar = url + "/files/avatars/" + r.avatar;
+    return avatar;
 }
 function geneHead() {
     $.ajax({
@@ -31,9 +41,11 @@ function geneHead() {
             // };
             if (result.result === false) return;
             lgd = true;
-            geneAvatar(result);
             sNick = result.nickname;
-            $(".ava").attr("src", avatar);
+            $(".ava").attr(
+                "src",
+                geneAvatar(result.avatar, result.uid, result.nickname)
+            );
             $(".nic").text(sNick);
             $("#op-nick").text(sNick);
             $("#login-btn").css("display", "none");
@@ -41,16 +53,36 @@ function geneHead() {
         },
     });
 }
+function ifg() {
+    geneHead();
+    $("#card-i").attr(
+        "src",
+        geneAvatar(
+            document.getElementById("d-avatar").textContent,
+            document.getElementById("d-uid").textContent,
+            document.getElementById("d-nickname").textContent
+        )
+    );
+}
 window.addEventListener("wheel", function (e) {
-    var item = document.getElementById("logged-sw-t");
-    if (e.deltaY > 0) item.scrollLeft += 5;
-    else item.scrollLeft -= 5;
+    if (ss1) {
+        var item = document.getElementById("logged-sw-t");
+        if (e.deltaY > 0) item.scrollLeft += 5;
+        else item.scrollLeft -= 5;
+    }
+    if (ss2) {
+        var item = document.getElementById("card-nick");
+        if (e.deltaY > 0) item.scrollLeft += 5;
+        else item.scrollLeft -= 5;
+    }
 });
 function toIndex() {
     window.location.href = url;
 }
 function toLogin() {
-    window.location.href = url + "/login";
+    if (url.contains("/"))
+        window.location.href = url + "/login?f=" + window.location.href;
+    else window.location.href = url;
 }
 function toSelf() {
     window.location.href = url + "/u/" + sNick;
@@ -109,16 +141,12 @@ function mofold() {
     if (!opn) {
         $("#zd-btn").css("background-color", "#505050");
         $("#head-xy-sc").css("display", "block");
-        if (lgd === true) {
-            $("#head-xy-ac").css("display", "block");
-        }
+        if (lgd === true) $("#head-xy-ac").css("display", "block");
         opn = true;
         return;
     }
     $("#zd-btn").css("background-color", "transparent");
     $("#head-xy-sc").css("display", "none");
-    if (lgd === true) {
-        $("#head-xy-ac").css("display", "none");
-    }
+    if (lgd === true) $("#head-xy-ac").css("display", "none");
     opn = false;
 }

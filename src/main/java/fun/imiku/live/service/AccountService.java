@@ -66,6 +66,7 @@ public class AccountService {
         session.setAttribute("email", email);
         session.setAttribute("nickname", tar.getNickname());
         session.setAttribute("avatar", tar.getAvatar());
+        session.setAttribute("room", tar.getRoom());
         tar.setIp(ip);
         userDAO.saveAndFlush(tar);
         ret.put("result", true);
@@ -257,11 +258,12 @@ public class AccountService {
         model.addAttribute("nickname", nickname);
         model.addAttribute("email", tar.getEmail());
         model.addAttribute("avatar", tar.getAvatar());
+        model.addAttribute("room", tar.getRoom());
         if (tar.getIntro() != null) model.addAttribute("intro", tar.getIntro());
+        else model.addAttribute("intro", "这个人懒得自我介绍~");
         if (tar.getGender() == 1) model.addAttribute("gender", "♂️");
         if (tar.getGender() == 2) model.addAttribute("gender", "♀️");
         if (tar.getGender() == 3) model.addAttribute("gender", "\uD83E\uDD16");
-        if (tar.getRoom() != 0) model.addAttribute("room", tar.getRoom());
         return true;
     }
 
@@ -275,5 +277,6 @@ public class AccountService {
         ret.put("email", session.getAttribute("email"));
         ret.put("nickname", session.getAttribute("nickname"));
         ret.put("avatar", session.getAttribute("avatar"));
+        ret.put("room", session.getAttribute("room"));
     }
 }

@@ -79,7 +79,9 @@ function submit() {
             }
             $("#succ").animate({ left: "+=200%" }, "2s");
             setTimeout(function () {
-                window.location.href = url;
+                var s = window.location.href.toString().split("?f=");
+                if (s.length == 1) window.location.href = url;
+                else window.location.href = s[1];
             }, 1000);
         },
     });
