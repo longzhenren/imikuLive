@@ -1,5 +1,7 @@
 var url = "http://localhost:7004";
-var avatar;
+var avatar, sNick;
+var opo = false;
+var opx = null;
 function geneAvatar(r) {
     if (r.avatar === "auto") {
         var data = new Identicon(
@@ -18,17 +20,15 @@ function geneHead() {
         method: "GET",
         url: url + "/api/loginState",
         success: function (result) {
-            result = {
-                result: true,
-                avatar: "233.jpg",
-                uid: "114514",
-                email: "114@514.191",
-                nickname: "Operacon",
-            };
-            if (!result.result) return;
+            result = JSON.parse(result);
+            if (result.result === false) return;
             geneAvatar(result);
+            sNick = result.nickname;
             $(".ava").attr("src", avatar);
-            $("#logged-sw-t").text(result.nickname);
+            $("#logged-sw-t").text(sNick);
+            $("#op-nick").text(sNick);
+            $("#login-btn").css("display", "none");
+            $("#logged-sw").css("display", "block");
         },
     });
 }
@@ -42,4 +42,53 @@ function toIndex() {
 }
 function toLogin() {
     window.location.href = url + "/login";
+}
+function toSelf() {
+    window.location.href = url + "/u/" + sNick;
+}
+function toRoom() {
+    window.location.href = url + "/r/" + sNick;
+}
+function logout() {
+    $.ajax({
+        method: "POST",
+        url: url + "/api/logout",
+        success: function (result) {
+            toIndex();
+        },
+    });
+}
+function opsw(e) {
+    if (e > 0) {
+        if (opx != null) {
+            console.log(1154);
+            clearTimeout(opx);
+            opx = null;
+            return;
+        }
+        if (!opo) {
+            $("#logged-sw-t").fadeOut();
+            $("#logged-sw-i").animate({
+                width: "80px",
+                height: "80px",
+                left: "-=25px",
+            });
+            $("#logged-sw-op").fadeIn();
+            opo = true;
+            return;
+        }
+    }
+    if (e < 0 && opo) {
+        opx = setTimeout(function hide() {
+            $("#logged-sw-t").fadeIn();
+            $("#logged-sw-i").animate({
+                width: "30px",
+                height: "30px",
+                left: "+=25px",
+            });
+            $("#logged-sw-op").fadeOut();
+            opo = false;
+            opx = null;
+        }, 100);
+    }
 }

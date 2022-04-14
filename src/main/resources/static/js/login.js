@@ -1,11 +1,13 @@
 var url = "http://localhost:7004";
 var ip;
 function ipg() {
+    $("[data-toggle='tooltip']").tooltip();
     $.ajax({
         method: "GET",
         url: url + "/api/loginState",
         success: function (result) {
-            if (result.result) window.location.href = url;
+            result = JSON.parse(result);
+            if (result.result === true) window.location.href = url;
             $.ajax({
                 method: "GET",
                 url: "http://v6.ip.zxinc.org/info.php?type=json",

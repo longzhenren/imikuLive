@@ -13,7 +13,8 @@ function ifg() {
         method: "GET",
         url: url + "/api/loginState",
         success: function (result) {
-            if (result.result) window.location.href = url;
+            result = JSON.parse(result);
+            if (result.result === true) window.location.href = url;
         },
     });
 }

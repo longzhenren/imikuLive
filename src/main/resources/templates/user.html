@@ -3,7 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <title th:text="${title}">用户 - imikuLive</title>
+        <link
+            href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
         <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/identicon.js/2.3.3/pnglib.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/identicon.js/2.3.3/identicon.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
@@ -23,7 +28,7 @@
             <div id="head">
                 <img
                     src="../static/img/logo.png"
-                    th:src="/img/logo.png"
+                    th:src="'/img/logo.png'"
                     alt="logo"
                     id="logo"
                     onclick="toIndex()"
@@ -41,11 +46,72 @@
                                 class="style-scope yt-icon"
                             ></path>
                         </svg>
-                        <a id="login-btn-t">登录</a>
+                        <t id="login-btn-t">登录</t>
                     </div>
                     <div id="logged-sw">
-                        <img class="ava ava-s" id="logged-sw-i" />
-                        <a id="logged-sw-t">nickname</a>
+                        <div
+                            id="logged-sw-ic"
+                            data-container="#logged-sw-ic"
+                            data-toggle="popover"
+                            data-placement="bottom"
+                            onmouseover="opsw(1)"
+                            onmouseout="opsw(-1)"
+                        >
+                            <img class="ava ava-s" id="logged-sw-i" />
+                            <div id="logged-sw-op">
+                                <hr />
+                                <div id="op-nick">nickname</div>
+                                <hr />
+                                <div class="op-ele" onclick="toSelf()">
+                                    <svg
+                                        class="op-svg bi bi-mailbox2"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 16 16"
+                                        width="16"
+                                        height="16"
+                                    >
+                                        <path
+                                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"
+                                        />
+                                    </svg>
+                                    <tbb>个人中心</tbb>
+                                </div>
+                                <div class="op-ele" onclick="toRoom()">
+                                    <svg
+                                        class="op-svg bi bi-mailbox2"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 16 16"
+                                        width="16"
+                                        height="16"
+                                    >
+                                        <path
+                                            d="M0 4s0-2 2-2h12s2 0 2 2v6s0 2-2 2h-4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75c.167-.333.25-.833.25-1.5H2s-2 0-2-2V4zm1.398-.855a.758.758 0 0 0-.254.302A1.46 1.46 0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757 0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3H2c-.325 0-.502.078-.602.145z"
+                                        />
+                                    </svg>
+                                    <tbb>直播中心</tbb>
+                                </div>
+                                <div
+                                    class="op-ele"
+                                    id="op-logout"
+                                    onclick="logout()"
+                                >
+                                    <svg
+                                        class="op-svg bi bi-mailbox2"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 16 16"
+                                        width="16"
+                                        height="16"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z"
+                                        />
+                                    </svg>
+                                    <tbb>退出登录</tbb>
+                                </div>
+                            </div>
+                        </div>
+                        <t id="logged-sw-t">nickname</t>
                     </div>
                 </div>
             </div>
