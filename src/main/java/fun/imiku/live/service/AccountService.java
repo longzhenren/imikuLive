@@ -306,7 +306,8 @@ public class AccountService {
         if (!session.getAttribute("nickname").equals(param.get("nickname"))
                 && !checkNick((String) param.get("nickname"), ret)) return;
         tar.setNickname((String) param.get("nickname"));
-        tar.setIntro((String) param.get("intro"));
+        if (param.containsKey("intro"))
+            tar.setIntro((String) param.get("intro"));
         tar.setGender(Integer.parseInt((String) param.get("gender")));
         userDAO.saveAndFlush(tar);
         session.setAttribute("nickname", param.get("nickname"));

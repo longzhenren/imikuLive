@@ -46,6 +46,7 @@
     width: 500px;
     height: 320px;
     background-color: #1e1e1e;
+    /* backdrop-filter: blur(200px); */
     border-radius: 20px;
     border-width: 4px;
     border-style: solid;
@@ -148,4 +149,70 @@
 #upc-nick:focus {
     background-color: rgba(0, 0, 0, 0.6);
     outline: none;
+}
+#upc-btn-g {
+    position: absolute;
+    top: 125px;
+    left: 40px;
+    width: 240px;
+    height: 50px;
+}
+.upc-btn {
+    margin-right: -4px;
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    color: #3ba8ab;
+    border: outset;
+    border-width: 8px;
+    text-align: center;
+    border-color: #3ba8ab;
+}
+.upc-btn:hover {
+    cursor: pointer;
+}
+.upc-btn-acvtive {
+    background-color: #303030;
+    border: inset;
+    transform: translateY(-5px);
+}
+#upc-btn-t {
+    color: aliceblue;
+    top: 8px;
+    left: 210px;
+    width: 60px;
+}
+#upc-intro {
+    background-color: transparent;
+    width: 260px;
+    height: 100px;
+    border-style: dashed solid solid solid;
+    border-width: 4px 0 4px 0;
+    border-color: #f07d58 #f07d58 #3ba8ab #f07d58;
+    font-size: 20px;
+    font-weight: 350;
+    color: aliceblue;
+    margin: 40px 0 40px 0;
+    position: absolute;
+    top: 65px;
+    left: 40px;
+}
+#upc-intro:focus {
+    outline: none;
+    background-color: #303030;
+}
+#upc-intro::-webkit-scrollbar {
+    width: 4px;
+    height: 1px;
+    border-radius: 8px;
+}
+#upc-intro::-webkit-scrollbar-thumb {
+    background: aliceblue;
+    border-radius: 8px;
+}
+#upc-intro::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 8px;
 }

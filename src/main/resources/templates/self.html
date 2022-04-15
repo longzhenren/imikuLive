@@ -299,7 +299,7 @@
         <data id="d-nickname" th:text="${nickname}">SuperUser</data>
         <data id="d-avatar" th:text="${avatar}">auto</data>
         <data id="d-room" th:text="${room}">10</data>
-        <data id="d-gender" th:text="${gend}">10</data>
+        <data id="d-gender" th:text="${gend}">2</data>
         <div class="upc" id="upc-n">
             <img
                 src="../static/img/logo.png"
@@ -310,12 +310,48 @@
             <input
                 type="text"
                 id="upc-nick"
-                autocomplete="on"
+                autocomplete="off"
                 onkeydown="if(event.keyCode==13){info_post()}"
-                th:value="${email}"
                 oninput="upc_Ncheck()"
                 onporpertychange="upc_Ncheck()"
+                maxlength="15"
             />
+            <div class="upc-sub" onclick="info_post()">></div>
+            <div class="upc-qt" onclick="hide_upc()">×</div>
+            <div class="upc-err" id="upc-err-nic"></div>
+        </div>
+        <div class="upc" id="upc-g">
+            <img
+                src="../static/img/logo.png"
+                th:src="'/img/logo.png'"
+                class="upc-logo"
+            />
+            <t class="upc-t">修改性别</t>
+            <div id="upc-btn-g">
+                <div class="upc-btn" id="upc-btn-1" onclick="upc_gd(1)">♂️</div>
+                <div class="upc-btn" id="upc-btn-2" onclick="upc_gd(2)">♀️</div>
+                <div class="upc-btn" id="upc-btn-3" onclick="upc_gd(3)">🤖</div>
+                <t class="upc-t" id="upc-btn-t">机性</t>
+            </div>
+            <div class="upc-sub" onclick="info_post()">></div>
+            <div class="upc-qt" onclick="hide_upc()">×</div>
+            <div class="upc-err" id="upc-err-nic"></div>
+        </div>
+        <div class="upc" id="upc-i">
+            <img
+                src="../static/img/logo.png"
+                th:src="'/img/logo.png'"
+                class="upc-logo"
+            />
+            <t class="upc-t">修改简介</t>
+            <textarea
+                type="text"
+                id="upc-intro"
+                autocomplete="off"
+                onkeydown="if(event.keyCode==13){info_post()}"
+                maxlength="140"
+                th:text="${intro}"
+            ></textarea>
             <div class="upc-sub" onclick="info_post()">></div>
             <div class="upc-qt" onclick="hide_upc()">×</div>
             <div class="upc-err" id="upc-err-nic"></div>

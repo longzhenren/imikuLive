@@ -11,12 +11,28 @@ function nick_upload() {
     $("#upc-nick").attr("placeholder", lgs_r.nickname);
     $("#upc-n").fadeIn("0.3s");
 }
-function gend_upload() {}
-function intr_upload() {}
+function gend_upload() {
+    act_upc = 2;
+    var dg = document.getElementById("d-gender").textContent;
+    if (dg === "1") upc_gd(1);
+    if (dg === "2") upc_gd(2);
+    if (dg === "3") upc_gd(3);
+    $("#upc-g").fadeIn("0.3s");
+}
+function intr_upload() {
+    act_upc = 3;
+    $("#upc-i").fadeIn("0.3s");
+    info_post_able = true;
+}
 function info_post() {
-    if (!info_post_able) return;
+    if (!info_post_able || act_upc <= 0) return;
     if (act_upc === 1)
         lgs_r.nickname = document.getElementById("upc-nick").value;
+    if (act_upc === 3) {
+        if (document.getElementById("upc-intro").value.length == 0)
+            lgs_r.intro = null;
+        else lgs_r.intro = document.getElementById("upc-intro").value;
+    }
     $.ajax({
         method: "POST",
         url: url + "/api/updateInfo",
@@ -30,7 +46,7 @@ function info_post() {
         success: function (result) {
             result = JSON.parse(result);
             if (result.result === false) {
-                if (act_upc === 1) upc_errM(false, result.message);
+                upc_errM(false, result.message);
                 act_upc = 0;
                 return;
             }
@@ -40,6 +56,8 @@ function info_post() {
 }
 function hide_upc() {
     $(".upc").fadeOut("0.3s");
+    act_upc = 0;
+    info_post_able = false;
 }
 function upc_Ncheck() {
     var nk = document.getElementById("upc-nick").value.toString();
@@ -73,4 +91,38 @@ function upc_errM(r, m) {
     info_post_able = false;
     $("#upc-nick").css("border-color", "#f07d58 #f07d58 #ff0000 #f07d58");
     document.getElementById("upc-err-nic").textContent = m;
+}
+function upc_gd(i) {
+    info_post_able = true;
+    if (i == 1) {
+        document.getElementById("upc-btn-1").classList.add("upc-btn-acvtive");
+        document
+            .getElementById("upc-btn-2")
+            .classList.remove("upc-btn-acvtive");
+        document
+            .getElementById("upc-btn-3")
+            .classList.remove("upc-btn-acvtive");
+        lgs_r.gender = "1";
+        document.getElementById("upc-btn-t").textContent = "男性";
+    } else if (i == 2) {
+        document.getElementById("upc-btn-2").classList.add("upc-btn-acvtive");
+        document
+            .getElementById("upc-btn-1")
+            .classList.remove("upc-btn-acvtive");
+        document
+            .getElementById("upc-btn-3")
+            .classList.remove("upc-btn-acvtive");
+        lgs_r.gender = "2";
+        document.getElementById("upc-btn-t").textContent = "女性";
+    } else if (i == 3) {
+        document.getElementById("upc-btn-3").classList.add("upc-btn-acvtive");
+        document
+            .getElementById("upc-btn-2")
+            .classList.remove("upc-btn-acvtive");
+        document
+            .getElementById("upc-btn-1")
+            .classList.remove("upc-btn-acvtive");
+        lgs_r.gender = "3";
+        document.getElementById("upc-btn-t").textContent = "机性";
+    } else info_post_able = false;
 }

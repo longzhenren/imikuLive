@@ -34,12 +34,12 @@ function geneHead() {
         url: url + "/api/loginState",
         success: function (result) {
             result = JSON.parse(result);
-            result = {
-                uid: 100000,
-                email: "145@1456.15",
-                nickname: "SuperUser",
-                avatar: "auto",
-            };
+            // result = {
+            //     uid: 100000,
+            //     email: "145@1456.15",
+            //     nickname: "SuperUser",
+            //     avatar: "auto",
+            // };
             if (result.result === false) return;
             lgd = true;
             lgs_r = result;
@@ -114,7 +114,6 @@ function logout() {
 function opsw(e) {
     if (e > 0) {
         if (opx != null) {
-            console.log(1154);
             clearTimeout(opx);
             opx = null;
             return;
