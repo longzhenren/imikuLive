@@ -6,6 +6,7 @@ var ss1 = false,
     ss2 = false;
 var lgd = false;
 var opx = null;
+var lgs_r;
 function geneAvatar(r, i, n) {
     var avatar;
     var options = {
@@ -33,14 +34,16 @@ function geneHead() {
         url: url + "/api/loginState",
         success: function (result) {
             result = JSON.parse(result);
-            // result = {
-            //     uid: 100000,
-            //     email: "145@1456.15",
-            //     nickname: "Operacon",
-            //     avatar: "233.jpg",
-            // };
+            result = {
+                uid: 100000,
+                email: "145@1456.15",
+                nickname: "SuperUser",
+                avatar: "auto",
+            };
             if (result.result === false) return;
             lgd = true;
+            lgs_r = result;
+            lgs_r.gender = document.getElementById("d-gender").textContent;
             sNick = result.nickname;
             $(".ava").attr(
                 "src",

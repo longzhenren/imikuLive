@@ -1,0 +1,151 @@
+#ava-btn {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 340px;
+    top: 285px;
+    fill: #3ba8ab;
+    background-color: #1e1e1e;
+    border-radius: 50%;
+    padding: 7px;
+    border-color: #3ba8ab;
+    border-style: solid;
+    border-width: 3px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+#ava-btn:hover {
+    cursor: pointer;
+    fill: #f07d58;
+    border-color: #f07d58;
+}
+#card-nick-t {
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+#card-nick-t:hover {
+    cursor: pointer;
+    color: #f07d58;
+}
+#card-gender:hover {
+    cursor: pointer;
+}
+#card-intro:hover {
+    cursor: pointer;
+}
+.upc {
+    position: absolute;
+    top: 166px;
+    left: calc(50vw - 250px);
+    width: 500px;
+    height: 320px;
+    background-color: #1e1e1e;
+    border-radius: 20px;
+    border-width: 4px;
+    border-style: solid;
+    border-image: radial-gradient(#3ba8ab, transparent);
+    border-image-slice: 1;
+    display: none;
+}
+.upc-t {
+    position: absolute;
+    top: 30px;
+    left: 340px;
+    color: #3ba8ab;
+    font-size: 30px;
+}
+.upc-logo {
+    height: 30px;
+    position: absolute;
+    left: 40px;
+    top: 36px;
+}
+.upc-sub {
+    position: absolute;
+    top: 130px;
+    left: 360px;
+    color: #3ba8ab;
+    font-size: 30px;
+    border-radius: 20px;
+    border-width: 4px;
+    border-style: solid;
+    border-color: #3ba8ab;
+    text-align: center;
+    width: 80px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.upc-sub:hover {
+    left: 340px;
+    cursor: pointer;
+    padding: 0 20px 0 20px;
+    width: 120px;
+    background-color: #303030;
+}
+.upc-sub:active {
+    background-color: #3ba8ab;
+}
+.upc-qt {
+    position: absolute;
+    top: 220px;
+    left: 360px;
+    color: #f07d58;
+    font-size: 30px;
+    border-radius: 20px;
+    border-width: 4px;
+    border-style: solid;
+    border-color: #f07d58;
+    text-align: center;
+    width: 80px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.upc-qt:hover {
+    left: 340px;
+    cursor: pointer;
+    padding: 0 20px 0 20px;
+    width: 120px;
+    background-color: #303030;
+}
+.upc-qt:active {
+    background-color: #f07d58;
+}
+.upc-err {
+    position: absolute;
+    top: 235px;
+    left: 40px;
+    color: #ff0000;
+    font-size: 16px;
+}
+#upc-nick {
+    background-color: transparent;
+    width: 240px;
+    height: 50px;
+    border-style: dashed solid solid solid;
+    border-width: 4px 0 4px 0;
+    border-color: #f07d58 #f07d58 #3ba8ab #f07d58;
+    font-size: 20px;
+    font-weight: 350;
+    color: aliceblue;
+    margin: 40px 0 40px 0;
+    letter-spacing: 4px;
+    position: absolute;
+    top: 90px;
+    left: 40px;
+}
+#upc-nick:focus {
+    background-color: rgba(0, 0, 0, 0.6);
+    outline: none;
+}

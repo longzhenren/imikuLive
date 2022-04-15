@@ -10,7 +10,9 @@ package fun.imiku.live.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fun.imiku.live.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -32,7 +34,7 @@ public class AccountController {
                     (String) param.get("ip"), session, ret);
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
-            return "{\"result\":false;\"message\":\"Bad Request\";}";
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
         }
     }
 
@@ -43,7 +45,7 @@ public class AccountController {
             accountService.forget((String) param.get("email"), ret);
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
-            return "{\"result\":false;\"message\":\"Bad Request\";}";
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
         }
     }
 
@@ -56,7 +58,7 @@ public class AccountController {
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             e.printStackTrace();
-            return "{\"result\":false;\"message\":\"Bad Request\";}";
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
         }
     }
 
@@ -69,7 +71,7 @@ public class AccountController {
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             e.printStackTrace();
-            return "{\"result\":false;\"message\":\"Bad Request\";}";
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
         }
     }
 
@@ -81,7 +83,7 @@ public class AccountController {
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             e.printStackTrace();
-            return "{\"result\":false;\"message\":\"Bad Request\";}";
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
         }
     }
 
@@ -93,7 +95,7 @@ public class AccountController {
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             e.printStackTrace();
-            return "{\"result\":false;\"message\":\"Bad Request\";}";
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
         }
     }
 
@@ -106,7 +108,7 @@ public class AccountController {
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             e.printStackTrace();
-            return "{\"result\":false;\"message\":\"Bad Request\";}";
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
         }
     }
 
@@ -114,10 +116,36 @@ public class AccountController {
     public String logout(HttpSession session) {
         try {
             session.invalidate();
-            return "{\"result\":true;}";
+            return "{\"result\":true}";
         } catch (Exception e) {
             e.printStackTrace();
-            return "{\"result\":false;\"message\":\"Bad Request\";}";
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        }
+    }
+
+    @PostMapping("/api/setAvatar")
+    public String setAvatar(HttpSession session, @RequestParam("file") MultipartFile file) {
+        try {
+            accountService.setAvatar(session, file);
+            return "{\"result\":true}";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        }
+    }
+
+    @PostMapping("/api/updateInfo")
+    public String updateInfo(HttpSession session, @RequestBody Map<String, Object> param) {
+        System.out.println(session.getAttribute("uid"));
+        if (session.getAttribute("uid") == null || (int) session.getAttribute("uid") != (int) param.get("uid"))
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        HashMap<String, Object> ret = new HashMap<>();
+        try {
+            accountService.updateInfo(session, param, ret);
+            return objectMapper.writeValueAsString(ret);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
         }
     }
 }

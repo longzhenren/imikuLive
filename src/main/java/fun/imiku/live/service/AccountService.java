@@ -9,6 +9,7 @@ package fun.imiku.live.service;
 
 import fun.imiku.live.dao.UserDAO;
 import fun.imiku.live.entity.User;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +19,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Pattern;
 
 @Service
@@ -35,6 +36,8 @@ public class AccountService {
     String url;
     @Value(value = "#{'${site.nicksBanned:}'.split(',')}")
     Set<String> nicksBanned;
+    @Value("${site.files}")
+    String localFile;
     @Autowired
     UserDAO userDAO;
     @Autowired
@@ -259,6 +262,7 @@ public class AccountService {
         model.addAttribute("email", tar.getEmail());
         model.addAttribute("avatar", tar.getAvatar());
         model.addAttribute("room", tar.getRoom());
+        model.addAttribute("gend", tar.getGender());
         if (tar.getIntro() != null) model.addAttribute("intro", tar.getIntro());
         else model.addAttribute("intro", "这个人懒得自我介绍~");
         if (tar.getGender() == 1) model.addAttribute("gender", "♂️");
@@ -278,5 +282,34 @@ public class AccountService {
         ret.put("nickname", session.getAttribute("nickname"));
         ret.put("avatar", session.getAttribute("avatar"));
         ret.put("room", session.getAttribute("room"));
+    }
+
+    public void setAvatar(HttpSession session, MultipartFile file)
+            throws IOException {
+        List<User> res = userDAO.findByNickname((String) session.getAttribute("nickname"));
+        if (res.size() == 0) throw new IOException();
+        User tar = res.get(0);
+        int innerCode = (int) (System.currentTimeMillis() % 1000000000 + Math.round(Math.random() % 1000000000));
+        String filename = DigestUtils.md5DigestAsHex(Integer.toString(innerCode)
+                .getBytes(StandardCharsets.UTF_8)).substring(0, 31);
+        FileOutputStream fileOutputStream =
+                new FileOutputStream(localFile + "/avatars/" + filename);
+        IOUtils.copy(file.getInputStream(), fileOutputStream);
+        fileOutputStream.close();
+        tar.setAvatar(filename);
+        userDAO.save(tar);
+        session.setAttribute("avatar", filename);
+    }
+
+    public void updateInfo(HttpSession session, Map<String, Object> param, HashMap<String, Object> ret) {
+        User tar = userDAO.findById((int) session.getAttribute("uid")).get(0);
+        if (!session.getAttribute("nickname").equals(param.get("nickname"))
+                && !checkNick((String) param.get("nickname"), ret)) return;
+        tar.setNickname((String) param.get("nickname"));
+        tar.setIntro((String) param.get("intro"));
+        tar.setGender(Integer.parseInt((String) param.get("gender")));
+        userDAO.saveAndFlush(tar);
+        session.setAttribute("nickname", param.get("nickname"));
+        ret.put("result", true);
     }
 }
