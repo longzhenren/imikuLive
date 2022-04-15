@@ -50,7 +50,7 @@ function em(e) {
             $("#email").css("border-color", "#f07d58 #f07d58 #3ba8ab #f07d58");
         return;
     }
-    if (email.contains("/") || email.contains("?") || email.contains("\\")) {
+    if (email.includes("/") || email.includes("?") || email.includes("\\")) {
         wr(false, "昵称包含非法字符", "email");
         if (email.length === 0)
             $("#email").css("border-color", "#f07d58 #f07d58 #3ba8ab #f07d58");

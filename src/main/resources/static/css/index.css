@@ -13,15 +13,12 @@ data {
     background-position: center, center;
     background-size: cover;
     overflow: hidden;
+    z-index: -100;
 }
 #head {
     height: 60px;
     width: 100%;
     background-color: #1e1e1e;
-    /* border-width: 2px 0 2px 0;
-    border-style: solid;
-    border-color: #f07d58 #fff #3ba8ab #fff;
-    backdrop-filter: blur(40px); */
 }
 .lgsvg {
     width: 30px;
@@ -115,6 +112,8 @@ data {
     position: absolute;
 }
 .ava-b {
+    border-radius: 50%;
+    overflow: hidden;
     width: 330px;
     height: 330px;
     border-style: double;
@@ -131,7 +130,7 @@ data {
     width: 260px;
     top: 34px !important;
     position: relative;
-    z-index: -5;
+    z-index: -1;
     height: 264px;
     text-align: center;
     transform: translate(-115px, 11px);
@@ -242,109 +241,6 @@ tbb {
 }
 #head-xy-ac {
     display: none;
-}
-#n-card {
-    width: 100%;
-    height: 400px;
-    backdrop-filter: blur(40px);
-    margin-top: 65px;
-    padding: 34px 0 34px 60px;
-}
-#card-nick-t {
-    border-style: none none solid none;
-    border-width: 3px;
-    border-color: #3ba8ab;
-}
-#card-nick {
-    font-weight: bolder;
-    letter-spacing: 4px;
-    font-size: 40px;
-    color: #3ba8ab;
-    position: absolute;
-    margin-right: 60px;
-    left: 460px;
-    top: 60px;
-    height: 60px;
-    white-space: nowrap;
-    width: calc(100vw - 530px);
-    overflow-x: scroll;
-    overflow-y: hidden;
-}
-#card-nick::-webkit-scrollbar {
-    height: 2px;
-    border-radius: 3px;
-}
-#card-nick::-webkit-scrollbar-thumb {
-    background: aliceblue;
-}
-#card-nick::-webkit-scrollbar-track {
-    background: transparent;
-}
-#card-gender {
-    display: inline;
-}
-#card-uid {
-    font-size: 20px;
-    color: aliceblue;
-    position: absolute;
-    left: 460px;
-    top: 130px;
-}
-#card-mail {
-    letter-spacing: 3px;
-    font-size: 20px;
-    color: #f07d58;
-    position: absolute;
-    left: 460px;
-    top: 160px;
-}
-#card-hr {
-    position: absolute;
-    left: 460px;
-    top: 200px;
-    width: 100%;
-    border-style: ridge none none none;
-    border-width: 4px;
-    border-color: #3ba8ab;
-}
-#card-intro {
-    font-size: 18px;
-    color: aliceblue;
-    position: absolute;
-    left: 460px;
-    top: 220px;
-    width: calc(100vw - 530px);
-    height: 80px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-#card-intro::-webkit-scrollbar {
-    width: 3px;
-    height: 1px;
-    border-radius: 8px;
-}
-#card-intro::-webkit-scrollbar-thumb {
-    background: aliceblue;
-    border-radius: 8px;
-}
-#card-intro::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 8px;
-}
-#card-room {
-    font-weight: bold;
-    color: #3ba8ab;
-    letter-spacing: 4px;
-    font-size: 30px;
-    color: #3ba8ab;
-    position: absolute;
-    margin-right: 60px;
-    left: 460px;
-    top: 310px;
-    height: 45px;
-    border-style: solid none none none;
-    border-width: 3px;
-    border-color: #3ba8ab;
 }
 @media screen and (max-width: 768px) {
     #scd {

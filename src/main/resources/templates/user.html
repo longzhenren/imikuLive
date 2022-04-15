@@ -9,13 +9,17 @@
         />
         <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="https://cdn.bootcdn.net/ajax/libs/identicon.js/2.3.3/pnglib.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/identicon.js/2.3.3/identicon.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
         <script src="../static/js/avatar.js" th:src="@{/js/avatar.js}"></script>
         <link
             href="../static/css/index.css"
             th:href="@{/css/index.css}"
+            rel="stylesheet"
+        />
+        <link
+            href="../static/css/user.css"
+            th:href="@{/css/user.css}"
             rel="stylesheet"
         />
     </head>
@@ -108,7 +112,7 @@
                                     </svg>
                                     <tbb>个人中心</tbb>
                                 </div>
-                                <div class="op-ele" onclick="toRoom()">
+                                <div class="op-ele" onclick="toMR()">
                                     <svg
                                         class="op-svg bi bi-mailbox2"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +189,7 @@
                             </svg>
                             <tbb>个人中心</tbb>
                         </div>
-                        <div class="op-ele" onclick="toRoom()">
+                        <div class="op-ele" onclick="toMR()">
                             <svg
                                 class="op-svg bi bi-mailbox2"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +222,8 @@
                 </div>
             </div>
             <div id="n-card">
-                <img class="ava ava-b" id="card-i" />
+                <img class="ava-b" id="card-i" />
+                <div class="card-hr" id="card-hr-m"></div>
                 <div
                     id="card-nick"
                     onmouseover="ss2=true;"
@@ -229,16 +234,21 @@
                 </div>
                 <div id="card-uid" th:text="'UID: ' + ${uid}">UID: 100000</div>
                 <div id="card-mail" th:text="${email}">live@imiku.fun</div>
-                <div id="card-hr"></div>
-                <div id="card-intro" th:text="${intro}">
-                    啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+                <div class="card-hr"></div>
+                <div id="card-intro">
+                    <t th:text="${intro}" style="direction: ltr">
+                        威严满满的超管
+                    </t>
                 </div>
-                <div id="card-room">去直播间</div>
+                <div id="card-room" class="card-room" onclick="toUR()">
+                    去直播间
+                </div>
+                <div id="card-room-m"></div>
             </div>
         </div>
         <data id="d-uid" th:text="${uid}">100000</data>
         <data id="d-nickname" th:text="${nickname}">SuperUser</data>
         <data id="d-avatar" th:text="${avatar}">auto</data>
-        <data id="d-room" th:text="${room}">0</data>
+        <data id="d-room" th:text="${room}">10</data>
     </body>
 </html>

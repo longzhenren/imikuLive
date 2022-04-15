@@ -24,7 +24,7 @@ function geneAvatar(r, i, n) {
         avatar = "data:image/svg+xml;base64," + data;
         return avatar;
     }
-    avatar = url + "/files/avatars/" + r.avatar;
+    avatar = url + "/files/avatars/" + r;
     return avatar;
 }
 function geneHead() {
@@ -63,6 +63,10 @@ function ifg() {
             document.getElementById("d-nickname").textContent
         )
     );
+    if (document.getElementById("d-room").textContent == "0") {
+        document.getElementById("card-room").textContent = "该用户没有直播间";
+        document.getElementById("card-room").classList.remove("card-room");
+    }
 }
 window.addEventListener("wheel", function (e) {
     if (ss1) {
@@ -72,23 +76,28 @@ window.addEventListener("wheel", function (e) {
     }
     if (ss2) {
         var item = document.getElementById("card-nick");
-        if (e.deltaY > 0) item.scrollLeft += 5;
-        else item.scrollLeft -= 5;
+        if (e.deltaY > 0) item.scrollLeft += 25;
+        else item.scrollLeft -= 25;
     }
 });
 function toIndex() {
     window.location.href = url;
 }
 function toLogin() {
-    if (url.contains("/"))
+    if (url.includes("/"))
         window.location.href = url + "/login?f=" + window.location.href;
     else window.location.href = url;
 }
 function toSelf() {
     window.location.href = url + "/u/" + sNick;
 }
-function toRoom() {
+function toMR() {
     window.location.href = url + "/r/" + sNick;
+}
+function toUR() {
+    if (document.getElementById("d-room").textContent == "0") return;
+    window.location.href =
+        url + "/r/" + document.getElementById("d-nickname").textContent;
 }
 function logout() {
     $.ajax({

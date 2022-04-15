@@ -1,0 +1,302 @@
+#n-card {
+    width: 100%;
+    height: 400px;
+    backdrop-filter: blur(40px);
+    margin-top: 65px;
+    padding: 34px 0 34px 60px;
+    border-style: solid none solid none;
+    border-width: 3px;
+    border-image: linear-gradient(
+        to right,
+        #3ba8ab,
+        #3ba8ab 460px,
+        transparent
+    );
+    position: relative;
+    border-image-slice: 1;
+    z-index: -2;
+}
+#card-nick-t {
+    border-style: none none solid none;
+    border-width: 3px;
+    border-color: #3ba8ab;
+}
+#card-nick {
+    font-weight: bolder;
+    letter-spacing: 4px;
+    font-size: 40px;
+    color: #3ba8ab;
+    position: absolute;
+    margin-right: 60px;
+    left: 460px;
+    top: 60px;
+    height: 60px;
+    white-space: nowrap;
+    width: calc(100vw - 530px);
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+#card-nick::-webkit-scrollbar {
+    height: 2px;
+    border-radius: 3px;
+}
+#card-nick::-webkit-scrollbar-thumb {
+    background: aliceblue;
+}
+#card-nick::-webkit-scrollbar-track {
+    background: transparent;
+}
+#card-gender {
+    display: inline;
+}
+#card-uid {
+    font-size: 20px;
+    color: aliceblue;
+    position: absolute;
+    left: 460px;
+    top: 130px;
+}
+#card-mail {
+    letter-spacing: 3px;
+    font-size: 20px;
+    color: #f07d58;
+    position: absolute;
+    left: 460px;
+    top: 160px;
+}
+.card-hr {
+    position: absolute;
+    left: 460px;
+    top: 200px;
+    width: calc(100vw - 460px);
+    border-style: solid none none none;
+    border-width: 4px;
+    border-image: linear-gradient(to right, #3ba8ab, transparent);
+    border-image-slice: 1;
+}
+#card-hr-m {
+    top: 0;
+    display: none;
+}
+#card-intro {
+    font-size: 18px;
+    color: aliceblue;
+    position: absolute;
+    left: 452px;
+    top: 220px;
+    width: calc(100vw - 524px);
+    height: 55px;
+    direction: rtl;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    text-align: left;
+    word-break: break-all;
+    padding-left: 4px;
+}
+#card-intro::-webkit-scrollbar {
+    width: 3px;
+    height: 1px;
+    border-radius: 8px;
+}
+#card-intro::-webkit-scrollbar-thumb {
+    background: aliceblue;
+    border-radius: 8px;
+}
+#card-intro::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 8px;
+}
+#card-room {
+    font-weight: bold;
+    color: #3ba8ab;
+    letter-spacing: 4px;
+    font-size: 26px;
+    color: #3ba8ab;
+    position: absolute;
+    margin-right: 60px;
+    left: 460px;
+    top: 290px;
+    height: 45px;
+    border-style: solid none none none;
+    border-width: 3px;
+    border-color: #3ba8ab;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.card-room:hover {
+    border-image: linear-gradient(to right, #3ba8ab, transparent);
+    background-image: linear-gradient(to right, #1e1e1e, transparent);
+    border-image-slice: 1;
+    padding-left: 20px;
+    width: calc(100vw - 460px);
+    cursor: pointer;
+}
+#card-room-m {
+    display: none;
+}
+@media screen and (max-width: 768px) {
+    #n-card {
+        width: 100%;
+        height: calc(100vh - 60px);
+        backdrop-filter: blur(40px);
+        margin-top: 0;
+        padding: 5vw;
+        border-style: solid solid none solid;
+        border-width: 3px;
+        border-image: linear-gradient(to bottom, #3ba8ab, transparent);
+        border-image-slice: 1;
+        text-align: center;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    #n-card::-webkit-scrollbar {
+        width: 3px;
+        height: 1px;
+        border-radius: 8px;
+    }
+    #n-card::-webkit-scrollbar-thumb {
+        background: aliceblue;
+        border-radius: 8px;
+    }
+    #n-card::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 8px;
+    }
+    #card-i {
+        width: 50vw;
+        height: 50vw;
+    }
+    #card-nick-t {
+        border-style: none none solid none;
+        border-width: 3px;
+        border-color: #3ba8ab;
+        position: relative;
+    }
+    #card-hr-m {
+        top: 5vw;
+        display: block;
+    }
+    #card-nick {
+        font-weight: bolder;
+        letter-spacing: 4px;
+        font-size: 40px;
+        color: #3ba8ab;
+        position: relative;
+        left: auto;
+        top: 40px;
+        height: 120px;
+        width: 100%;
+        white-space: nowrap;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        display: block;
+    }
+    #card-nick::-webkit-scrollbar {
+        height: 2px;
+        border-radius: 3px;
+    }
+    #card-nick::-webkit-scrollbar-thumb {
+        background: aliceblue;
+    }
+    #card-nick::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    #card-gender {
+        position: relative;
+        display: block;
+    }
+    #card-uid {
+        font-size: 20px;
+        color: aliceblue;
+        position: relative;
+        display: block;
+        left: auto;
+        top: 34px;
+    }
+    #card-mail {
+        letter-spacing: 3px;
+        font-size: 20px;
+        position: relative;
+        display: block;
+        left: auto;
+        top: 34px;
+    }
+    .card-hr {
+        display: block;
+        position: relative;
+        left: auto;
+        top: 50px;
+        width: 90vw;
+        border-style: solid none none none;
+        border-width: 4px;
+        border-image: linear-gradient(
+            to right,
+            transparent,
+            #3ba8ab 50%,
+            transparent
+        );
+        border-image-slice: 1;
+    }
+    #card-intro {
+        font-size: 18px;
+        color: aliceblue;
+        position: relative;
+        display: block;
+        left: 15vw;
+        top: 70px;
+        width: 60vw;
+        height: auto;
+        direction: ltr;
+        text-align: center;
+        word-break: break-all;
+        padding: 0;
+    }
+    .card-room:hover {
+        border-image: linear-gradient(
+            to right,
+            transparent,
+            #3ba8ab 50%,
+            transparent
+        ) !important;
+        color: aliceblue !important;
+        background-image: linear-gradient(
+            to right,
+            transparent,
+            #3ba8ab 50%,
+            transparent
+        ) !important;
+        padding-left: 0 !important;
+        border-image-slice: 1 !important;
+        letter-spacing: 14px !important;
+        width: 90vw !important;
+    }
+    #card-room {
+        font-weight: bold;
+        display: block;
+        letter-spacing: 4px;
+        font-size: 26px;
+        color: #3ba8ab;
+        position: relative;
+        width: 90vw;
+        left: 0;
+        top: 90px;
+        height: 45px;
+        border-image: linear-gradient(
+            to right,
+            transparent,
+            #3ba8ab 50%,
+            transparent
+        );
+        border-style: solid none solid none;
+        border-image-slice: 1;
+    }
+    #card-room-m {
+        position: relative;
+        top: 86px;
+        height: 45px;
+        display: block;
+    }
+}
