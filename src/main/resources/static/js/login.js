@@ -15,7 +15,7 @@ function ipg() {
                     ip = result.data.myip;
                     $("#ips").fadeOut("0.3s");
                 },
-                fail: function () {
+                error: function () {
                     $.ajax({
                         method: "GET",
                         url: "http://v4.ip.zxinc.org/info.php?type=json",
@@ -23,7 +23,7 @@ function ipg() {
                             ip = result.data.myip;
                             $("#ips").fadeOut("0.3s");
                         },
-                        fail: function () {
+                        error: function () {
                             ip = "未知";
                             $("#ips").fadeOut("0.3s");
                         },
@@ -82,7 +82,7 @@ function submit() {
                 var s = window.location.href.toString().split("?f=");
                 if (s.length == 1) window.location.href = url;
                 else window.location.href = s[1];
-            }, 1000);
+            }, 300);
         },
     });
 }

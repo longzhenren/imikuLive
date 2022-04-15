@@ -7,10 +7,15 @@
             href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
             rel="stylesheet"
         />
+        <link
+            href="https://cdn.staticfile.org/cropperjs/1.5.12/cropper.min.css"
+            rel="stylesheet"
+        />
         <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/identicon.js/2.3.3/identicon.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+        <script src="https://cdn.staticfile.org/cropperjs/1.5.12/cropper.min.js"></script>
         <script src="../static/js/avatar.js" th:src="@{/js/avatar.js}"></script>
         <script src="../static/js/upload.js" th:src="@{/js/upload.js}"></script>
         <link
@@ -231,7 +236,7 @@
                 <img class="ava-b" id="card-i" />
                 <div
                     id="ava-btn"
-                    onclick="ava_upload()"
+                    onclick="document.getElementById('ava-open').click()"
                     data-container="#bg"
                     data-toggle="popover"
                     data-placement="bottom"
@@ -356,5 +361,26 @@
             <div class="upc-qt" onclick="hide_upc()">×</div>
             <div class="upc-err" id="upc-err-nic"></div>
         </div>
+        <div class="upc" id="upc-a">
+            <img
+                src="../static/img/logo.png"
+                th:src="'/img/logo.png'"
+                class="upc-logo"
+            />
+            <t class="upc-t">更换头像</t>
+            <div id="crop-cont"><img id="crop-tar" /></div>
+            <div class="upc-sub" onclick="ava_post()">></div>
+            <div class="upc-qt" onclick="hide_upc()">×</div>
+            <div class="upc-err" id="upc-tip-a">
+                滚轮可缩放图片，框和图片都可拖动
+            </div>
+        </div>
+        <input
+            id="ava-open"
+            type="file"
+            accept="image/*"
+            style="display: none"
+            onchange="ava_upload()"
+        />
     </body>
 </html>

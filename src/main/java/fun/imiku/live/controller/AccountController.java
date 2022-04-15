@@ -136,7 +136,6 @@ public class AccountController {
 
     @PostMapping("/api/updateInfo")
     public String updateInfo(HttpSession session, @RequestBody Map<String, Object> param) {
-        System.out.println(session.getAttribute("uid"));
         if (session.getAttribute("uid") == null || (int) session.getAttribute("uid") != (int) param.get("uid"))
             return "{\"result\":false,\"message\":\"Bad Request\"}";
         HashMap<String, Object> ret = new HashMap<>();

@@ -125,7 +125,7 @@
 }
 .upc-err {
     position: absolute;
-    top: 235px;
+    top: 250px;
     left: 40px;
     color: #ff0000;
     font-size: 16px;
@@ -215,4 +215,25 @@
 #upc-intro::-webkit-scrollbar-track {
     background: transparent;
     border-radius: 8px;
+}
+#crop-cont {
+    position: absolute;
+    top: 100px;
+    left: 36px;
+    width: 270px;
+    height: 170px;
+    overflow: hidden;
+}
+#crop-tar {
+    display: block;
+    max-width: 100%;
+}
+.upc .cropper-view-box,
+.upc .cropper-face {
+    border-radius: 50%;
+}
+#upc-tip-a {
+    color: #505050;
+    transform: translateY(26px);
+    font-size: 12px;
 }

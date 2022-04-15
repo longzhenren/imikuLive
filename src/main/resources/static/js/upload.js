@@ -3,15 +3,56 @@ $(function () {
 });
 var info_post_able = false;
 var act_upc = 0;
+var cropper;
 function ava_upload() {
-    alert(lgs_r.nickname);
+    if (act_upc == 4) cropper.destroy();
+    act_upc = 4;
+    var bufava = document.getElementById("ava-open").files[0];
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        $(".upc").css("display", "none");
+        var tar = document.getElementById("crop-tar");
+        tar.src = e.target.result;
+        cropper = new Cropper(tar, {
+            aspectRatio: 1,
+            cropBoxResizable: true,
+            cropBoxMovable: true,
+            viewMode: 1,
+            dragMode: "move",
+            scalable: false,
+            minCropBoxWidth: 40,
+        });
+
+        $("#upc-a").fadeIn("0.3s");
+    };
+    reader.readAsDataURL(bufava);
+}
+function ava_post() {
+    cropper.getCroppedCanvas().toBlob((blob) => {
+        var formData = new FormData();
+        formData.append("file", blob);
+        $.ajax({
+            method: "POST",
+            url: url + "/api/setAvatar",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                result = JSON.parse(result);
+                if (result.result === true)
+                    window.location.href = url + "/u/" + lgs_r.nickname;
+            },
+        });
+    });
 }
 function nick_upload() {
+    $(".upc").css("display", "none");
     act_upc = 1;
     $("#upc-nick").attr("placeholder", lgs_r.nickname);
     $("#upc-n").fadeIn("0.3s");
 }
 function gend_upload() {
+    $(".upc").css("display", "none");
     act_upc = 2;
     var dg = document.getElementById("d-gender").textContent;
     if (dg === "1") upc_gd(1);
@@ -20,6 +61,7 @@ function gend_upload() {
     $("#upc-g").fadeIn("0.3s");
 }
 function intr_upload() {
+    $(".upc").css("display", "none");
     act_upc = 3;
     $("#upc-i").fadeIn("0.3s");
     info_post_able = true;
@@ -56,8 +98,9 @@ function info_post() {
 }
 function hide_upc() {
     $(".upc").fadeOut("0.3s");
-    act_upc = 0;
     info_post_able = false;
+    document.getElementById("upc-err-nic").textContent = "";
+    act_upc = 0;
 }
 function upc_Ncheck() {
     var nk = document.getElementById("upc-nick").value.toString();

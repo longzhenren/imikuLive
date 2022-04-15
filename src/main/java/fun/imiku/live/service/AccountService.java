@@ -291,7 +291,7 @@ public class AccountService {
         User tar = res.get(0);
         int innerCode = (int) (System.currentTimeMillis() % 1000000000 + Math.round(Math.random() % 1000000000));
         String filename = DigestUtils.md5DigestAsHex(Integer.toString(innerCode)
-                .getBytes(StandardCharsets.UTF_8)).substring(0, 31);
+                .getBytes(StandardCharsets.UTF_8)).substring(5, 30);
         FileOutputStream fileOutputStream =
                 new FileOutputStream(localFile + "/avatars/" + filename);
         IOUtils.copy(file.getInputStream(), fileOutputStream);
