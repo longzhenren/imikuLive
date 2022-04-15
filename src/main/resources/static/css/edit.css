@@ -237,3 +237,100 @@
     transform: translateY(26px);
     font-size: 12px;
 }
+@media screen and (max-width: 768px) {
+    #ava-btn {
+        top: 42vw;
+        left: 64vw;
+    }
+    .upc {
+        width: 80vw;
+        height: min(400px, 80vh);
+        top: 14vh;
+        left: 10vw;
+        overflow-y: scroll;
+        overflow-x: scroll;
+    }
+    .upc::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
+        border-radius: 8px;
+    }
+    .upc::-webkit-scrollbar-thumb {
+        background: aliceblue;
+        border-radius: 8px;
+    }
+    .upc::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 8px;
+    }
+    .upc-logo {
+        height: 28px;
+        left: calc(40vw - 95px);
+        top: 20px;
+    }
+    .upc-t {
+        top: 65px;
+        left: calc(40vw - 70px);
+    }
+    #upc-nick {
+        width: 60vw;
+        top: 90px;
+        left: 8vw;
+        text-align: center;
+    }
+    .upc-sub {
+        top: 240px;
+        left: 18vw;
+        width: 40vw;
+    }
+    .upc-sub:hover,
+    .upc-sub:active {
+        left: 8vw;
+        padding: 0 20px 0 20px;
+        width: 60vw;
+        background-color: #303030;
+    }
+    .upc-qt {
+        top: 320px;
+        left: 18vw;
+        width: 40vw;
+    }
+    .upc-qt:hover,
+    .upc-qt:active {
+        left: 8vw;
+        padding: 0 20px 0 20px;
+        width: 60vw;
+        background-color: #303030;
+    }
+    .upc-err {
+        top: 200px;
+        left: 8vw;
+    }
+    #upc-intro {
+        width: 60vw;
+        top: 80px;
+        left: 8vw;
+    }
+    #upc-btn-g {
+        top: 140px;
+        left: 12vw;
+    }
+    #upc-a {
+        height: min(600px, 80vh);
+    }
+    #crop-cont {
+        top: 125px;
+        left: 8vw;
+        width: 60vw;
+        height: 280px;
+    }
+    #upc-a .upc-sub {
+        top: 440px;
+    }
+    #upc-a .upc-qt {
+        top: 520px;
+    }
+    #upc-tip-a {
+        top: 390px;
+    }
+}
