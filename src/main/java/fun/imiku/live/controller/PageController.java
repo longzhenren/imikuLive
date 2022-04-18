@@ -8,6 +8,7 @@
 package fun.imiku.live.controller;
 
 import fun.imiku.live.service.AccountService;
+import fun.imiku.live.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,8 @@ import java.util.Map;
 public class PageController {
     @Autowired
     AccountService accountService;
+    @Autowired
+    RoomService roomService;
 
     @RequestMapping("/login")
     public String loginPage(@RequestParam Map<String, Object> param, Model model) {
@@ -64,6 +67,14 @@ public class PageController {
                 return "self";
             return "user";
         }
+        return "redirect:/error/404";
+    }
+
+    @RequestMapping("/r/**")
+    public String userRoom(HttpServletRequest request, Model model) {
+        String nick = request.getRequestURI().substring(3);
+        if (roomService.pageByNickname(nick, model))
+            return "user";
         return "redirect:/error/404";
     }
 }
