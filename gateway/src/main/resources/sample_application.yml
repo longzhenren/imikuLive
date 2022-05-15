@@ -1,0 +1,13 @@
+server:
+  port: 7003
+spring:
+  application:
+    name: gateway
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: gateway

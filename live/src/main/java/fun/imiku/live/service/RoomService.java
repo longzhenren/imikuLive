@@ -27,9 +27,19 @@ public class RoomService {
     public boolean pageByNickname(String nick, Model model) {
         List<User> res = userDAO.findByNickname(nick);
         if (res.size() == 0) return false;
-        if(res.get(0).getRoom() == 0) return false;
+        if (res.get(0).getRoom() == 0) return false;
         List<Room> rst = roomDAO.findById(res.get(0).getRoom());
         if (rst.size() == 0) return false;
+        Room tar = rst.get(0);
+        User usr = res.get(0);
+        model.addAttribute("title", tar.getName() + " - imikuLive");
+        model.addAttribute("nickname", usr.getNickname());
+        model.addAttribute("avatar", usr.getAvatar());
+        model.addAttribute( "rid", usr.getRoom());
+        model.addAttribute("name", tar.getName());
+        model.addAttribute("cover", tar.getCover());
+        model.addAttribute("intro", tar.getIntro());
+        model.addAttribute("open", tar.getOpen());
         return true;
     }
 }
