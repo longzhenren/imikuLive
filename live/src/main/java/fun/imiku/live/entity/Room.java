@@ -25,5 +25,5 @@ public class Room {
     private String intro;
     @ColumnDefault("0")
     private int open;
-    private String realUrl;
+    private String pwd;
 }

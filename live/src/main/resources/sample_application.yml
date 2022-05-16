@@ -1,8 +1,9 @@
 server:
-  port: 7004 # 设置端口
+  port: 7006 # 设置端口
 
 site:
-  url: http://localhost:7004 # 指明项目部署的 url
+  url: http://live.example.org # 指明项目部署的可访问的 url（应当被 nginx 等指向 gateway 的本地 url）
+  gatewayUrl: http://localhost:7007 # 指明 gateway 部署的本地 url
   files: D:/site # 指明项目用于保存用户上传资源的地址
   nicksBanned: miku,Miku,MIKU,Operacon,operacon # 保留的不能注册 nickname，必须不为空
 

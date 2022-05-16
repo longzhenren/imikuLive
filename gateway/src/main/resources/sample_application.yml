@@ -1,8 +1,32 @@
 server:
-  port: 7003
+  port: 7007
+
+site:
+  url: http://localhost:7007 # 指明 gateway 部署的 url
+  liveUrl: http://localhost:7006 # 指明 live 部署的 url
+  socketUrl: ws://localhost:7005 # 指明 socketio 部署的 url
+
 spring:
   application:
     name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: actuator_api
+          uri: ${site.url}
+          predicates:
+            - Path=/actuator/**
+            - Host=${site.liveUrl} # 仅将 Actuator API 暴露于 live，必要时使用 RemoteAddr
+        - id: socketio
+          uri: ${site.socketUrl}
+          predicates:
+            - Path=/ws/**
+        - id: main_service
+          uri: ${site.liveUrl}
+          order: 1
+          predicates:
+            - Path=/**
+
 management:
   endpoint:
     gateway:
