@@ -7,6 +7,7 @@
     width: 100%;
     white-space: nowrap;
     text-align: center;
+    z-index: -1;
 }
 ::-webkit-scrollbar {
     width: 5px;
@@ -26,9 +27,9 @@
     display: inline-block;
     background-color: #1e1e1e;
     width: max(904px, 52vw);
-    height: max(683px, calc(29.25vw + 120px));
+    height: max(683px, calc(29.25vw + 180px));
     top: min(
-        max(20px, calc((100vh - 60px - max(683px, calc(29.25vw + 120px))) / 2)),
+        max(20px, calc((100vh - 60px - max(683px, calc(29.25vw + 180px))) / 2)),
         calc(100vh - 100px)
     );
     margin: 20px;
@@ -60,4 +61,83 @@
     border-style: solid;
     border-width: 2px 0 2px 0;
     border-color: #f07d58;
+}
+#roomn {
+    position: absolute;
+    color: aliceblue;
+    font-size: 22px;
+    top: 30px;
+    right: 30px;
+}
+#uavatar {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    top: 15px;
+    left: 30px;
+}
+#unick {
+    position: absolute;
+    color: #fae3b0;
+    font-size: 16px;
+    top: 35px;
+    left: 120px;
+    width: 15vw;
+    overflow-x: auto;
+    text-align: left;
+}
+.touser:hover {
+    cursor: pointer;
+}
+#intron {
+    position: absolute;
+    color: #fae3b0;
+    font-size: 20px;
+    bottom: 33px;
+    left: 30px;
+}
+#introt {
+    position: absolute;
+    color: aliceblue;
+    font-size: 16px;
+    bottom: 15px;
+    left: 100px;
+    height: 60px;
+    overflow-y: auto;
+    width: 30vw;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+#openst {
+    position: absolute;
+    background-position: center, center;
+    background-size: cover;
+    top: 88px;
+    width: max(904px, 52vw);
+    height: max(508px, 29.25vw);
+    border-style: solid;
+    border-width: 2px 0 2px 0;
+    border-color: #3ba8ab;
+    filter: blur(16px);
+}
+#openstxt {
+    position: absolute;
+    top: 88px;
+    width: max(904px, 52vw);
+    height: max(508px, 29.25vw);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+    font-size: xx-large;
+}
+#openstimg {
+    display: inline;
+    position: absolute;
+    width: 200px;
+    height: 160px;
+    bottom: 62px;
+    left: 300px;
 }

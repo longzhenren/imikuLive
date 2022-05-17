@@ -34,7 +34,9 @@ public class RoomService {
         User usr = res.get(0);
         model.addAttribute("title", tar.getName() + " - imikuLive");
         model.addAttribute("nickname", usr.getNickname());
+        model.addAttribute("gend", usr.getGender());
         model.addAttribute("avatar", usr.getAvatar());
+        model.addAttribute( "uid", usr.getId());
         model.addAttribute( "rid", usr.getRoom());
         model.addAttribute("name", tar.getName());
         model.addAttribute("cover", tar.getCover());

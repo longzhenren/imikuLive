@@ -239,19 +239,48 @@
             </div>
             <div id="abg">
                 <div class="mbg" id="pbg">
+                    <img id="uavatar" class="touser" onclick="toUser()" />
+                    <div id="roomn" th:text="${name}">
+                        SuperUser用来测试的SuperRoom
+                    </div>
+                    <div
+                        id="unick"
+                        class="touser"
+                        th:text="${nickname}"
+                        onclick="toUser()"
+                    >
+                        SuperUser
+                    </div>
                     <div id="dplayer"></div>
+                    <div id="intron">简介</div>
+                    <div id="introt" th:text="${intro}">
+                        主播懒得写简介ヾ(≧▽≦*)o
+                    </div>
+                    <div
+                        id="openst"
+                        style="background-image: url('../static/img/bg.jpg')"
+                        th:style="'background-image: url('+'/img/bg.jpg'+')'"
+                    ></div>
+                    <div id="openstxt">当前未开播</div>
+                    <img
+                        id="openstimg"
+                        src="../static/img/loading.gif"
+                        th:src="/img/loading.gif"
+                    />
                 </div>
                 <div class="mbg" id="dbg">
                     <div id="dc"></div>
                 </div>
             </div>
         </div>
-        <data id="d-nickname" th:text="${nickname}">SuperUser</data>
+        <data id="d-nickname" th:text="${nickname}">Administrator</data>
         <data id="d-avatar" th:text="${avatar}">auto</data>
-        <data id="d-rid" th:text="${rid}">1000000</data>
+        <data id="d-uid" th:text="${uid}">100000</data>
+        <data id="d-room" th:text="${rid}">1000000</data>
         <data id="d-name" th:text="${name}">SuperRoom</data>
         <data id="d-cover" th:text="${cover}">auto</data>
         <data id="d-intro" th:text="${intro}">什么都不会有的房间</data>
         <data id="d-open" th:text="${open}">0</data>
+        <data id="d-gender" th:text="${gend}">2</data>
     </body>
 </html>

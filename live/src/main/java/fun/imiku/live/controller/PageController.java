@@ -74,7 +74,7 @@ public class PageController {
     public String userRoom(HttpServletRequest request, Model model) {
         String nick = request.getRequestURI().substring(3);
         if (roomService.pageByNickname(nick, model))
-            return "user";
+            return "room";
         return "redirect:/error/404";
     }
 }
