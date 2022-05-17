@@ -2,7 +2,7 @@
 
 基本可用的直播网站
 
-----
+---
 
 `imikuLive` 是以 [Node-Media-Server](https://github.com/illuspas/Node-Media-Server) 作为流媒体实现的直播网站。
 
@@ -26,6 +26,21 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    
+
     To contact the author, E-Mail <operacon@outlook.com>
 ```
+
+#### 功能
+
+-   [x] 用户登陆注册
+-   [x] 用户个人信息及头像修改
+-   [x] 用户邮箱验证及密码重置
+-   [ ] 直播间信息设置和页面
+-   [ ] 直播间自动关闭
+-   [ ] 直播间页面
+-   [ ] 主播自定密码的私人直播间
+-   [ ] 弹幕
+-   [ ] 主播使用的弹幕显示页
+-   [ ] 拉流鉴权
+-   [ ] 主页
+-   [ ] 搜索功能和页面

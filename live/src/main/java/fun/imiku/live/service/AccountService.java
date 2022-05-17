@@ -103,11 +103,11 @@ public class AccountService {
                 "padding:15px 0\">您似乎刚在登录时忘记了您的密码</div><div class=\"mail-desc\" style=\"padding:15px 0\">" +
                 "请点击以下链接进行密码重设</div><div class=\"mail-confirm\" style=\"padding:15px 0\"><div class=\"mail" +
                 "-confirm-button\" style=\"background-color:#3ba8ab;display:inline-block;padding:12px;color:#fff;" +
-                "border-radius:4px;cursor:pointer;width:36%;letter-spacing:8px\"><a href=\"LLLLlink\" target=" +
+                "border-radius:4px;cursor:pointer;width:36%;letter-spacing:8px\"><a href=\"@LINK\" target=" +
                 "\"_blank\" style=\"text-decoration:none;color:inherit\">重设密码</a></div></div><div class=" +
                 "\"mail-tip\" style=\"color:#aaa;padding:15px 0\">*如果这不是您本人执行的操作，请忽略此邮件</div></div>" +
                 "</div></table></td></tr></table></body>";
-        text = text.replace("LLLLlink",
+        text = text.replace("@LINK",
                 url + "/resetPassword?e=" + email + "&i=" + -innerCode);
         helper.setText(text, true);
         mailSender.send(message);

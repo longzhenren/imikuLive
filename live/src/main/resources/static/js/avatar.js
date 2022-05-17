@@ -1,4 +1,3 @@
-var url = "http://localhost:7004";
 var sNick;
 var opo = false,
     opn = false;

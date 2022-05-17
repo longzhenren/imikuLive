@@ -1,0 +1,63 @@
+#abg {
+    overflow: auto;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    height: calc(100vh - 60px);
+    width: 100%;
+    white-space: nowrap;
+    text-align: center;
+}
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: aliceblue;
+    border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 8px;
+}
+.mbg {
+    position: relative;
+    display: inline-block;
+    background-color: #1e1e1e;
+    width: max(904px, 52vw);
+    height: max(683px, calc(29.25vw + 120px));
+    top: min(
+        max(20px, calc((100vh - 60px - max(683px, calc(29.25vw + 120px))) / 2)),
+        calc(100vh - 100px)
+    );
+    margin: 20px;
+    margin-top: 0;
+    border-radius: 25px;
+}
+#dbg {
+    position: relative;
+    width: max(330px, 20vw);
+    margin-left: -5px;
+}
+#dplayer {
+    position: absolute;
+    top: 88px;
+    width: max(904px, 52vw);
+    height: max(508px, 29.25vw);
+    border-style: solid;
+    border-width: 2px 0 2px 0;
+    border-color: #3ba8ab;
+}
+#dc {
+    position: absolute;
+    background-color: #303030;
+    top: 88px;
+    width: max(330px, 20vw);
+    height: max(508px, 29.25vw);
+    padding: 5px;
+    overflow-y: auto;
+    border-style: solid;
+    border-width: 2px 0 2px 0;
+    border-color: #f07d58;
+}

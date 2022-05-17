@@ -1,4 +1,3 @@
-var url = "http://localhost:7004";
 var ip;
 function ipg() {
     $("[data-toggle='tooltip']").tooltip();

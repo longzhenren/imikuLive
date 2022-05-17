@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8" />
-        <title th:text="${title}">用户 - imikuLive</title>
+        <title th:text="${title}">直播间 - imikuLive</title>
         <link
             href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
             rel="stylesheet"
@@ -11,11 +11,18 @@
             href="https://cdn.staticfile.org/cropperjs/1.5.12/cropper.min.css"
             rel="stylesheet"
         />
+        <script src="../static/js/url.js" th:src="@{/js/url.js}"></script>
         <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/identicon.js/2.3.3/identicon.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+        <script src="https://cdn.staticfile.org/flv.js/1.5.0/flv.js"></script>
+        <script src="https://cdn.staticfile.org/dplayer/1.26.0/DPlayer.min.js"></script>
         <script src="../static/js/avatar.js" th:src="@{/js/avatar.js}"></script>
+        <script
+            src="../static/js/danmaku.js"
+            th:src="@{/js/danmaku.js}"
+        ></script>
         <link
             href="../static/css/index.css"
             th:href="@{/css/index.css}"
@@ -24,6 +31,11 @@
         <link
             href="../static/css/user.css"
             th:href="@{/css/user.css}"
+            rel="stylesheet"
+        />
+        <link
+            href="../static/css/room.css"
+            th:href="@{/css/room.css}"
             rel="stylesheet"
         />
     </head>
@@ -223,6 +235,14 @@
                             <tbb>退出登录</tbb>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div id="abg">
+                <div class="mbg" id="pbg">
+                    <div id="dplayer"></div>
+                </div>
+                <div class="mbg" id="dbg">
+                    <div id="dc"></div>
                 </div>
             </div>
         </div>

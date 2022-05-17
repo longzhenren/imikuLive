@@ -1,4 +1,3 @@
-var url = "http://localhost:7004";
 var x = 0;
 var able = false;
 var able1 = false,
