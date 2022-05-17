@@ -6,9 +6,40 @@ var ss1 = false,
 var lgd = false;
 var opx = null;
 var lgs_r;
+var foregroundClr = [
+    [240, 125, 88, 255],
+    [57, 197, 187, 255],
+    [178, 34, 34, 255],
+    [250, 227, 176, 255],
+    [240, 248, 255, 255],
+];
+function geneCover(r, i, n) {
+    var avatar;
+    var options = {
+        foreground: foregroundClr[i % 5],
+        background: [255, 255, 255, 100],
+        size: 508,
+        format: "svg",
+        margin: 0,
+    };
+    if (r === "auto") {
+        var data = new Identicon(
+            CryptoJS.SHA256(i.toString() + n.toString()).toString(
+                CryptoJS.enc.Hex
+            ),
+            options
+        ).toString();
+        avatar = "url(" + "data:image/svg+xml;base64," + data + ")";
+        return avatar;
+    }
+    avatar = "url(" + url + "/files/covers/" + r + ")";
+    return avatar;
+}
+
 function geneAvatar(r, i, n) {
     var avatar;
     var options = {
+        foreground: foregroundClr[i % 5],
         background: [255, 255, 255, 100],
         size: 330,
         format: "svg",
@@ -27,7 +58,7 @@ function geneAvatar(r, i, n) {
     avatar = url + "/files/avatars/" + r;
     return avatar;
 }
-function geneHead() {
+function geneHead(f) {
     $.ajax({
         method: "GET",
         url: url + "/api/loginState",
@@ -39,7 +70,11 @@ function geneHead() {
             //     nickname: "SuperUser",
             //     avatar: "auto",
             // };
-            if (result.result === false) return;
+            if (result.result === false) {
+                if (typeof f === "undefined") return;
+                f(false);
+                return;
+            }
             lgd = true;
             lgs_r = result;
             lgs_r.gender = document.getElementById("d-gender").textContent;
@@ -52,11 +87,13 @@ function geneHead() {
             $("#op-nick").text(sNick);
             $("#login-btn").css("display", "none");
             $("#logged-sw").css("display", "block");
+            if (typeof f === "undefined") return;
+            f(true);
         },
     });
 }
-function ifg() {
-    geneHead();
+function ifg(f) {
+    geneHead(f);
     $("#card-i").attr(
         "src",
         geneAvatar(

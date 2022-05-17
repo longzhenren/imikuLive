@@ -39,7 +39,7 @@
             rel="stylesheet"
         />
     </head>
-    <body onload="ifg()">
+    <body onload="ifg(initDanS)">
         <div
             id="bg"
             style="background-image: url('../static/img/bg.jpg')"
@@ -256,11 +256,7 @@
                     <div id="introt" th:text="${intro}">
                         主播懒得写简介ヾ(≧▽≦*)o
                     </div>
-                    <div
-                        id="openst"
-                        style="background-image: url('../static/img/bg.jpg')"
-                        th:style="'background-image: url('+'/img/bg.jpg'+')'"
-                    ></div>
+                    <div id="openst"></div>
                     <div id="openstxt">当前未开播</div>
                     <img
                         id="openstimg"
@@ -269,7 +265,20 @@
                     />
                 </div>
                 <div class="mbg" id="dbg">
+                    <div id="dbg-c">
+                        当前有
+                        <div id="current-n">14</div>
+                        人在看
+                    </div>
                     <div id="dc"></div>
+                    <input
+                        type="text"
+                        id="danmaku-i"
+                        maxlength="30"
+                        placeholder="发条弹幕  ( •̀ .̫ •́ )✧"
+                        onkeydown="if(event.keyCode==13){sendDanS()}"
+                    />
+                    <div id="danmaku-s"></div>
                 </div>
             </div>
         </div>

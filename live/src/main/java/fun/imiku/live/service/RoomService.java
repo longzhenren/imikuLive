@@ -36,12 +36,13 @@ public class RoomService {
         model.addAttribute("nickname", usr.getNickname());
         model.addAttribute("gend", usr.getGender());
         model.addAttribute("avatar", usr.getAvatar());
-        model.addAttribute( "uid", usr.getId());
-        model.addAttribute( "rid", usr.getRoom());
+        model.addAttribute("uid", usr.getId());
+        model.addAttribute("rid", usr.getRoom());
         model.addAttribute("name", tar.getName());
         model.addAttribute("cover", tar.getCover());
-        model.addAttribute("intro", tar.getIntro());
         model.addAttribute("open", tar.getOpen());
+        if (tar.getIntro() != null)
+            model.addAttribute("intro", tar.getIntro());
         return true;
     }
 }

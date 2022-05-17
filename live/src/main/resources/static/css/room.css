@@ -113,7 +113,7 @@
 #openst {
     position: absolute;
     background-position: center, center;
-    background-size: cover;
+    background-size: auto;
     top: 88px;
     width: max(904px, 52vw);
     height: max(508px, 29.25vw);
@@ -136,8 +136,80 @@
 #openstimg {
     display: inline;
     position: absolute;
-    width: 200px;
-    height: 160px;
-    bottom: 62px;
-    left: 300px;
+    width: 400px;
+    height: 320px;
+    bottom: 34px;
+    right: 40px;
+}
+#dbg-c {
+    font-size: 16px;
+    display: inline;
+    position: absolute;
+    color: aliceblue;
+    left: 30px;
+    top: 36px;
+}
+#current-n {
+    display: inline;
+    color: #fae3b0;
+}
+#danmaku-i {
+    display: inline;
+    position: absolute;
+    height: 30px;
+    width: max(330px, 20vw);
+    padding: 0 10px 0 10px;
+    left: 0;
+    bottom: 58px;
+    overflow-x: scroll;
+    background-color: transparent;
+    color: aliceblue;
+    border-width: 0;
+    border-color: #f07d58;
+}
+#danmaku-i:disabled {
+    cursor: not-allowed;
+}
+#danmaku-s {
+    display: inline;
+    position: absolute;
+    height: 36px;
+    width: max(330px, 20vw);
+    bottom: 22px;
+    left: 0;
+    border-image: linear-gradient(
+        to right,
+        transparent,
+        #3ba8ab 50%,
+        transparent
+    );
+    background-image: linear-gradient(
+        to right,
+        transparent,
+        #303030 50%,
+        transparent
+    );
+    color: aliceblue;
+    font-size: 14px;
+    border-style: solid none solid none;
+    border-image-slice: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+#danmaku-s:hover {
+    cursor: pointer;
+    border-image: linear-gradient(
+        to right,
+        #3ba8ab 50%,
+        transparent,
+        #3ba8ab 50%
+    );
+    border-style: solid none solid none;
+    border-image-slice: 1;
 }
