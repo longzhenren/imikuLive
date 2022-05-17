@@ -18,7 +18,7 @@ function geneCover(r, i, n) {
     var options = {
         foreground: foregroundClr[i % 5],
         background: [255, 255, 255, 100],
-        size: 508,
+        size: 256,
         format: "svg",
         margin: 0,
     };
