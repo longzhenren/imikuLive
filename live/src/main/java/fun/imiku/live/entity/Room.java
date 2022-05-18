@@ -24,6 +24,6 @@ public class Room {
     private String cover;
     private String intro;
     @ColumnDefault("0")
-    private int open;
+    private int pri;
     private String pwd;
 }

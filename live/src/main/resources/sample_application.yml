@@ -7,6 +7,13 @@ site:
   files: D:/site # 指明项目用于保存用户上传资源的地址
   nicksBanned: miku,Miku,MIKU,Operacon,operacon # 保留的不能注册 nickname，必须不为空
 
+nms:
+  http: http://localhost:8888 # 指明 nms 部署的 http 地址
+  rtmp: rtmp://localhost  # 指明 nms 部署的 rtmp 地址
+  secret: exampleKey  # 指明 nms 推流鉴权的 secret
+  api_user: admin # 指明 nms API 用户名
+  api_pass: admin # 指明 nms API 密码
+
 spring:
   application:
     name: imikuLive

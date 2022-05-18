@@ -125,7 +125,7 @@ function toIndex() {
 function toLogin() {
     if (url.includes("/"))
         window.location.href = url + "/login?f=" + window.location.href;
-    else window.location.href = url;
+    else window.location.href = url + "/login";
 }
 function toSelf() {
     window.location.href = url + "/u/" + sNick;

@@ -3,6 +3,9 @@ body {
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
         "Lucida Sans", Arial, sans-serif;
 }
+data {
+    display: none;
+}
 .bg {
     height: 120%;
     width: 100%;
@@ -208,6 +211,31 @@ input:focus {
 .tooltip-inner {
     color: aliceblue;
     font-size: large;
+}
+#op-btn {
+    width: 100px;
+    position: absolute;
+    left: 42vw;
+    top: 10vh;
+    height: 100px;
+    border: solid;
+    border-width: 4px;
+    color: aliceblue;
+    border-color: #f07d58;
+    background-color: #303030;
+    font-size: x-large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+#op-btn:hover {
+    cursor: pointer;
+    background-color: #f07d58;
 }
 @media screen and (max-width: 768px) {
     .lgbg {

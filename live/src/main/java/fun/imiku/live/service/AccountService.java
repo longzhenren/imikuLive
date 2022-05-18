@@ -42,8 +42,9 @@ public class AccountService {
     UserDAO userDAO;
     @Autowired
     JavaMailSender mailSender;
+    @Autowired
+    RestTemplate restTemplate;
 
-    RestTemplate restTemplate = new RestTemplate();
     Pattern mailPt = Pattern.compile("^\\w+((-\\w+)|(\\.\\w+))*@[A-Za-z0-9]+(([.\\-])[A-Za-z0-9]+)*\\.[A-Za-z0-9]+$");
 
     public void checkLogin(String email, String password, String ip, HttpSession session, HashMap<String, Object> ret) {

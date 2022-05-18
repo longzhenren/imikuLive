@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, 
+                                     initial-scale=1.0, 
+                                     maximum-scale=1.0, 
+                                     user-scalable=no"
+        />
+        <title>开通直播间 - imikuLive</title>
+        <link
+            href="../static/css/login.css"
+            th:href="@{/css/login.css}"
+            rel="stylesheet"
+        />
+        <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+        <script src="../static/js/url.js" th:src="@{/js/url.js}"></script>
+        <script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
+        <style type="text/css">
+            #tx:hover {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body style="margin: 0">
+        <div
+            class="bg"
+            style="background-image: url('../static/img/bg.jpg')"
+            th:style="'background-image: url('+'/img/bg.jpg'+')'"
+        >
+            <div
+                id="succ"
+                style="background-image: url('../static/img/succ.png')"
+                th:style="'background-image: url('+'/img/succ.png'+')'"
+            ></div>
+            <div
+                class="lgbg"
+                style="background-image: url('../static/img/loginbg2.png')"
+                th:style="'background-image: url('+'/img/loginbg2.png'+')'"
+            >
+                <div class="input" style="width: 80%">
+                    <b style="color: #3ba8ab" class="mo-tc"
+                        >&ensp;imiku<b style="color: #f07d58">Live&ensp;</b></b
+                    >
+                    <div>
+                        <div id="ts" style="font-size: 4vw; color: #3ba8ab">
+                            <div th:text="${nickname}">Administrator</div>
+                            您可在此开通直播间
+                        </div>
+                        <br />
+                        <div
+                            id="tx"
+                            style="
+                                font-size: 3vw;
+                                color: #f07d58;
+                                text-decoration: underline;
+                                margin-top: 30px;
+                            "
+                            onclick="window.open(url + '/terms')"
+                        >
+                            点击阅读我们的服务条款
+                        </div>
+                        <div
+                            style="
+                                font-size: 2vw;
+                                color: #3ba8ab;
+                                margin-top: 30px;
+                                width: 46vw;
+                            "
+                        >
+                            <p>点击开通按钮以开通您的直播间。</p>
+                            点击开通按钮，意味着您已经阅读并认同我们的服务条款，了解您的权利和责任。
+                        </div>
+                        <div id="op-btn" onclick="opClk()">开 通</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <data id="d-nickname" th:text="${nickname}">100000</data>
+        <data id="d-uid" th:text="${uid}">100000</data>
+    </body>
+</html>

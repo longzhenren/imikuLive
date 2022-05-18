@@ -38,6 +38,29 @@ function reg() {
 function tk() {
     window.open(url + "/terms");
 }
+function opClk() {
+    $.ajax({
+        method: "POST",
+        url: url + "/api/openRoom",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({
+            uid: parseInt($("#d-uid").text()),
+        }),
+        success: function (result) {
+            result = JSON.parse(result);
+            if (result.result === false) {
+                fail(result.message);
+                loading(false);
+                return;
+            }
+            $("#succ").animate({ left: "+=200%" }, "2s");
+            setTimeout(
+                (window.location.href = url + "/c/" + $("#d-nickname").text()),
+                300
+            );
+        },
+    });
+}
 function checkEmail(s) {
     var re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
     if (re.test(s)) return true;

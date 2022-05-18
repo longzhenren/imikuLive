@@ -7,11 +7,13 @@ $(function () {
             $("#d-nickname").text()
         )
     );
+    if ($("#d-intro").text().length === 0)
+        $("#introt").text("主播懒得写简介ヾ(≧▽≦*)o");
     if ($("#d-open").text() === "0") {
         var arr = [
             "主播在摸鱼~",
             "现在没有开播哦~",
-            "主播在睡大觉  (￣o￣) . z Z",
+            "主播在睡大觉  ヾ(￣▽￣)",
             "主播在赶 ddl ~",
         ];
         $("#openst").css(
@@ -46,13 +48,13 @@ $(function () {
 function initDanS(e) {
     if (e === true) {
         $("#danmaku-s").attr("onclick", "sendDanS()");
-        $("#danmaku-s").text("发  射");
+        $("#danmaku-s").text("发 射");
         return;
     }
     $("#danmaku-i").attr("placeholder", "登录后才能发弹幕  \\(￣︶￣*\\))");
     $("#danmaku-i").attr("disabled", "true");
     $("#danmaku-s").attr("onclick", "toLogin()");
-    $("#danmaku-s").text("去 登 录");
+    $("#danmaku-s").text("去登录");
 }
 function toUser() {
     window.open(url + "/u/" + $("#d-nickname").text());

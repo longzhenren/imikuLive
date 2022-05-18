@@ -157,11 +157,11 @@
 #danmaku-i {
     display: inline;
     position: absolute;
-    height: 30px;
-    width: max(330px, 20vw);
+    height: 60px;
+    width: max(270px, 20vw - 60px);
     padding: 0 10px 0 10px;
     left: 0;
-    bottom: 58px;
+    bottom: 28px;
     overflow-x: scroll;
     background-color: transparent;
     color: aliceblue;
@@ -172,22 +172,17 @@
 #danmaku-s {
     display: inline;
     position: absolute;
-    height: 36px;
-    width: max(330px, 20vw);
-    bottom: 22px;
-    left: 0;
+    height: 60px;
+    width: 60px;
+    bottom: 28px;
+    right: 0;
     border-image: linear-gradient(
         to right,
         transparent,
-        #3ba8ab 50%,
+        #f07d58 50%,
         transparent
     );
-    background-image: linear-gradient(
-        to right,
-        transparent,
-        #303030 50%,
-        transparent
-    );
+    background-color: #f07d58;
     color: aliceblue;
     font-size: 14px;
     border-style: solid none solid none;
@@ -276,7 +271,8 @@
         border-color: #f07d58;
     }
     #danmaku-i {
-        width: 80vw;
+        height: 30px;
+        width: 85vw;
         bottom: unset;
         top: -2px;
         border-width: 2px 0 0 0;
@@ -284,15 +280,10 @@
     }
     #danmaku-s {
         height: 32px;
-        width: 20vw;
+        width: 15vw;
         bottom: unset;
         top: -2px;
-        left: 80vw;
-        border-radius: 30%;
-        border-style: solid;
-        border-color: #3ba8ab;
-        border-image: unset;
-        border-image-slice: unset;
+        left: 85vw;
     }
     #openst {
         top: 0;

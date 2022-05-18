@@ -63,7 +63,7 @@ public class PageController {
     public String userPage(HttpServletRequest request, Model model, HttpSession session) {
         String nick = request.getRequestURI().substring(3);
         if (accountService.pageByNickname(nick, model)) {
-            if (session.getAttribute("uid") != null && session.getAttribute("nickname").equals(nick))
+            if (nick.equals(session.getAttribute("nickname")))
                 return "self";
             return "user";
         }
@@ -71,8 +71,23 @@ public class PageController {
     }
 
     @RequestMapping("/r/**")
-    public String userRoom(HttpServletRequest request, Model model) {
+    public String userRoom(HttpServletRequest request, Model model, HttpSession session) {
         String nick = request.getRequestURI().substring(3);
+        if (roomService.pageByNickname(nick, model))
+            return "room";
+        if (nick.equals(session.getAttribute("nickname"))) {
+            model.addAttribute("uid", session.getAttribute("uid"));
+            model.addAttribute("nickname", nick);
+            return "open";
+        }
+        return "redirect:/error/404";
+    }
+
+    @RequestMapping("/c/**")
+    public String configRoom(HttpServletRequest request, Model model, HttpSession session) {
+        String nick = request.getRequestURI().substring(3);
+        if (!nick.equals(session.getAttribute("nickname")))
+            return "redirect:/error/404";
         if (roomService.pageByNickname(nick, model))
             return "room";
         return "redirect:/error/404";
