@@ -104,7 +104,7 @@ function ifg(f) {
     );
     if (document.getElementById("d-room").textContent == "0") {
         document.getElementById("card-room").textContent = "该用户没有直播间";
-        document.getElementById("card-room").classList.remove("card-room");
+        document.getElementById("card-room").classList.remove("card-btn");
     }
 }
 window.addEventListener("wheel", function (e) {
@@ -131,14 +131,16 @@ function toSelf() {
     window.location.href = url + "/u/" + sNick;
 }
 function toMR() {
-    window.location.href = url + "/r/" + sNick;
+    if ($("#d-room").text() === "0")
+        window.location.href = url + "/r/" + $("#d-nickname").text();
+    window.location.href = url + "/c/" + $("#d-nickname").text();
 }
 function toUR() {
-    if ($("#d-room").text() === "0")
-        window.location.href =
-            url + "/r/" + document.getElementById("d-nickname").textContent;
-    window.location.href =
-        url + "/c/" + document.getElementById("d-nickname").textContent;
+    if ($("#d-room").text() != "0")
+        window.location.href = url + "/r/" + $("#d-nickname").text();
+}
+function toCC() {
+    window.location.href = url + "/c/" + $("#d-nickname").text();
 }
 function logout() {
     $.ajax({

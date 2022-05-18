@@ -106,7 +106,7 @@
     background: transparent;
     border-radius: 8px;
 }
-#card-room {
+.card-room {
     font-weight: bold;
     color: #3ba8ab;
     letter-spacing: 4px;
@@ -126,7 +126,7 @@
     -o-transition: all 0.3s;
     transition: all 0.3s;
 }
-.card-room:hover {
+.card-btn:hover {
     border-image: linear-gradient(to right, #3ba8ab, transparent);
     background-image: linear-gradient(to right, #1e1e1e, transparent);
     border-image-slice: 1;
@@ -136,6 +136,11 @@
 }
 #card-room-m {
     display: none;
+}
+@media screen and (min-width: 768px) {
+    #card-conf {
+        top: 335px;
+    }
 }
 @media screen and (max-width: 768px) {
     #n-card {
@@ -273,7 +278,7 @@
         letter-spacing: 14px !important;
         width: 90vw !important;
     }
-    #card-room {
+    .card-room {
         font-weight: bold;
         display: block;
         letter-spacing: 4px;

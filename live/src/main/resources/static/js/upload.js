@@ -170,10 +170,13 @@ function upc_gd(i) {
     } else info_post_able = false;
 }
 function toOpen(e) {
-    document.getElementById("card-room").textContent = "开通直播间";
-    document.getElementById("card-room").classList.add("card-room");
+    if ($("#d-room").text() === "0") {
+        $("#card-room").text("开通直播间");
+        $("#card-conf").css("display", "none");
+    }
+    document.getElementById("card-room").classList.add("card-btn");
     $("#card-room").attr(
         "onclick",
-        "window.location.href = url + '/r/' + $('#card-nick-t').text()"
+        "window.location.href = url + '/r/' + $('#d-nickname').text()"
     );
 }
