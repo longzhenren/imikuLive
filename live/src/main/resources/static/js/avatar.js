@@ -134,9 +134,11 @@ function toMR() {
     window.location.href = url + "/r/" + sNick;
 }
 function toUR() {
-    if (document.getElementById("d-room").textContent == "0") return;
+    if ($("#d-room").text() === "0")
+        window.location.href =
+            url + "/r/" + document.getElementById("d-nickname").textContent;
     window.location.href =
-        url + "/r/" + document.getElementById("d-nickname").textContent;
+        url + "/c/" + document.getElementById("d-nickname").textContent;
 }
 function logout() {
     $.ajax({

@@ -26,4 +26,6 @@ public class Room {
     @ColumnDefault("0")
     private int pri;
     private String pwd;
+    private String app;
+    private String sign;
 }

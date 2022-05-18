@@ -11,16 +11,26 @@ import fun.imiku.live.dao.RoomDAO;
 import fun.imiku.live.dao.UserDAO;
 import fun.imiku.live.entity.Room;
 import fun.imiku.live.entity.User;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.DigestUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
 @Service
 public class RoomService {
+    @Value("${site.files}")
+    String localFile;
     @Autowired
     RoomDAO roomDAO;
     @Autowired
@@ -64,12 +74,32 @@ public class RoomService {
         }
         User rst = res.get(0);
         Room tar = new Room();
+        int innerCode = (int) (System.currentTimeMillis() % 1000000000 + Math.round(Math.random() % 1000000000));
+        String app = DigestUtils.md5DigestAsHex(Integer.toString(innerCode)
+                .getBytes(StandardCharsets.UTF_8)).substring(10, 18);
         tar.setName(rst.getNickname() + "的直播间");
         tar.setCover("auto");
         tar.setPri(0);
+        tar.setApp(app);
         roomDAO.saveAndFlush(tar);
         rst.setRoom(tar.getId());
         userDAO.saveAndFlush(rst);
         ret.put("result", true);
+    }
+
+    public void setCover(HttpSession session, MultipartFile file)
+            throws IOException {
+        List<User> res = userDAO.findByNickname((String) session.getAttribute("nickname"));
+        if (res.size() == 0) throw new IOException();
+        Room tar = roomDAO.findById(res.get(0).getRoom()).get(0);
+        int innerCode = (int) (System.currentTimeMillis() % 1000000000 + Math.round(Math.random() % 1000000000));
+        String filename = DigestUtils.md5DigestAsHex(Integer.toString(innerCode)
+                .getBytes(StandardCharsets.UTF_8)).substring(5, 30);
+        FileOutputStream fileOutputStream =
+                new FileOutputStream(localFile + "/covers/" + filename);
+        IOUtils.copy(file.getInputStream(), fileOutputStream);
+        fileOutputStream.close();
+        tar.setCover(filename);
+        roomDAO.save(tar);
     }
 }

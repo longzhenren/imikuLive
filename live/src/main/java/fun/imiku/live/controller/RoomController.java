@@ -10,10 +10,8 @@ package fun.imiku.live.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fun.imiku.live.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -34,6 +32,17 @@ public class RoomController {
             roomService.openRoom((int) param.get("uid"), (int) session.getAttribute("uid"), ret);
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        }
+    }
+
+    @PostMapping("/api/setCover")
+    public String setCover(HttpSession session, @RequestParam("file") MultipartFile file) {
+        try {
+            roomService.setCover(session, file);
+            return "{\"result\":true}";
+        } catch (Exception e) {
+            e.printStackTrace();
             return "{\"result\":false,\"message\":\"Bad Request\"}";
         }
     }

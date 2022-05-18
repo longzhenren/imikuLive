@@ -169,3 +169,11 @@ function upc_gd(i) {
         document.getElementById("upc-btn-t").textContent = "机性";
     } else info_post_able = false;
 }
+function toOpen(e) {
+    document.getElementById("card-room").textContent = "开通直播间";
+    document.getElementById("card-room").classList.add("card-room");
+    $("#card-room").attr(
+        "onclick",
+        "window.location.href = url + '/r/' + $('#card-nick-t').text()"
+    );
+}
