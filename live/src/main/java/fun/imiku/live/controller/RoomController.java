@@ -46,4 +46,18 @@ public class RoomController {
             return "{\"result\":false,\"message\":\"Bad Request\"}";
         }
     }
+
+    @PostMapping("/api/updateRoom")
+    public String updateRoom(HttpSession session, @RequestBody Map<String, Object> param) {
+        if (session.getAttribute("uid") == null || (int) session.getAttribute("uid") != (int) param.get("uid"))
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        HashMap<String, Object> ret = new HashMap<>();
+        try {
+            roomService.updateRoom(session, param, ret);
+            return objectMapper.writeValueAsString(ret);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        }
+    }
 }

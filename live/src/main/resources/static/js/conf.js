@@ -1,11 +1,7 @@
-$(function () {
-    $("[data-toggle='popover']").popover({ trigger: "hover" });
-    $("[data-toggle='click']").popover({ trigger: "focus" });
-});
 var info_post_able = false;
 var act_upc = 0;
 var cropper;
-function ava_upload() {
+function cov_upload() {
     if (act_upc == 4) cropper.destroy();
     act_upc = 4;
     var bufava = document.getElementById("ava-open").files[0];
@@ -15,7 +11,7 @@ function ava_upload() {
         var tar = document.getElementById("crop-tar");
         tar.src = e.target.result;
         cropper = new Cropper(tar, {
-            aspectRatio: 1,
+            aspectRatio: 1.78,
             cropBoxResizable: true,
             cropBoxMovable: true,
             viewMode: 1,
@@ -23,33 +19,32 @@ function ava_upload() {
             scalable: false,
             minCropBoxWidth: 40,
         });
-
         $("#upc-a").fadeIn("0.3s");
     };
     reader.readAsDataURL(bufava);
 }
-function ava_post() {
+function cov_post() {
     cropper.getCroppedCanvas().toBlob((blob) => {
         var formData = new FormData();
         formData.append("file", blob);
         $.ajax({
             method: "POST",
-            url: url + "/api/setAvatar",
+            url: url + "/api/setCover",
             data: formData,
             processData: false,
             contentType: false,
             success: function (result) {
                 result = JSON.parse(result);
                 if (result.result === true)
-                    window.location.href = url + "/u/" + lgs_r.nickname;
+                    window.location.href = url + "/c/" + lgs_r.nickname;
             },
         });
     });
 }
-function nick_upload() {
+function name_upload() {
     $(".upc").css("display", "none");
     act_upc = 1;
-    $("#upc-nick").attr("placeholder", lgs_r.nickname);
+    $("#upc-nick").attr("placeholder", $("#d-name").text());
     $("#upc-n").fadeIn("0.3s");
 }
 function gend_upload() {
@@ -61,30 +56,19 @@ function gend_upload() {
     if (dg === "3") upc_gd(3);
     $("#upc-g").fadeIn("0.3s");
 }
-function intr_upload() {
-    $(".upc").css("display", "none");
-    act_upc = 3;
-    $("#upc-i").fadeIn("0.3s");
-    info_post_able = true;
-}
-function info_post() {
+function room_post() {
     if (!info_post_able || act_upc <= 0) return;
-    if (act_upc === 1)
-        lgs_r.nickname = document.getElementById("upc-nick").value;
-    if (act_upc === 3) {
-        if (document.getElementById("upc-intro").value.length == 0)
-            lgs_r.intro = null;
-        else lgs_r.intro = document.getElementById("upc-intro").value;
-    }
+    var intro = null;
+    if (document.getElementById("upc-intro").value.length != 0)
+        intro = document.getElementById("upc-intro").value;
     $.ajax({
         method: "POST",
-        url: url + "/api/updateInfo",
+        url: url + "/api/updateRoom",
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify({
             uid: lgs_r.uid,
-            nickname: lgs_r.nickname,
-            intro: lgs_r.intro,
-            gender: lgs_r.gender,
+            name: document.getElementById("upc-nick").value,
+            intro: intro,
         }),
         success: function (result) {
             result = JSON.parse(result);
@@ -93,7 +77,7 @@ function info_post() {
                 act_upc = 0;
                 return;
             }
-            window.location.href = url + "/u/" + lgs_r.nickname;
+            window.location.href = url + "/c/" + lgs_r.nickname;
         },
     });
 }
@@ -106,7 +90,7 @@ function hide_upc() {
 function upc_Ncheck() {
     var nk = document.getElementById("upc-nick").value.toString();
     if (nk.length < 4 || nk.length > 15) {
-        upc_errM(false, "昵称长度应为 4 到 15 位");
+        upc_errM(false, "名称长度应为 4 到 15 位");
         if (nk.length === 0)
             $("#upc-nick").css(
                 "border-color",
@@ -115,7 +99,7 @@ function upc_Ncheck() {
         return;
     }
     if (nk.includes("/") || nk.includes("?") || nk.includes("\\")) {
-        upc_errM(false, "昵称包含非法字符");
+        upc_errM(false, "名称包含非法字符");
         if (nk.length === 0)
             $("#upc-nick").css(
                 "border-color",
@@ -136,48 +120,16 @@ function upc_errM(r, m) {
     $("#upc-nick").css("border-color", "#f07d58 #f07d58 #ff0000 #f07d58");
     document.getElementById("upc-err-nic").textContent = m;
 }
-function upc_gd(i) {
-    info_post_able = true;
-    if (i == 1) {
-        document.getElementById("upc-btn-1").classList.add("upc-btn-acvtive");
-        document
-            .getElementById("upc-btn-2")
-            .classList.remove("upc-btn-acvtive");
-        document
-            .getElementById("upc-btn-3")
-            .classList.remove("upc-btn-acvtive");
-        lgs_r.gender = "1";
-        document.getElementById("upc-btn-t").textContent = "男性";
-    } else if (i == 2) {
-        document.getElementById("upc-btn-2").classList.add("upc-btn-acvtive");
-        document
-            .getElementById("upc-btn-1")
-            .classList.remove("upc-btn-acvtive");
-        document
-            .getElementById("upc-btn-3")
-            .classList.remove("upc-btn-acvtive");
-        lgs_r.gender = "2";
-        document.getElementById("upc-btn-t").textContent = "女性";
-    } else if (i == 3) {
-        document.getElementById("upc-btn-3").classList.add("upc-btn-acvtive");
-        document
-            .getElementById("upc-btn-2")
-            .classList.remove("upc-btn-acvtive");
-        document
-            .getElementById("upc-btn-1")
-            .classList.remove("upc-btn-acvtive");
-        lgs_r.gender = "3";
-        document.getElementById("upc-btn-t").textContent = "机性";
-    } else info_post_able = false;
-}
-function toOpen(e) {
-    if ($("#d-room").text() === "0") {
-        $("#card-room").text("开通直播间");
-        $("#card-conf").css("display", "none");
-    }
-    document.getElementById("card-room").classList.add("card-btn");
-    $("#card-room").attr(
-        "onclick",
-        "window.location.href = url + '/r/' + $('#d-nickname').text()"
+function cog(e) {
+    $("#card-cover").attr(
+        "src",
+        geneCover(
+            $("#d-cover").text(),
+            $("#d-room").text(),
+            $("#d-name").text()
+        )
     );
+    $("#card-mail-i").attr("value", url + "/r/" + $("#d-nickname").text());
+    if ($("#d-open").text() === "0") {
+    }
 }

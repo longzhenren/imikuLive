@@ -18,11 +18,13 @@ $(function () {
         ];
         $("#openst").css(
             "background-image",
-            geneCover(
-                $("#d-cover").text(),
-                $("#d-room").text(),
-                $("#d-name").text()
-            )
+            "url(" +
+                geneCover(
+                    $("#d-cover").text(),
+                    $("#d-room").text(),
+                    $("#d-name").text()
+                ) +
+                ")"
         );
         $("#openstxt").text(arr[Math.floor(Math.random() * arr.length)]);
     } else {

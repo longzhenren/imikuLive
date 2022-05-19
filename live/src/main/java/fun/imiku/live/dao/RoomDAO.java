@@ -15,4 +15,6 @@ import java.util.List;
 
 public interface RoomDAO extends JpaRepository<Room, Integer> {
     List<Room> findById(int id);
+
+    List<Room> findByName(String name);
 }

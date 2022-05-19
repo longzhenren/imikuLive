@@ -86,12 +86,12 @@ public class PageController {
     }
 
     @RequestMapping("/c/**")
-    public String configRoom(HttpServletRequest request, Model model, HttpSession session) {
-        String nick = request.getRequestURI().substring(3);
+    public String configRoom(HttpServletRequest request, Model model, HttpSession session) throws UnsupportedEncodingException {
+        String nick = URLDecoder.decode(request.getRequestURI().substring(3), "utf-8");
         if (!nick.equals(session.getAttribute("nickname")))
             return "redirect:/error/404";
         if (roomService.pageByNickname(nick, model))
-            return "room";
+            return "conf";
         return "redirect:/error/404";
     }
 }

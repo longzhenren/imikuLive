@@ -1,0 +1,21 @@
+#card-cover {
+    border-radius: 10%;
+    height: 186px;
+}
+#ava-btn {
+    left: 350px;
+    top: 186px;
+}
+#card-mail {
+    max-width: 330px;
+}
+@media screen and (max-width: 768px) {
+    #card-cover {
+        width: 50vw;
+        height: 28.125vw;
+    }
+    #ava-btn {
+        top: 28vw;
+        left: 68vw;
+    }
+}

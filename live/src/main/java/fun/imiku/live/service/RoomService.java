@@ -26,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RoomService {
@@ -101,5 +102,36 @@ public class RoomService {
         fileOutputStream.close();
         tar.setCover(filename);
         roomDAO.save(tar);
+    }
+
+    public boolean checkName(String nick, HashMap<String, Object> ret) {
+        if (nick.length() < 4 || nick.length() > 15) {
+            ret.put("result", false);
+            ret.put("message", "名称长度应为 4 到 15 位");
+            return false;
+        }
+        if (nick.contains("/") || nick.contains("\\") || nick.contains("?")) {
+            ret.put("result", false);
+            ret.put("message", "名称包含非法字符");
+            return false;
+        }
+        List<Room> res = roomDAO.findByName(nick);
+        if (res.size() != 0) {
+            ret.put("result", false);
+            ret.put("message", "该名称已被使用，请更换名称");
+            return false;
+        }
+        ret.put("result", true);
+        return true;
+    }
+
+    public void updateRoom(HttpSession session, Map<String, Object> param, HashMap<String, Object> ret) {
+        Room tar = roomDAO.findById((int) session.getAttribute("uid")).get(0);
+        if (!checkName((String) param.get("name"), ret)) return;
+        tar.setName((String) param.get("name"));
+        if (param.containsKey("intro"))
+            tar.setIntro((String) param.get("intro"));
+        roomDAO.saveAndFlush(tar);
+        ret.put("result", true);
     }
 }

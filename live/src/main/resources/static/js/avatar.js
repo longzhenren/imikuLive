@@ -29,10 +29,10 @@ function geneCover(r, i, n) {
             ),
             options
         ).toString();
-        avatar = "url(" + "data:image/svg+xml;base64," + data + ")";
+        avatar = "data:image/svg+xml;base64," + data;
         return avatar;
     }
-    avatar = "url(" + url + "/files/covers/" + r + ")";
+    avatar = url + "/files/covers/" + r;
     return avatar;
 }
 
