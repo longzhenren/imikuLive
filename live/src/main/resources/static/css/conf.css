@@ -79,6 +79,20 @@
     height: 50px;
     width: 50px;
 }
+.i-data {
+    height: 30px;
+}
+.i-data-i {
+    background-color: #303030 !important;
+    color: aliceblue !important;
+}
+.i-data-b {
+    background-color: #1e1e1e !important;
+    color: aliceblue !important;
+}
+span .i-data-b {
+    color: antiquewhite !important;
+}
 @media screen and (max-width: 768px) {
     #card-cover {
         width: 50vw;
@@ -87,5 +101,21 @@
     #ava-btn {
         top: 28vw;
         left: 68vw;
+    }
+    .input-group,
+    .rtmpd {
+        margin-left: calc(50% - 165px);
+    }
+    #rtmp-mp {
+        margin-top: 80px;
+    }
+    #room-sw {
+        display: block;
+        position: absolute;
+        top: calc(30vw + 40px);
+        left: calc(50% - 60px);
+    }
+    #card-rtmp {
+        margin-top: 65px;
     }
 }

@@ -1,5 +1,6 @@
 var info_post_able = false;
-var act_upc = 0;
+var act_upc = 0,
+    shutx = 0;
 var cropper;
 function cov_upload() {
     if (act_upc == 4) cropper.destroy();
@@ -133,6 +134,7 @@ function cog(e) {
     );
     $("#card-mail-i").attr("value", url + "/r/" + $("#d-nickname").text());
     cog_view();
+    setTimeout(shut, 180000);
 }
 function room_sw() {
     if ($("#d-open").text() === "1") {
@@ -158,27 +160,8 @@ function room_sw() {
         );
         $("#d-open").text("0");
     } else {
-        $("#room-sw-i").animate(
-            {
-                left: "+=120px",
-                borderColor: "#3ba8ab",
-                backgroundColor: "aliceblue",
-                color: "#1e1e1e",
-            },
-            "0.3s"
-        );
-        $("#room-sw-i").text("ON");
-        $("#room-sw-i").animate({ color: "#f07d58" });
-        $("#room-sw-t").animate({ left: "-=16px", color: "aliceblue" }, "0.3s");
-        $("#room-sw-t").text("房间开启");
-        $("#room-sw").animate(
-            {
-                borderColor: "aliceblue",
-                backgroundColor: "#3ba8ab",
-            },
-            "0.3s"
-        );
         $("#d-open").text("1");
+        shutx = 0;
     }
     cog_view();
 }
@@ -189,6 +172,28 @@ function cog_view() {
         $("#card-nick-t").attr("data-content", "关闭房间后才能修改哦");
         $("#card-intro").attr("data-content", "关闭房间后才能修改哦");
         $("#card-intro").attr("data-content", "关闭房间后才能修改哦");
+        $("#room-sw-i").animate(
+            {
+                left: "+=120px",
+                borderColor: "#3ba8ab",
+                backgroundColor: "aliceblue",
+                color: "#1e1e1e",
+            },
+            "0s"
+        );
+        $("#room-sw-i").text("ON");
+        $("#room-sw-i").animate({ color: "#f07d58" });
+        $("#room-sw-t").animate({ left: "-=16px", color: "aliceblue" }, "0s");
+        $("#room-sw-t").text("房间开启");
+        $("#room-sw").animate(
+            {
+                borderColor: "aliceblue",
+                backgroundColor: "#3ba8ab",
+            },
+            "0s"
+        );
+        $("#d-open").text("1");
+        $(".shutxb").attr("data-content", "已复制");
     } else {
         $(".rtmpd").css("display", "none");
         $("#rtmp-mp").show();
@@ -196,4 +201,9 @@ function cog_view() {
         $("#card-intro").attr("data-content", "关闭房间后才能修改哦");
         $("#card-intro").attr("data-content", "修改简介");
     }
+}
+function shut() {
+    shutx = 1;
+    $(".shutxb").attr("value", "已过期，请刷新页面");
+    $(".shutxb").attr("data-content", "信息已过期，请刷新页面");
 }

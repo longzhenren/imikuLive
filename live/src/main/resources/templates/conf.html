@@ -260,11 +260,11 @@
                     </svg>
                 </div>
                 <div id="card-rtmp" class="rtmpd input-group">
-                    <span class="input-group-addon">地址</span>
+                    <span class="input-group-addon i-data i-data-b">地址</span>
                     <input
                         type="text"
                         id="card-rtmp-i"
-                        class="form-control"
+                        class="form-control shutxb i-data i-data-i"
                         readonly="true"
                     />
                     <span class="input-group-btn">
@@ -273,20 +273,20 @@
                             data-toggle="click"
                             data-placement="right"
                             data-content="已复制"
-                            class="btn btn-default"
+                            class="btn btn-default shutxb i-data i-data-b"
                             type="button"
-                            onclick="navigator.clipboard.writeText()"
+                            onclick="if(shutx==1)return;navigator.clipboard.writeText($('#card-rtmp-i').val())"
                         >
                             复制
                         </button>
                     </span>
                 </div>
                 <div id="card-rtmpkey" class="rtmpd input-group">
-                    <span class="input-group-addon">密钥</span>
+                    <span class="input-group-addon i-data i-data-b">密钥</span>
                     <input
                         type="text"
                         id="card-rtmpkey-i"
-                        class="form-control"
+                        class="form-control shutxb i-data i-data-i"
                         readonly="true"
                     />
                     <span class="input-group-btn">
@@ -295,9 +295,10 @@
                             data-toggle="click"
                             data-placement="right"
                             data-content="已复制"
-                            class="btn btn-default"
+                            class="btn btn-default shutxb i-data i-data-b"
                             type="button"
-                            onclick="navigator.clipboard.writeText()"
+                            value="sadfasdfasf"
+                            onclick="if(shutx==1)return;navigator.clipboard.writeText($('#card-rtmpkey-i').val())"
                         >
                             复制
                         </button>
@@ -312,6 +313,7 @@
                 <div class="card-hr" id="card-hr-m"></div>
                 <div
                     id="card-nick"
+                    class="edit-p-m"
                     onmouseover="ss2=true;"
                     onmouseout="ss2=false;"
                 >
@@ -337,14 +339,14 @@
                         🤖
                     </div>
                 </div>
-                <div id="card-uid" th:text="'RID: ' + ${rid}">
+                <div class="edit-p-m" id="card-uid" th:text="'RID: ' + ${rid}">
                     RID: 10000000
                 </div>
-                <div id="card-mail" class="input-group">
+                <div id="card-mail" class="input-group edit-p-m">
                     <input
                         type="text"
                         id="card-mail-i"
-                        class="form-control"
+                        class="form-control i-data i-data-i"
                         readonly="true"
                     />
                     <span class="input-group-btn">
@@ -353,7 +355,7 @@
                             data-toggle="click"
                             data-placement="bottom"
                             data-content="已复制"
-                            class="btn btn-default"
+                            class="btn btn-default i-data i-data-b"
                             type="button"
                             onclick="navigator.clipboard.writeText('【imikuLive】' + $('#d-name').text() + '\n' + url + '/r/' + $('#d-nickname').text() + '\n欢迎来我的 imikuLive 直播间围观~')"
                         >
@@ -361,8 +363,9 @@
                         </button>
                     </span>
                 </div>
-                <div class="card-hr"></div>
+                <div class="card-hr edit-p-m"></div>
                 <div
+                    class="edit-p-m"
                     id="card-intro"
                     data-container="#bg"
                     data-toggle="popover"
@@ -374,10 +377,14 @@
                         威严满满的超管
                     </t>
                 </div>
-                <div id="card-room" class="card-room card-btn" onclick="toUR()">
+                <div
+                    id="card-room"
+                    class="card-room card-btn edit-p-m"
+                    onclick="toUR()"
+                >
                     去直播间
                 </div>
-                <div id="room-sw" onclick="room_sw()">
+                <div class="edit-p-m" id="room-sw" onclick="room_sw()">
                     <div id="room-sw-t">房间关闭</div>
                     <div id="room-sw-i">OFF</div>
                 </div>
@@ -391,7 +398,7 @@
         <data id="d-name" th:text="${name}">SuperRoom</data>
         <data id="d-cover" th:text="${cover}">auto</data>
         <data id="d-intro" th:text="${intro}">什么都不会有的房间</data>
-        <data id="d-open" th:text="${open}">0</data>
+        <data id="d-open" th:text="${open}">1</data>
         <data id="d-gender" th:text="${gend}">2</data>
         <div class="upc" id="upc-n">
             <img

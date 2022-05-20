@@ -1,9 +1,12 @@
 $(function () {
     $("[data-toggle='popover']").popover({ trigger: "hover" });
     $("[data-toggle='click']").popover({ trigger: "focus" });
+    window.onresize = edit_e;
+    if (window.innerWidth >= 768 && $("d-room").text() != "0") edit_m(true);
 });
 var info_post_able = false;
-var act_upc = 0;
+var act_upc = 0,
+    mvd = 0;
 var cropper;
 function ava_upload() {
     if (act_upc == 4) cropper.destroy();
@@ -181,4 +184,23 @@ function toOpen(e) {
         "onclick",
         "window.location.href = url + '/r/' + $('#d-nickname').text()"
     );
+}
+function edit_e() {
+    if (window.innerWidth >= 768 && $("d-room").text() != "0" && mvd == 0)
+        edit_m(true);
+    if (window.innerWidth < 768 && $("d-room").text() != "0" && mvd == 1)
+        edit_m(false);
+}
+function edit_m(e) {
+    if (e) {
+        $(".edit-p-m").each(function (index, domEle) {
+            $(domEle).css("transform", "translateY(-20px)");
+        });
+        mvd = 1;
+    } else {
+        $(".edit-p-m").each(function (index, domEle) {
+            $(domEle).css("transform", "unset");
+        });
+        mvd = 0;
+    }
 }

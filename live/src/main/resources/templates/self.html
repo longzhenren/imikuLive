@@ -254,6 +254,7 @@
                 </div>
                 <div class="card-hr" id="card-hr-m"></div>
                 <div
+                    class="edit-p-m"
                     id="card-nick"
                     onmouseover="ss2=true;"
                     onmouseout="ss2=false;"
@@ -280,10 +281,15 @@
                         🤖
                     </div>
                 </div>
-                <div id="card-uid" th:text="'UID: ' + ${uid}">UID: 100000</div>
-                <div id="card-mail" th:text="${email}">live@imiku.fun</div>
-                <div class="card-hr"></div>
+                <div class="edit-p-m" id="card-uid" th:text="'UID: ' + ${uid}">
+                    UID: 100000
+                </div>
+                <div class="edit-p-m" id="card-mail" th:text="${email}">
+                    live@imiku.fun
+                </div>
+                <div class="card-hr edit-p-m"></div>
                 <div
+                    class="edit-p-m"
                     id="card-intro"
                     data-container="#bg"
                     data-toggle="popover"
@@ -295,10 +301,18 @@
                         威严满满的超管
                     </t>
                 </div>
-                <div id="card-room" class="card-room card-btn" onclick="toUR()">
+                <div
+                    id="card-room"
+                    class="card-room card-btn edit-p-m"
+                    onclick="toUR()"
+                >
                     去直播间
                 </div>
-                <div id="card-conf" class="card-room card-btn" onclick="toCC()">
+                <div
+                    id="card-conf"
+                    class="card-room card-btn edit-p-m"
+                    onclick="toCC()"
+                >
                     直播间设置
                 </div>
                 <div id="card-room-m"></div>
