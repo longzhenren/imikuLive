@@ -19,9 +19,4 @@ public class NMS {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
-    @Bean
-    public HashSet<Integer> roomsOpen() {
-        return new HashSet<>();
-    }
 }

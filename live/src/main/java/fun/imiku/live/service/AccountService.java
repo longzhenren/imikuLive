@@ -164,10 +164,10 @@ public class AccountService {
                 "<div class=\"mail-desc\" style=\"padding:15px 0\">请点击以下链接进行认证</div><div class=\"mail-" +
                 "confirm\" style=\"padding:15px 0\"><div class=\"mail-confirm-button\" style=\"background-color" +
                 ":#3ba8ab;display:inline-block;padding:12px;color:#fff;border-radius:4px;cursor:pointer;width:36%" +
-                ";letter-spacing:8px\"><a href=\"LLLLlink\" target=\"_blank\" style=\"text-decoration:none;" +
+                ";letter-spacing:8px\"><a href=\"@LINK\" target=\"_blank\" style=\"text-decoration:none;" +
                 "color:inherit\">认证邮箱</a></div></div><div class=\"mail-tip\" style=\"color:#aaa;padding:15px" +
                 " 0\">*如果这不是您本人执行的操作，请忽略此邮件</div></div></div></table></td></tr></table></body>";
-        text = text.replace("LLLLlink",
+        text = text.replace("@LINK",
                 url + "/confirm?e=" + email + "&i=" + innerCode);
         helper.setText(text, true);
         mailSender.send(message);

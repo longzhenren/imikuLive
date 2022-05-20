@@ -40,6 +40,10 @@ spring:
           starttls:
             enabled: false
             required: false
+  servlet:
+    multipart: # 上传文件的最大大小，涉及头像和房间封面
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 socketio:
   host: localhost

@@ -29,7 +29,7 @@ public class RoomController {
     public String openRoom(@RequestBody Map<String, Object> param, HttpSession session) {
         HashMap<String, Object> ret = new HashMap<>();
         try {
-            roomService.openRoom((int) param.get("uid"), (int) session.getAttribute("uid"), ret);
+            roomService.openRoom((int) param.get("uid"), session, ret);
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             return "{\"result\":false,\"message\":\"Bad Request\"}";
@@ -42,7 +42,6 @@ public class RoomController {
             roomService.setCover(session, file);
             return "{\"result\":true}";
         } catch (Exception e) {
-            e.printStackTrace();
             return "{\"result\":false,\"message\":\"Bad Request\"}";
         }
     }
@@ -56,7 +55,45 @@ public class RoomController {
             roomService.updateRoom(session, param, ret);
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
-            e.printStackTrace();
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        }
+    }
+
+    @PostMapping("/api/roomOn")
+    public String roomOn(HttpSession session) {
+        HashMap<String, Object> ret = new HashMap<>();
+        if (session.getAttribute("uid") == null)
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        try {
+            roomService.roomOn((int) session.getAttribute("room"), ret);
+            return objectMapper.writeValueAsString(ret);
+        } catch (Exception e) {
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        }
+    }
+
+    @PostMapping("/api/roomOff")
+    public String roomOff(HttpSession session) {
+        HashMap<String, Object> ret = new HashMap<>();
+        if (session.getAttribute("uid") == null)
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        try {
+            roomService.roomOff((int) session.getAttribute("room"), ret);
+            return objectMapper.writeValueAsString(ret);
+        } catch (Exception e) {
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        }
+    }
+
+    @GetMapping("/api/getRtmpInfo")
+    public String getRtmpInfo(HttpSession session) {
+        HashMap<String, Object> ret = new HashMap<>();
+        if (session.getAttribute("uid") == null)
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        try {
+            roomService.getRtmpInfo((int) session.getAttribute("room"), ret);
+            return objectMapper.writeValueAsString(ret);
+        } catch (Exception e) {
             return "{\"result\":false,\"message\":\"Bad Request\"}";
         }
     }

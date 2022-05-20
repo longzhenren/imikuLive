@@ -138,7 +138,7 @@
     display: inline;
     position: absolute;
     width: 400px;
-    height: 320px;
+    height: 410px;
     bottom: 34px;
     right: 40px;
 }
@@ -299,10 +299,10 @@
     }
     #openstimg {
         width: 200px;
-        height: 160px;
+        height: 205px;
         bottom: unset;
         right: 0;
-        top: calc(56.25vw - 134px);
+        top: calc(56.25vw - 180px);
     }
     #abg {
         overflow: hidden;

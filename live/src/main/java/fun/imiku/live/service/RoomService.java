@@ -7,6 +7,7 @@
  */
 package fun.imiku.live.service;
 
+import fun.imiku.live.component.PullRouter;
 import fun.imiku.live.dao.RoomDAO;
 import fun.imiku.live.dao.UserDAO;
 import fun.imiku.live.entity.Room;
@@ -32,12 +33,16 @@ import java.util.Map;
 public class RoomService {
     @Value("${site.files}")
     String localFile;
+    @Value("${nms.rtmp}")
+    String rtmpUrl;
+    @Value("${nms.secret}")
+    String rtmpSecret;
     @Autowired
     RoomDAO roomDAO;
     @Autowired
     UserDAO userDAO;
     @Autowired
-    HashSet<Integer> roomsOpen;
+    PullRouter pullRouter;
 
     public boolean pageByNickname(String nick, Model model) {
         List<User> res = userDAO.findByNickname(nick);
@@ -55,20 +60,20 @@ public class RoomService {
         model.addAttribute("rid", usr.getRoom());
         model.addAttribute("name", tar.getName());
         model.addAttribute("cover", tar.getCover());
-        model.addAttribute("open", roomsOpen.contains(usr.getRoom()) ? 1 : 0);
+        model.addAttribute("open", pullRouter.checkRoomOpen(usr.getRoom()) ? 1 : 0);
         if (tar.getIntro() != null)
             model.addAttribute("intro", tar.getIntro());
         return true;
     }
 
-    public void openRoom(int uid, int sid, HashMap<String, Object> ret) {
-        if (uid != sid) {
+    public void openRoom(int uid, HttpSession session, HashMap<String, Object> ret) {
+        if (uid != (int) session.getAttribute("uid")) {
             ret.put("result", false);
             ret.put("message", "请勿冒充其他用户");
             return;
         }
-        List<User> res =  userDAO.findById(uid);
-        if(res.size() == 0 || res.get(0).getRoom() != 0) {
+        List<User> res = userDAO.findById(uid);
+        if (res.size() == 0 || res.get(0).getRoom() != 0) {
             ret.put("result", false);
             ret.put("message", "Bad Request");
             return;
@@ -85,6 +90,7 @@ public class RoomService {
         roomDAO.saveAndFlush(tar);
         rst.setRoom(tar.getId());
         userDAO.saveAndFlush(rst);
+        session.setAttribute("room", tar.getId());
         ret.put("result", true);
     }
 
@@ -126,12 +132,61 @@ public class RoomService {
     }
 
     public void updateRoom(HttpSession session, Map<String, Object> param, HashMap<String, Object> ret) {
-        Room tar = roomDAO.findById((int) session.getAttribute("uid")).get(0);
+        Room tar = roomDAO.findById((int) session.getAttribute("room")).get(0);
         if (!checkName((String) param.get("name"), ret)) return;
         tar.setName((String) param.get("name"));
         if (param.containsKey("intro"))
             tar.setIntro((String) param.get("intro"));
         roomDAO.saveAndFlush(tar);
         ret.put("result", true);
+    }
+
+    public void roomOn(int rid, HashMap<String, Object> ret) {
+        if (rid == 0 || pullRouter.checkRoomOpen(rid)) {
+            ret.put("result", false);
+            ret.put("message", "Bad Request");
+            return;
+        }
+        Room tar = roomDAO.findById(rid).get(0);
+        if (tar.getPri() == 0)
+            if (!pullRouter.addRoomRoute(rid, tar.getApp())) {
+                ret.put("result", false);
+                ret.put("message", "Internal Server Error");
+                return;
+            }
+        // 使用 unix 时间戳指定有效时间，此处为当前时间 + 2 天，限定了一次直播最长持续 2 天
+        String time = Long.toString(System.currentTimeMillis() / 1000L + 3600 * 24 * 2);
+        String rStr = "/" + tar.getApp() + "/" + rid + "-" + time + "-" + rtmpSecret;
+        tar.setSign(time + "-" + DigestUtils.md5DigestAsHex(rStr.getBytes(StandardCharsets.UTF_8)));
+        ret.put("result", true);
+        ret.put("addr", rtmpUrl + "/" + tar.getApp());
+        ret.put("key", rid + "?sign=" + tar.getSign());
+        roomDAO.saveAndFlush(tar);
+    }
+
+    public void roomOff(int rid, HashMap<String, Object> ret) {
+        if (rid == 0 || !pullRouter.checkRoomOpen(rid)) {
+            ret.put("result", false);
+            ret.put("message", "Bad Request");
+            return;
+        }
+        if (!pullRouter.delRoomRoute(rid)) {
+            ret.put("result", false);
+            ret.put("message", "Internal Server Error");
+            return;
+        }
+        ret.put("result", true);
+    }
+
+    public void getRtmpInfo(int rid, HashMap<String, Object> ret) {
+        if (!pullRouter.checkRoomOpen(rid)) {
+            ret.put("result", false);
+            ret.put("message", "Bad Request");
+            return;
+        }
+        Room tar = roomDAO.findById(rid).get(0);
+        ret.put("result", true);
+        ret.put("addr", rtmpUrl + "/" + tar.getApp());
+        ret.put("key", rid + "?sign=" + tar.getSign());
     }
 }
