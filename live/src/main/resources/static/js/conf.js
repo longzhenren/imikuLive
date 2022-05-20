@@ -42,12 +42,14 @@ function cov_post() {
     });
 }
 function name_upload() {
+    if ($("#d-open").text() === "1") return;
     $(".upc").css("display", "none");
     act_upc = 1;
     $("#upc-nick").attr("placeholder", $("#d-name").text());
     $("#upc-n").fadeIn("0.3s");
 }
 function gend_upload() {
+    if ($("#d-open").text() === "1") return;
     $(".upc").css("display", "none");
     act_upc = 2;
     var dg = document.getElementById("d-gender").textContent;
@@ -130,6 +132,68 @@ function cog(e) {
         )
     );
     $("#card-mail-i").attr("value", url + "/r/" + $("#d-nickname").text());
-    if ($("#d-open").text() === "0") {
+    cog_view();
+}
+function room_sw() {
+    if ($("#d-open").text() === "1") {
+        $("#room-sw-i").animate(
+            {
+                left: "-=120px",
+                borderColor: "#f07d58",
+                backgroundColor: "#1e1e1e",
+                color: "aliceblue",
+            },
+            "0.3s"
+        );
+        $("#room-sw-i").text("OFF");
+        $("#room-sw-i").animate({ color: "aliceblue" });
+        $("#room-sw-t").animate({ left: "+=16px", color: "#1e1e1e" }, "0.3s");
+        $("#room-sw-t").text("房间关闭");
+        $("#room-sw").animate(
+            {
+                borderColor: "#1e1e1e",
+                backgroundColor: "#f07d58",
+            },
+            "0.3s"
+        );
+        $("#d-open").text("0");
+    } else {
+        $("#room-sw-i").animate(
+            {
+                left: "+=120px",
+                borderColor: "#3ba8ab",
+                backgroundColor: "aliceblue",
+                color: "#1e1e1e",
+            },
+            "0.3s"
+        );
+        $("#room-sw-i").text("ON");
+        $("#room-sw-i").animate({ color: "#f07d58" });
+        $("#room-sw-t").animate({ left: "-=16px", color: "aliceblue" }, "0.3s");
+        $("#room-sw-t").text("房间开启");
+        $("#room-sw").animate(
+            {
+                borderColor: "aliceblue",
+                backgroundColor: "#3ba8ab",
+            },
+            "0.3s"
+        );
+        $("#d-open").text("1");
+    }
+    cog_view();
+}
+function cog_view() {
+    if ($("#d-open").text() === "1") {
+        $(".rtmpd").css("display", "table");
+        $("#rtmp-mp").hide();
+        $("#card-nick-t").attr("data-content", "关闭房间后才能修改哦");
+        $("#card-intro").attr("data-content", "关闭房间后才能修改哦");
+        $("#card-intro").attr("data-content", "关闭房间后才能修改哦");
+    } else {
+        $(".rtmpd").css("display", "none");
+        $("#rtmp-mp").show();
+        $("#card-nick-t").attr("data-content", "修改名称");
+        $("#card-intro").attr("data-content", "关闭房间后才能修改哦");
+        $("#card-intro").attr("data-content", "修改简介");
     }
 }

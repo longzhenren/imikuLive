@@ -7,7 +7,77 @@
     top: 186px;
 }
 #card-mail {
+    display: table;
+    white-space: nowrap;
     max-width: 330px;
+}
+.rtmpd {
+    display: none;
+    margin-top: 10px;
+    max-width: 330px;
+}
+#rtmp-mp,
+#card-rtmp {
+    margin-top: 25px;
+}
+.rtmpm {
+    margin-top: 5px;
+    color: antiquewhite;
+    font-size: 14px;
+}
+#room-sw {
+    position: absolute;
+    left: 460px;
+    top: 347px;
+    height: 21px;
+    width: 120px;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #1e1e1e;
+    background-color: #f07d58;
+    overflow: visible;
+    border-radius: 20%;
+}
+#room-sw:hover {
+    cursor: pointer;
+}
+#room-sw-t {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: #1e1e1e;
+    font-weight: bolder;
+    font-size: 10px;
+    position: absolute;
+    left: 38px;
+}
+#room-sw-i {
+    font-weight: bolder;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -15px;
+    left: -22px;
+    color: aliceblue;
+    background-color: #1e1e1e;
+    height: 44px;
+    width: 44px;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #f07d58;
+    border-radius: 50%;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    -ms-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+#room-sw-i:hover {
+    left: -25px;
+    top: -18px;
+    height: 50px;
+    width: 50px;
 }
 @media screen and (max-width: 768px) {
     #card-cover {

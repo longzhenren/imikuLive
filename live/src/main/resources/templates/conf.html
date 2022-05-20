@@ -14,6 +14,7 @@
         <script src="../static/js/url.js" th:src="@{/js/url.js}"></script>
         <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/identicon.js/2.3.3/identicon.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
         <script src="https://cdn.staticfile.org/cropperjs/1.5.12/cropper.min.js"></script>
@@ -258,6 +259,56 @@
                         />
                     </svg>
                 </div>
+                <div id="card-rtmp" class="rtmpd input-group">
+                    <span class="input-group-addon">地址</span>
+                    <input
+                        type="text"
+                        id="card-rtmp-i"
+                        class="form-control"
+                        readonly="true"
+                    />
+                    <span class="input-group-btn">
+                        <button
+                            data-container="#bg"
+                            data-toggle="click"
+                            data-placement="right"
+                            data-content="已复制"
+                            class="btn btn-default"
+                            type="button"
+                            onclick="navigator.clipboard.writeText()"
+                        >
+                            复制
+                        </button>
+                    </span>
+                </div>
+                <div id="card-rtmpkey" class="rtmpd input-group">
+                    <span class="input-group-addon">密钥</span>
+                    <input
+                        type="text"
+                        id="card-rtmpkey-i"
+                        class="form-control"
+                        readonly="true"
+                    />
+                    <span class="input-group-btn">
+                        <button
+                            data-container="#bg"
+                            data-toggle="click"
+                            data-placement="right"
+                            data-content="已复制"
+                            class="btn btn-default"
+                            type="button"
+                            onclick="navigator.clipboard.writeText()"
+                        >
+                            复制
+                        </button>
+                    </span>
+                </div>
+                <div class="rtmpd rtmpm" id="rtmp-mes">
+                    请保密您的流地址和密钥，单次直播最长 48 小时
+                    <br />
+                    连续 3 分钟未推流，直播间将自动关闭
+                </div>
+                <div class="rtmpm" id="rtmp-mp">开启房间以查看流地址和密钥</div>
                 <div class="card-hr" id="card-hr-m"></div>
                 <div
                     id="card-nick"
@@ -325,6 +376,10 @@
                 </div>
                 <div id="card-room" class="card-room card-btn" onclick="toUR()">
                     去直播间
+                </div>
+                <div id="room-sw" onclick="room_sw()">
+                    <div id="room-sw-t">房间关闭</div>
+                    <div id="room-sw-i">OFF</div>
                 </div>
                 <div id="card-room-m"></div>
             </div>

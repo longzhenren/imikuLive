@@ -62,6 +62,7 @@ function gend_upload() {
     $("#upc-g").fadeIn("0.3s");
 }
 function intr_upload() {
+    if ($("#d-open").text() === "1") return;
     $(".upc").css("display", "none");
     act_upc = 3;
     $("#upc-i").fadeIn("0.3s");
