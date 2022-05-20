@@ -304,8 +304,10 @@ public class AccountService {
 
     public void updateInfo(HttpSession session, Map<String, Object> param, HashMap<String, Object> ret) {
         User tar = userDAO.findById((int) session.getAttribute("uid")).get(0);
-        if (!checkNick((String) param.get("nickname"), ret)) return;
-        tar.setNickname((String) param.get("nickname"));
+        if (!param.get("nickname").equals(session.getAttribute("nickname"))) {
+            if (!checkNick((String) param.get("nickname"), ret)) return;
+            tar.setNickname((String) param.get("nickname"));
+        }
         if (param.containsKey("intro"))
             tar.setIntro((String) param.get("intro"));
         tar.setGender(Integer.parseInt((String) param.get("gender")));

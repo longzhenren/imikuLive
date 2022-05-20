@@ -1,7 +1,5 @@
-var info_post_able = false;
-var act_upc = 0,
-    shutx = 0;
-var cropper;
+var shutx = 0;
+var cropper, nic_name;
 function cov_upload() {
     if (act_upc == 4) cropper.destroy();
     act_upc = 4;
@@ -46,7 +44,7 @@ function name_upload() {
     if ($("#d-open").text() === "1") return;
     $(".upc").css("display", "none");
     act_upc = 1;
-    $("#upc-nick").attr("placeholder", $("#d-name").text());
+    $("#upc-nick").attr("value", $("#d-name").text());
     $("#upc-n").fadeIn("0.3s");
 }
 function gend_upload() {
@@ -70,7 +68,7 @@ function room_post() {
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify({
             uid: lgs_r.uid,
-            name: document.getElementById("upc-nick").value,
+            name: npc_name,
             intro: intro,
         }),
         success: function (result) {
@@ -111,6 +109,7 @@ function upc_Ncheck() {
         return;
     }
     upc_errM(true, "");
+    npc_name = nk;
 }
 function upc_errM(r, m) {
     if (r === true) {
@@ -134,36 +133,63 @@ function cog(e) {
     );
     $("#card-mail-i").attr("value", url + "/r/" + $("#d-nickname").text());
     cog_view();
+    npc_name = $("#d-name").text();
     setTimeout(shut, 180000);
 }
 function room_sw() {
     if ($("#d-open").text() === "1") {
-        $("#room-sw-i").animate(
-            {
-                left: "-=120px",
-                borderColor: "#f07d58",
-                backgroundColor: "#1e1e1e",
-                color: "aliceblue",
+        $.ajax({
+            method: "POST",
+            url: url + "/api/roomOff",
+            success: function (result) {
+                result = JSON.parse(result);
+                if (result.result === false) {
+                    $("#card-mail-i").attr("value", result.message);
+                    return;
+                }
+                $("#room-sw-i").animate(
+                    {
+                        left: "-=120px",
+                        borderColor: "#f07d58",
+                        backgroundColor: "#1e1e1e",
+                        color: "aliceblue",
+                    },
+                    "0.3s"
+                );
+                $("#room-sw-i").text("OFF");
+                $("#room-sw-i").animate({ color: "aliceblue" });
+                $("#room-sw-t").animate(
+                    { left: "+=16px", color: "#1e1e1e" },
+                    "0.3s"
+                );
+                $("#room-sw-t").text("房间关闭");
+                $("#room-sw").animate(
+                    {
+                        borderColor: "#1e1e1e",
+                        backgroundColor: "#f07d58",
+                    },
+                    "0.3s"
+                );
+                $("#d-open").text("0");
+                cog_view();
             },
-            "0.3s"
-        );
-        $("#room-sw-i").text("OFF");
-        $("#room-sw-i").animate({ color: "aliceblue" });
-        $("#room-sw-t").animate({ left: "+=16px", color: "#1e1e1e" }, "0.3s");
-        $("#room-sw-t").text("房间关闭");
-        $("#room-sw").animate(
-            {
-                borderColor: "#1e1e1e",
-                backgroundColor: "#f07d58",
-            },
-            "0.3s"
-        );
-        $("#d-open").text("0");
+        });
     } else {
-        $("#d-open").text("1");
-        shutx = 0;
+        $.ajax({
+            method: "POST",
+            url: url + "/api/roomOn",
+            success: function (result) {
+                result = JSON.parse(result);
+                if (result.result === false) {
+                    $("#card-mail-i").attr("value", result.message);
+                    return;
+                }
+                $("#d-open").text("1");
+                shutx = 0;
+                cog_view();
+            },
+        });
     }
-    cog_view();
 }
 function cog_view() {
     if ($("#d-open").text() === "1") {
@@ -194,6 +220,20 @@ function cog_view() {
         );
         $("#d-open").text("1");
         $(".shutxb").attr("data-content", "已复制");
+        $.ajax({
+            method: "GET",
+            url: url + "/api/getRtmpInfo",
+            success: function (result) {
+                result = JSON.parse(result);
+                if (result.result === false) {
+                    $(".shutxb").attr("value", result.message);
+                    $(".shutxb").attr("data-content", result.message);
+                    return;
+                }
+                $("#card-rtmp-i").attr("value", result.addr);
+                $("#card-rtmpkey-i").attr("value", result.key);
+            },
+        });
     } else {
         $(".rtmpd").css("display", "none");
         $("#rtmp-mp").show();

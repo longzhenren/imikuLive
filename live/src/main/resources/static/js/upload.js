@@ -52,7 +52,7 @@ function ava_post() {
 function nick_upload() {
     $(".upc").css("display", "none");
     act_upc = 1;
-    $("#upc-nick").attr("placeholder", lgs_r.nickname);
+    $("#upc-nick").attr("value", lgs_r.nickname);
     $("#upc-n").fadeIn("0.3s");
 }
 function gend_upload() {

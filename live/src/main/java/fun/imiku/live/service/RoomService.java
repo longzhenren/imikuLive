@@ -61,8 +61,8 @@ public class RoomService {
         model.addAttribute("name", tar.getName());
         model.addAttribute("cover", tar.getCover());
         model.addAttribute("open", pullRouter.checkRoomOpen(usr.getRoom()) ? 1 : 0);
-        if (tar.getIntro() != null)
-            model.addAttribute("intro", tar.getIntro());
+        if (tar.getIntro() != null) model.addAttribute("intro", tar.getIntro());
+        else model.addAttribute("intro", "主播懒得写简介ヾ(≧▽≦*)o");
         return true;
     }
 
@@ -133,8 +133,10 @@ public class RoomService {
 
     public void updateRoom(HttpSession session, Map<String, Object> param, HashMap<String, Object> ret) {
         Room tar = roomDAO.findById((int) session.getAttribute("room")).get(0);
-        if (!checkName((String) param.get("name"), ret)) return;
-        tar.setName((String) param.get("name"));
+        if (!param.get("name").equals(tar.getName())) {
+            if (!checkName((String) param.get("name"), ret)) return;
+            tar.setName((String) param.get("name"));
+        }
         if (param.containsKey("intro"))
             tar.setIntro((String) param.get("intro"));
         roomDAO.saveAndFlush(tar);
@@ -159,8 +161,6 @@ public class RoomService {
         String rStr = "/" + tar.getApp() + "/" + rid + "-" + time + "-" + rtmpSecret;
         tar.setSign(time + "-" + DigestUtils.md5DigestAsHex(rStr.getBytes(StandardCharsets.UTF_8)));
         ret.put("result", true);
-        ret.put("addr", rtmpUrl + "/" + tar.getApp());
-        ret.put("key", rid + "?sign=" + tar.getSign());
         roomDAO.saveAndFlush(tar);
     }
 
