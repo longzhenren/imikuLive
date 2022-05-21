@@ -207,6 +207,9 @@
     border-style: solid none solid none;
     border-image-slice: 1;
 }
+label {
+    display: inline;
+}
 @media screen and (max-width: 768px) {
     .mbg {
         background-color: rgba(0, 0, 0, 0.85);

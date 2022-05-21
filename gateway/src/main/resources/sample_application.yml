@@ -4,7 +4,7 @@ server:
 site:
   url: http://localhost:7007 # 指明 gateway 部署的 url
   liveUrl: http://localhost:7006 # 指明 live 部署的 url
-  socketUrl: ws://localhost:7005 # 指明 socketio 部署的 url
+  socketUrl: http://localhost:7005 # 指明 socketio 部署的 url，注意需要写 http
 
 spring:
   application:
@@ -18,9 +18,9 @@ spring:
             - Path=/actuator/**
             - Host=${site.liveUrl} # 仅将 Actuator API 暴露于 live，必要时使用 RemoteAddr
         - id: socketio
-          uri: ${site.socketUrl}
-          predicates:
-            - Path=/ws/**
+            uri: ${site.socketUrl}
+            predicates:
+              - Path=/socket.io/**
         - id: main_service
           uri: ${site.liveUrl}
           order: 1

@@ -61,6 +61,7 @@ public class RoomService {
         model.addAttribute("name", tar.getName());
         model.addAttribute("cover", tar.getCover());
         model.addAttribute("open", pullRouter.checkRoomOpen(usr.getRoom()) ? 1 : 0);
+        model.addAttribute("lock", tar.getPri());
         if (tar.getIntro() != null) model.addAttribute("intro", tar.getIntro());
         else model.addAttribute("intro", "主播懒得写简介ヾ(≧▽≦*)o");
         return true;

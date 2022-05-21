@@ -7,6 +7,7 @@
  */
 package fun.imiku.live.component;
 
+import com.corundumstudio.socketio.SocketIOServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,8 @@ public class PullRouter {
     // 拉流路由器，通过 gateway 实现拉流鉴权并以路由的方式进行流地址保护。通过 Actuator API 向其传参
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    SocketIOServer socketIOServer;
     @Value("${site.gatewayUrl}")
     String gatewayUrl;
     @Value("${nms.http}")

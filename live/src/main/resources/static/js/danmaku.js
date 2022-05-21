@@ -1,3 +1,4 @@
+var socket;
 $(function () {
     $("#uavatar").attr(
         "src",
@@ -31,6 +32,17 @@ $(function () {
         $("#openst").hide();
         $("#openstxt").hide();
         $("#openstimg").hide();
+        var uri =
+            url +
+            "/stream/" +
+            $("#d-room").text() +
+            "/" +
+            $("#d-room").text() +
+            ".flv";
+        socket = io.connect(wsUrl + "/?room=" + $("#d-room").text());
+        socket.on("audience_num", (data) => {
+            $("#current-n").text(data);
+        });
         const dp = new DPlayer({
             container: document.getElementById("dplayer"),
             live: true,
@@ -40,7 +52,7 @@ $(function () {
             danmaku: true,
             theme: "#39c5bb",
             video: {
-                url: "http://live.imiku.fun:8888/live/ch1.flv",
+                url: uri,
                 type: "flv",
             },
         });

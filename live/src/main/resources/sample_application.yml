@@ -22,6 +22,8 @@ spring:
     username:
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maxLifeTime: 600000
   jpa:
     properties:
       hibernate:
@@ -52,13 +54,13 @@ socketio:
   maxFramePayloadLength: 1048576
   # 设置http交互最大内容长度
   maxHttpContentLength: 1048576
-  # socket连接数大小（如只监听一个端口boss线程组为1即可）
+  # socket连接数大小（如只监听一个端口 boss 线程组为 1 即可）
   bossCount: 1
   workCount: 100
   allowCustomRequests: true
-  # 协议升级超时时间（毫秒），默认10秒。HTTP握手升级为ws协议超时时间
+  # 协议升级超时时间（毫秒），默认 10 秒。HTTP握手升级为 ws 协议超时时间
   upgradeTimeout: 1000000
-  # Ping消息超时时间（毫秒），默认60秒，这个时间间隔内没有接收到心跳消息就会发送超时事件
+  # Ping消息超时时间（毫秒），默认 60 秒，这个时间间隔内没有接收到心跳消息就会发送超时事件
   pingTimeout: 6000000
-  # Ping消息间隔（毫秒），默认25秒。客户端向服务器发送一条心跳消息间隔
+  # Ping消息间隔（毫秒），默认 25 秒。客户端向服务器发送一条心跳消息间隔
   pingInterval: 25000

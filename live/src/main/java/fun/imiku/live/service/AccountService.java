@@ -45,7 +45,40 @@ public class AccountService {
     @Autowired
     RestTemplate restTemplate;
 
-    Pattern mailPt = Pattern.compile("^\\w+((-\\w+)|(\\.\\w+))*@[A-Za-z0-9]+(([.\\-])[A-Za-z0-9]+)*\\.[A-Za-z0-9]+$");
+    private static final Pattern mailPt = Pattern.compile("^\\w+((-\\w+)|(\\.\\w+))*@[A-Za-z0-9]+(([.\\-])[A-Za-z0-9]+)" +
+            "*\\.[A-Za-z0-9]+$");
+    private static final String regMail = "<body style=\"margin:0;padding:0\"><style>" +
+            ".mail-confirm-button:hover{background-color:#479db4}" +
+            "</style><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tr><td><table align=" +
+            "\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"690\" style=\"border-collapse:" +
+            "collapse\"><div class=\"mail-wrapper\" style=\"background-color:#1e1e1e;padding:40px 40px\">" +
+            "<div class=\"mail-card\" style=\"margin:0 auto;max-width:630px;background-color:#333;box-shadow:" +
+            "0 0 15px rgb(0 0 0 / 10%);border-radius:4px;text-align:center;padding:30px;color:#fff\"><div" +
+            " class=\"mail-title\" style=\"font-size:20px;font-weight:600;padding:15px 0;color:#3ba8ab;" +
+            "letter-spacing:8px\">认证您的 <span style=\"letter-spacing:2px;color:#f07d58\">imikuLive</span>" +
+            " 注册邮箱</div><div class=\"mail-desc\" style=\"padding:15px 0\">您刚刚使用此邮箱地址注册了账号</div>" +
+            "<div class=\"mail-desc\" style=\"padding:15px 0\">请点击以下链接进行认证</div><div class=\"mail-" +
+            "confirm\" style=\"padding:15px 0\"><div class=\"mail-confirm-button\" style=\"background-color" +
+            ":#3ba8ab;display:inline-block;padding:12px;color:#fff;border-radius:4px;cursor:pointer;width:36%" +
+            ";letter-spacing:8px\"><a href=\"@LINK\" target=\"_blank\" style=\"text-decoration:none;" +
+            "color:inherit\">认证邮箱</a></div></div><div class=\"mail-tip\" style=\"color:#aaa;padding:15px" +
+            " 0\">*如果这不是您本人执行的操作，请忽略此邮件</div></div></div></table></td></tr></table></body>";
+    private static final String fgtMail = "<body style=\"margin:0;padding:0\"><style>" +
+            ".mail-confirm-button:hover{background-color:#479db4}</style><table border=\"0\" cellpadding=\"0\" " +
+            "cellspacing=\"0\" width=\"100%\"><tr><td><table align=\"center\" border=\"0\" cellpadding=\"0\" " +
+            "cellspacing=\"0\" width=\"690\" style=\"border-collapse:collapse\"><div class=\"mail-wrapper\" " +
+            "style=\"background-color:#1e1e1e;padding:40px 40px\"><div class=\"mail-card\" style=\"margin:0 " +
+            "auto;max-width:630px;background-color:#333;box-shadow:0 0 15px rgb(0 0 0 / 10%);border-radius:4px;" +
+            "text-align:center;padding:30px;color:#fff\"><div class=\"mail-title\" style=\"font-size:20px;" +
+            "font-weight:600;padding:15px 0;color:#3ba8ab;letter-spacing:8px\">重设您的 <span style=\"letter" +
+            "-spacing:2px;color:#f07d58\">imikuLive</span> 账户密码</div><div class=\"mail-desc\" style=\"" +
+            "padding:15px 0\">您似乎刚在登录时忘记了您的密码</div><div class=\"mail-desc\" style=\"padding:15px 0\">" +
+            "请点击以下链接进行密码重设</div><div class=\"mail-confirm\" style=\"padding:15px 0\"><div class=\"mail" +
+            "-confirm-button\" style=\"background-color:#3ba8ab;display:inline-block;padding:12px;color:#fff;" +
+            "border-radius:4px;cursor:pointer;width:36%;letter-spacing:8px\"><a href=\"@LINK\" target=" +
+            "\"_blank\" style=\"text-decoration:none;color:inherit\">重设密码</a></div></div><div class=" +
+            "\"mail-tip\" style=\"color:#aaa;padding:15px 0\">*如果这不是您本人执行的操作，请忽略此邮件</div></div>" +
+            "</div></table></td></tr></table></body>";
 
     public void checkLogin(String email, String password, String ip, HttpSession session, HashMap<String, Object> ret) {
         List<User> res = userDAO.findByEmail(email);
@@ -92,25 +125,8 @@ public class AccountService {
         helper.setFrom("live@imiku.fun");
         helper.setTo(email);
         helper.setSubject("【imikuLive】重设您的密码");
-        String text = "<body style=\"margin:0;padding:0\"><style>" +
-                ".mail-confirm-button:hover{background-color:#479db4}</style><table border=\"0\" cellpadding=\"0\" " +
-                "cellspacing=\"0\" width=\"100%\"><tr><td><table align=\"center\" border=\"0\" cellpadding=\"0\" " +
-                "cellspacing=\"0\" width=\"690\" style=\"border-collapse:collapse\"><div class=\"mail-wrapper\" " +
-                "style=\"background-color:#1e1e1e;padding:40px 40px\"><div class=\"mail-card\" style=\"margin:0 " +
-                "auto;max-width:630px;background-color:#333;box-shadow:0 0 15px rgb(0 0 0 / 10%);border-radius:4px;" +
-                "text-align:center;padding:30px;color:#fff\"><div class=\"mail-title\" style=\"font-size:20px;" +
-                "font-weight:600;padding:15px 0;color:#3ba8ab;letter-spacing:8px\">重设您的 <span style=\"letter" +
-                "-spacing:2px;color:#f07d58\">imikuLive</span> 账户密码</div><div class=\"mail-desc\" style=\"" +
-                "padding:15px 0\">您似乎刚在登录时忘记了您的密码</div><div class=\"mail-desc\" style=\"padding:15px 0\">" +
-                "请点击以下链接进行密码重设</div><div class=\"mail-confirm\" style=\"padding:15px 0\"><div class=\"mail" +
-                "-confirm-button\" style=\"background-color:#3ba8ab;display:inline-block;padding:12px;color:#fff;" +
-                "border-radius:4px;cursor:pointer;width:36%;letter-spacing:8px\"><a href=\"@LINK\" target=" +
-                "\"_blank\" style=\"text-decoration:none;color:inherit\">重设密码</a></div></div><div class=" +
-                "\"mail-tip\" style=\"color:#aaa;padding:15px 0\">*如果这不是您本人执行的操作，请忽略此邮件</div></div>" +
-                "</div></table></td></tr></table></body>";
-        text = text.replace("@LINK",
-                url + "/resetPassword?e=" + email + "&i=" + -innerCode);
-        helper.setText(text, true);
+        helper.setText(fgtMail.replace("@LINK",
+                url + "/resetPassword?e=" + email + "&i=" + -innerCode), true);
         mailSender.send(message);
         ret.put("result", true);
     }
@@ -152,24 +168,8 @@ public class AccountService {
         helper.setFrom("live@imiku.fun");
         helper.setTo(email);
         helper.setSubject("【imikuLive】认证您的邮箱");
-        String text = "<body style=\"margin:0;padding:0\"><style>.mail-confirm-button:hover{background-color:#479db4}" +
-                "</style><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tr><td><table align=" +
-                "\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"690\" style=\"border-collapse:" +
-                "collapse\"><div class=\"mail-wrapper\" style=\"background-color:#1e1e1e;padding:40px 40px\">" +
-                "<div class=\"mail-card\" style=\"margin:0 auto;max-width:630px;background-color:#333;box-shadow:" +
-                "0 0 15px rgb(0 0 0 / 10%);border-radius:4px;text-align:center;padding:30px;color:#fff\"><div" +
-                " class=\"mail-title\" style=\"font-size:20px;font-weight:600;padding:15px 0;color:#3ba8ab;" +
-                "letter-spacing:8px\">认证您的 <span style=\"letter-spacing:2px;color:#f07d58\">imikuLive</span>" +
-                " 注册邮箱</div><div class=\"mail-desc\" style=\"padding:15px 0\">您刚刚使用此邮箱地址注册了账号</div>" +
-                "<div class=\"mail-desc\" style=\"padding:15px 0\">请点击以下链接进行认证</div><div class=\"mail-" +
-                "confirm\" style=\"padding:15px 0\"><div class=\"mail-confirm-button\" style=\"background-color" +
-                ":#3ba8ab;display:inline-block;padding:12px;color:#fff;border-radius:4px;cursor:pointer;width:36%" +
-                ";letter-spacing:8px\"><a href=\"@LINK\" target=\"_blank\" style=\"text-decoration:none;" +
-                "color:inherit\">认证邮箱</a></div></div><div class=\"mail-tip\" style=\"color:#aaa;padding:15px" +
-                " 0\">*如果这不是您本人执行的操作，请忽略此邮件</div></div></div></table></td></tr></table></body>";
-        text = text.replace("@LINK",
-                url + "/confirm?e=" + email + "&i=" + innerCode);
-        helper.setText(text, true);
+        helper.setText(regMail.replace("@LINK",
+                url + "/confirm?e=" + email + "&i=" + innerCode), true);
         mailSender.send(message);
     }
 

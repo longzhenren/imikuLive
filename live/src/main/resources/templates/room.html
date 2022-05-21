@@ -16,8 +16,9 @@
         <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/identicon.js/2.3.3/identicon.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-        <script src="https://cdn.staticfile.org/flv.js/1.5.0/flv.js"></script>
+        <script src="https://cdn.staticfile.org/flv.js/1.5.0/flv.min.js"></script>
         <script src="https://cdn.staticfile.org/dplayer/1.26.0/DPlayer.min.js"></script>
+        <script src="https://cdn.staticfile.org/socket.io/2.3.1/socket.io.min.js"></script>
         <script src="../static/js/avatar.js" th:src="@{/js/avatar.js}"></script>
         <script
             src="../static/js/danmaku.js"
@@ -285,11 +286,12 @@
         <data id="d-nickname" th:text="${nickname}">Administrator</data>
         <data id="d-avatar" th:text="${avatar}">auto</data>
         <data id="d-uid" th:text="${uid}">100000</data>
-        <data id="d-room" th:text="${rid}">1000000</data>
+        <data id="d-room" th:text="${rid}">10000000</data>
         <data id="d-name" th:text="${name}">SuperRoom</data>
         <data id="d-cover" th:text="${cover}">auto</data>
         <data id="d-intro" th:text="${intro}">什么都不会有的房间</data>
-        <data id="d-open" th:text="${open}">0</data>
+        <data id="d-open" th:text="${open}">1</data>
+        <data id="d-lock" th:text="${lock}">0</data>
         <data id="d-gender" th:text="${gend}">2</data>
     </body>
 </html>
