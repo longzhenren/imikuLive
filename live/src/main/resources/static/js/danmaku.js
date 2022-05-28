@@ -12,34 +12,32 @@ $(function () {
     );
     if ($("#d-intro").text().length === 0)
         $("#introt").text("主播懒得写简介ヾ(≧▽≦*)o");
-    if ($("#d-open").text() === "0") {
-        var arr = [
-            "主播在摸鱼~",
-            "现在没有开播哦~",
-            "主播在睡大觉  ヾ(￣▽￣)",
-            "主播在赶 ddl ~",
-        ];
-        $("#openst").css(
-            "background-image",
-            "url(" +
-                geneCover(
-                    $("#d-cover").text(),
-                    $("#d-room").text(),
-                    $("#d-name").text()
-                ) +
-                ")"
-        );
-        $("#openstxt").text(arr[Math.floor(Math.random() * arr.length)]);
-        $("#dbg-c").text("现在没有开播啊");
-    } else {
-        $("#openst").hide();
-        $("#openstxt").hide();
-        $("#openstimg").hide();
-        $("#dc-admin")
-            .children(".dc-cn")
-            .attr("onclick", "window.open('" + url + "/u/Administrator')");
-        $("#dc-admin").children(".dc-cn").css("color", "#3ba8ab");
-        $("#dc-admin").children(".dc-ct").css("color", "aliceblue");
+    socket = io.connect(wsUrl + "/?room=" + $("#d-room").text());
+    socket.on("audience_num", (data) => {
+        $("#current-n").text(data);
+    });
+    socket.on("danmaku", (data) => {
+        drawDanS(data, false);
+    });
+    socket.on("open", () => {
+        $("#d-open").text("1");
+        initDanS(lgd);
+        dpCover();
+    });
+    socket.on("close", () => {
+        $("#d-open").text("0");
+        initDanS(lgd);
+        dp.destroy();
+        dpCover();
+    });
+    dpCover();
+});
+function initDanS(e) {
+    if (e === true && $("#d-open").text() === "1") {
+        $("#danmaku-s").attr("onclick", "sendDanS()");
+        $("#danmaku-s").text("发 射");
+        $("#danmaku-i").removeAttr("disabled");
+        $("#danmaku-i").attr("placeholder", "发条弹幕  ( •̀ .̫ •́ )✧");
         var uri =
             url +
             "/stream/" +
@@ -47,13 +45,6 @@ $(function () {
             "/" +
             $("#d-room").text() +
             ".flv";
-        socket = io.connect(wsUrl + "/?room=" + $("#d-room").text());
-        socket.on("audience_num", (data) => {
-            $("#current-n").text(data);
-        });
-        socket.on("danmaku", (data) => {
-            drawDanS(data, false);
-        });
         dp = new DPlayer({
             container: document.getElementById("dplayer"),
             live: true,
@@ -74,27 +65,58 @@ $(function () {
             },
         });
         dp.play();
-    }
-});
-function initDanS(e) {
-    if (e === true && $("#d-open").text() === "1") {
-        $("#danmaku-s").attr("onclick", "sendDanS()");
-        $("#danmaku-s").text("发 射");
-        $("#dc").append("");
         return;
     }
-    if ($("#d-open").text() === "1") {
-        $("#danmaku-s").attr("onclick", "toLogin()");
-        $("#danmaku-s").text("去登录");
-        $("#danmaku-i").attr("placeholder", "登录后才能发弹幕  \\(￣︶￣*\\))");
-    } else {
+    if ($("#d-open").text() === "0") {
         $("#danmaku-i").attr(
             "placeholder",
             "不开播没啥好讨论的吧  \\(￣︶￣*\\))"
         );
         $("#danmaku-s").text("等开播");
+        $("#danmaku-s").attr("onclick", "");
+    } else {
+        $("#danmaku-s").attr("onclick", "toLogin()");
+        $("#danmaku-s").text("去登录");
+        $("#danmaku-i").attr("placeholder", "登录后才能发弹幕  \\(￣︶￣*\\))");
     }
-    $("#danmaku-i").attr("disabled", "true");
+    $("#danmaku-i").attr("disabled", "disabled");
+}
+function dpCover() {
+    if ($("#d-open").text() === "0") {
+        var arr = [
+            "主播在摸鱼~",
+            "现在没有开播哦~",
+            "主播在睡大觉  ヾ(￣▽￣)",
+            "主播在赶 ddl ~",
+        ];
+        $("#openst").css(
+            "background-image",
+            "url(" +
+                geneCover(
+                    $("#d-cover").text(),
+                    $("#d-room").text(),
+                    $("#d-name").text()
+                ) +
+                ")"
+        );
+        $("#openstxt").text(arr[Math.floor(Math.random() * arr.length)]);
+        $("#dbg-co").hide();
+        $("#dbg-cc").show();
+        $("#openst").show();
+        $("#openstxt").show();
+        $("#openstimg").show();
+    } else {
+        $("#dbg-co").show();
+        $("#openst").hide();
+        $("#openstxt").hide();
+        $("#openstimg").hide();
+        $("#dbg-cc").hide();
+        $("#dc-admin")
+            .children(".dc-cn")
+            .attr("onclick", "window.open('" + url + "/u/Administrator')");
+        $("#dc-admin").children(".dc-cn").css("color", "#3ba8ab");
+        $("#dc-admin").children(".dc-ct").css("color", "aliceblue");
+    }
 }
 function toUser() {
     window.open(url + "/u/" + $("#d-nickname").text());

@@ -114,7 +114,7 @@
 #openst {
     position: absolute;
     background-position: center, center;
-    background-size: auto;
+    background-size: cover;
     top: 88px;
     width: max(904px, 52vw);
     height: max(508px, 29.25vw);
@@ -133,6 +133,7 @@
     justify-content: center;
     color: aliceblue;
     font-size: xx-large;
+    -webkit-text-stroke: 1px #1e1e1e;
 }
 #openstimg {
     display: inline;
@@ -161,7 +162,7 @@
     width: max(270px, 20vw - 60px);
     padding: 0 10px 0 10px;
     left: 0;
-    bottom: 28px;
+    top: max(596px, 29.25vw + 88px);
     overflow-x: scroll;
     background-color: transparent;
     color: aliceblue;
@@ -174,7 +175,7 @@
     position: absolute;
     height: 60px;
     width: 60px;
-    bottom: 28px;
+    top: max(596px, 29.25vw + 88px);
     right: 0;
     border-image: linear-gradient(
         to right,

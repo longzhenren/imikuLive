@@ -52,15 +52,14 @@ public class SocketIOService {
 
     @OnEvent(value = "danmaku")
     public void danmaku(SocketIOClient client, AckRequest request, String data) {
-        BroadcastOperations room = client.getNamespace().getRoomOperations(roomMap.get(client));
-        room.sendEvent("danmaku", client, data);
+        client.getNamespace().getRoomOperations(roomMap.get(client)).sendEvent("danmaku", client, data);
     }
 
     public void openRoom(int rid) {
-        socketIOServer.getNamespace("/").getRoomOperations(Integer.toString(rid)).sendEvent("open");
+        socketIOServer.getRoomOperations(Integer.toString(rid)).sendEvent("open");
     }
 
     public void closeRoom(int rid) {
-        socketIOServer.getNamespace("/").getRoomOperations(Integer.toString(rid)).sendEvent("close");
+        socketIOServer.getRoomOperations(Integer.toString(rid)).sendEvent("close");
     }
 }
