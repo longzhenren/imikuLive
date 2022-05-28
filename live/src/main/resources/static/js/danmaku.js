@@ -1,4 +1,6 @@
 var socket, dp;
+var danN =
+    '<div class="dc-c"><div class="dc-cn">name</div><div class="dc-ct">text</div></div>';
 $(function () {
     $("#uavatar").attr(
         "src",
@@ -33,6 +35,11 @@ $(function () {
         $("#openst").hide();
         $("#openstxt").hide();
         $("#openstimg").hide();
+        $("#dc-admin")
+            .children(".dc-cn")
+            .attr("onclick", "window.open('" + url + "/u/Administrator')");
+        $("#dc-admin").children(".dc-cn").css("color", "#3ba8ab");
+        $("#dc-admin").children(".dc-ct").css("color", "aliceblue");
         var uri =
             url +
             "/stream/" +
@@ -45,7 +52,7 @@ $(function () {
             $("#current-n").text(data);
         });
         socket.on("danmaku", (data) => {
-            drawDanS(data);
+            drawDanS(data, false);
         });
         dp = new DPlayer({
             container: document.getElementById("dplayer"),
@@ -70,15 +77,24 @@ $(function () {
     }
 });
 function initDanS(e) {
-    if (e === true) {
+    if (e === true && $("#d-open").text() === "1") {
         $("#danmaku-s").attr("onclick", "sendDanS()");
         $("#danmaku-s").text("发 射");
+        $("#dc").append("");
         return;
     }
-    $("#danmaku-i").attr("placeholder", "登录后才能发弹幕  \\(￣︶￣*\\))");
+    if ($("#d-open").text() === "1") {
+        $("#danmaku-s").attr("onclick", "toLogin()");
+        $("#danmaku-s").text("去登录");
+        $("#danmaku-i").attr("placeholder", "登录后才能发弹幕  \\(￣︶￣*\\))");
+    } else {
+        $("#danmaku-i").attr(
+            "placeholder",
+            "不开播没啥好讨论的吧  \\(￣︶￣*\\))"
+        );
+        $("#danmaku-s").text("等开播");
+    }
     $("#danmaku-i").attr("disabled", "true");
-    $("#danmaku-s").attr("onclick", "toLogin()");
-    $("#danmaku-s").text("去登录");
 }
 function toUser() {
     window.open(url + "/u/" + $("#d-nickname").text());
@@ -87,31 +103,35 @@ function sendDanS(data) {
     if (typeof data === "undefined") {
         var text = $("#danmaku-i").val();
         if (text.length === 0) return;
-        // socket.emit(
-        //     "danmaku",
-        //     JSON.stringify({
-        //         text: text,
-        //         color: "#fff",
-        //         type: 0,
-        //     })
-        // );
-        // $("#danmaku-i").val("");
-        dp.danmaku.send(
-            {
-                text: text,
-                color: "#fff",
-                type: 0,
-            },
-            $("#danmaku-i").val("")
-        );
+        var dan = {
+            text: text,
+            color: "#fff",
+            type: 0,
+            name: lgs_r.nickname,
+        };
+        dp.danmaku.send(dan, $("#danmaku-i").val(""));
     } else {
-        console.log(data);
+        data.data.name = lgs_r.nickname;
         socket.emit("danmaku", JSON.stringify(data.data));
         try {
             data.success();
         } catch (error) {}
+        drawDanS(data.data, true);
     }
 }
-function drawDanS(data) {
-    dp.danmaku.draw(JSON.parse(data));
+function drawDanS(data, e) {
+    if (!e) {
+        data = JSON.parse(data);
+        dp.danmaku.draw(data);
+    }
+    var nt = $(danN.replace("name", data.name).replace("text", data.text));
+    $("#dc").append(nt);
+    nt.children(".dc-cn").attr(
+        "onclick",
+        "window.open('" + url + "/u/" + data.name + "')"
+    );
+    if (e) {
+        nt.children(".dc-cn").css("color", "#f07d58");
+        nt.children(".dc-ct").css("color", "aliceblue");
+    }
 }

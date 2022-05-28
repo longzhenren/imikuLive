@@ -69,7 +69,7 @@ public class PageController {
                 return "self";
             return "user";
         }
-        return "redirect:/error/404";
+        return "/error/404";
     }
 
     @RequestMapping("/r/**")
@@ -82,16 +82,16 @@ public class PageController {
             model.addAttribute("nickname", nick);
             return "open";
         }
-        return "redirect:/error/404";
+        return "/error/404";
     }
 
     @RequestMapping("/c/**")
     public String configRoom(HttpServletRequest request, Model model, HttpSession session) throws UnsupportedEncodingException {
         String nick = URLDecoder.decode(request.getRequestURI().substring(3), "utf-8");
         if (!nick.equals(session.getAttribute("nickname")))
-            return "redirect:/error/404";
+            return "/error/404";
         if (roomService.pageByNickname(nick, model))
             return "conf";
-        return "redirect:/error/404";
+        return "/error/404";
     }
 }

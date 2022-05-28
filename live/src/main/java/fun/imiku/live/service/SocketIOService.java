@@ -55,4 +55,12 @@ public class SocketIOService {
         BroadcastOperations room = client.getNamespace().getRoomOperations(roomMap.get(client));
         room.sendEvent("danmaku", client, data);
     }
+
+    public void openRoom(int rid) {
+        socketIOServer.getNamespace("/").getRoomOperations(Integer.toString(rid)).sendEvent("open");
+    }
+
+    public void closeRoom(int rid) {
+        socketIOServer.getNamespace("/").getRoomOperations(Integer.toString(rid)).sendEvent("close");
+    }
 }

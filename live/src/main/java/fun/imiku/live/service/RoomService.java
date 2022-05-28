@@ -43,6 +43,8 @@ public class RoomService {
     UserDAO userDAO;
     @Autowired
     PullRouter pullRouter;
+    @Autowired
+    SocketIOService socketIOService;
 
     public boolean pageByNickname(String nick, Model model) {
         List<User> res = userDAO.findByNickname(nick);
@@ -163,6 +165,7 @@ public class RoomService {
         tar.setSign(time + "-" + DigestUtils.md5DigestAsHex(rStr.getBytes(StandardCharsets.UTF_8)));
         ret.put("result", true);
         roomDAO.saveAndFlush(tar);
+        socketIOService.openRoom(rid);
     }
 
     public void roomOff(int rid, HashMap<String, Object> ret) {
@@ -177,6 +180,7 @@ public class RoomService {
             return;
         }
         ret.put("result", true);
+        socketIOService.closeRoom(rid);
     }
 
     public void getRtmpInfo(int rid, HashMap<String, Object> ret) {
