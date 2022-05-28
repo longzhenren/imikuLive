@@ -1,4 +1,4 @@
-var socket;
+var socket, dp;
 $(function () {
     $("#uavatar").attr(
         "src",
@@ -28,6 +28,7 @@ $(function () {
                 ")"
         );
         $("#openstxt").text(arr[Math.floor(Math.random() * arr.length)]);
+        $("#dbg-c").text("现在没有开播啊");
     } else {
         $("#openst").hide();
         $("#openstxt").hide();
@@ -43,7 +44,10 @@ $(function () {
         socket.on("audience_num", (data) => {
             $("#current-n").text(data);
         });
-        const dp = new DPlayer({
+        socket.on("danmaku", (data) => {
+            drawDanS(data);
+        });
+        dp = new DPlayer({
             container: document.getElementById("dplayer"),
             live: true,
             mutex: false,
@@ -51,6 +55,12 @@ $(function () {
             screenshot: true,
             danmaku: true,
             theme: "#39c5bb",
+            apiBackend: {
+                read: function (options) {
+                    options.success();
+                },
+                send: sendDanS,
+            },
             video: {
                 url: uri,
                 type: "flv",
@@ -73,4 +83,35 @@ function initDanS(e) {
 function toUser() {
     window.open(url + "/u/" + $("#d-nickname").text());
 }
-function sendDanS() {}
+function sendDanS(data) {
+    if (typeof data === "undefined") {
+        var text = $("#danmaku-i").val();
+        if (text.length === 0) return;
+        // socket.emit(
+        //     "danmaku",
+        //     JSON.stringify({
+        //         text: text,
+        //         color: "#fff",
+        //         type: 0,
+        //     })
+        // );
+        // $("#danmaku-i").val("");
+        dp.danmaku.send(
+            {
+                text: text,
+                color: "#fff",
+                type: 0,
+            },
+            $("#danmaku-i").val("")
+        );
+    } else {
+        console.log(data);
+        socket.emit("danmaku", JSON.stringify(data.data));
+        try {
+            data.success();
+        } catch (error) {}
+    }
+}
+function drawDanS(data) {
+    dp.danmaku.draw(JSON.parse(data));
+}

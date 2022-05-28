@@ -50,8 +50,9 @@ public class SocketIOService {
         roomMap.remove(client);
     }
 
-    @OnEvent(value = "wp")
-    public void wp(SocketIOClient client, AckRequest request, String data) {
-        System.out.println("safasfasfsaf");
+    @OnEvent(value = "danmaku")
+    public void danmaku(SocketIOClient client, AckRequest request, String data) {
+        BroadcastOperations room = client.getNamespace().getRoomOperations(roomMap.get(client));
+        room.sendEvent("danmaku", client, data);
     }
 }
