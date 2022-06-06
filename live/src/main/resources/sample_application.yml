@@ -13,6 +13,8 @@ nms:
   secret: exampleKey  # 指明 nms 推流鉴权的 secret
   api_user: admin # 指明 nms API 用户名
   api_pass: admin # 指明 nms API 密码
+  speed_up: 20 # 指明 nms 所在服务器的上传带宽，用于计算负载。单位 Mbit/s
+  speed_down: 50 # 指明 nms 所在服务器的下载带宽，用于计算负载。单位 Mbit/s
 
 spring:
   application:
