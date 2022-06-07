@@ -45,6 +45,7 @@ public class RoomService {
     PullRouter pullRouter;
     @Autowired
     SocketIOService socketIOService;
+    private final HashSet<Integer> roomsToClose = new HashSet<>();
 
     public boolean pageByNickname(String nick, Model model) {
         List<User> res = userDAO.findByNickname(nick);
@@ -163,9 +164,9 @@ public class RoomService {
         String time = Long.toString(System.currentTimeMillis() / 1000L + 3600 * 24 * 2);
         String rStr = "/" + tar.getApp() + "/" + rid + "-" + time + "-" + rtmpSecret;
         tar.setSign(time + "-" + DigestUtils.md5DigestAsHex(rStr.getBytes(StandardCharsets.UTF_8)));
-        ret.put("result", true);
         roomDAO.saveAndFlush(tar);
         socketIOService.openRoom(rid);
+        ret.put("result", true);
     }
 
     public void roomOff(int rid, HashMap<String, Object> ret) {
@@ -179,8 +180,8 @@ public class RoomService {
             ret.put("message", "Internal Server Error");
             return;
         }
-        ret.put("result", true);
         socketIOService.closeRoom(rid);
+        ret.put("result", true);
     }
 
     public void getRtmpInfo(int rid, HashMap<String, Object> ret) {
@@ -193,5 +194,15 @@ public class RoomService {
         ret.put("result", true);
         ret.put("addr", rtmpUrl + "/" + tar.getApp());
         ret.put("key", rid + "?sign=" + tar.getSign());
+    }
+
+    public void closeInActiveRooms(HashSet<Integer> active) {
+        HashSet<Integer> inActive = pullRouter.getInActiveRooms(active);
+        roomsToClose.retainAll(inActive);
+        for (Integer i : roomsToClose)
+            roomOff(i, new HashMap<>());
+        inActive.removeAll(roomsToClose);
+        roomsToClose.clear();
+        roomsToClose.addAll(inActive);
     }
 }

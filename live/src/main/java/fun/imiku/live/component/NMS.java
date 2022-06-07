@@ -7,6 +7,7 @@
  */
 package fun.imiku.live.component;
 
+import fun.imiku.live.service.RoomService;
 import lombok.Data;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
 import java.util.Map;
 
 @Component
@@ -37,6 +39,9 @@ public class NMS {
     @Lazy
     @Autowired
     ServerLoad serverLoad;
+    @Lazy
+    @Autowired
+    RoomService roomService;
     @Value("${nms.api_user}")
     String apiUser;
     @Value("${nms.api_pass}")
@@ -48,6 +53,7 @@ public class NMS {
     @Value("${nms.speed_down}")
     float nmsSpeedDn;
     private HttpEntity<String> httpEntityWithBasicAuth;
+    private final HashSet<Integer> roomsActive = new HashSet<>();
 
     @Bean
     public RestTemplate restTemplate() {
@@ -99,6 +105,21 @@ public class NMS {
     @Scheduled(fixedDelay = 1000 * 60 * 3)
     public void reqStream() {
         // 每 3m 存储一次现有的推流，如果开启的房间连续两次没有对应的推流，则关闭该房间
+        try {
+            ResponseEntity<Map> result = restTemplate.exchange
+                    (nmsHttpUrl + "/api/streams", HttpMethod.GET, httpEntityWithBasicAuth(), Map.class);
+            if (result.getStatusCodeValue() == 200) {
+                roomsActive.clear();
+                for (Object i : result.getBody().values()) {
+                    int rid = Integer.parseInt((String) ((Map) i).keySet().iterator().next());
+                    if (((Map) ((Map) i).values().iterator().next()).get("publisher") != null)
+                        roomsActive.add(rid);
+                }
+                roomService.closeInActiveRooms(roomsActive);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

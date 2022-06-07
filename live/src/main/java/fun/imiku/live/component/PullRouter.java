@@ -76,4 +76,10 @@ public class PullRouter {
         }
         return false;
     }
+
+    public HashSet<Integer> getInActiveRooms(HashSet<Integer> active) {
+        HashSet<Integer> ret = (HashSet) roomsOpen.clone();
+        ret.removeAll(active);
+        return ret;
+    }
 }
