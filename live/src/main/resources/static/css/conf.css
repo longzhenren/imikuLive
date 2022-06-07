@@ -93,6 +93,10 @@
 span .i-data-b {
     color: antiquewhite !important;
 }
+.upc .cropper-view-box,
+.upc .cropper-face {
+    border-radius: 0;
+}
 @media screen and (max-width: 768px) {
     #card-cover {
         width: 50vw;

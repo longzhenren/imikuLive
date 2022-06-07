@@ -33,11 +33,20 @@ $(function () {
     dpCover();
 });
 function initDanS(e) {
-    if (e === true && $("#d-open").text() === "1") {
-        $("#danmaku-s").attr("onclick", "sendDanS()");
-        $("#danmaku-s").text("发 射");
-        $("#danmaku-i").removeAttr("disabled");
-        $("#danmaku-i").attr("placeholder", "发条弹幕  ( •̀ .̫ •́ )✧");
+    if ($("#d-open").text() === "1") {
+        if (e === true) {
+            $("#danmaku-s").attr("onclick", "sendDanS()");
+            $("#danmaku-s").text("发 射");
+            $("#danmaku-i").removeAttr("disabled");
+            $("#danmaku-i").attr("placeholder", "发条弹幕  ( •̀ .̫ •́ )✧");
+        } else {
+            $("#danmaku-s").attr("onclick", "toLogin()");
+            $("#danmaku-s").text("去登录");
+            $("#danmaku-i").attr(
+                "placeholder",
+                "登录后才能发弹幕  \\(￣︶￣*\\))"
+            );
+        }
         var uri =
             url +
             "/stream/" +
@@ -65,21 +74,15 @@ function initDanS(e) {
             },
         });
         dp.play();
-        return;
-    }
-    if ($("#d-open").text() === "0") {
+    } else {
         $("#danmaku-i").attr(
             "placeholder",
             "不开播没啥好讨论的吧  \\(￣︶￣*\\))"
         );
         $("#danmaku-s").text("等开播");
         $("#danmaku-s").attr("onclick", "");
-    } else {
-        $("#danmaku-s").attr("onclick", "toLogin()");
-        $("#danmaku-s").text("去登录");
-        $("#danmaku-i").attr("placeholder", "登录后才能发弹幕  \\(￣︶￣*\\))");
+        $("#danmaku-i").attr("disabled", "disabled");
     }
-    $("#danmaku-i").attr("disabled", "disabled");
 }
 function dpCover() {
     if ($("#d-open").text() === "0") {
