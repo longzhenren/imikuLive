@@ -28,4 +28,6 @@ public class Room {
     private String pwd;
     private String app;
     private String sign;
+    @ColumnDefault("0")
+    private int open;
 }

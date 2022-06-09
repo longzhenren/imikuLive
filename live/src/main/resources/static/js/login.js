@@ -9,17 +9,18 @@ function ipg() {
             if (result.result === true) window.location.href = url;
             $.ajax({
                 method: "GET",
-                url: "http://v6.ip.zxinc.org/info.php?type=json",
+                url: "https://ipv6.ddnspod.com",
+                timeout: 2000,
                 success: function (result) {
-                    ip = result.data.myip;
+                    ip = result;
                     $("#ips").fadeOut("0.3s");
                 },
                 error: function () {
                     $.ajax({
                         method: "GET",
-                        url: "http://v4.ip.zxinc.org/info.php?type=json",
+                        url: "https://ipv4.ddnspod.com",
                         success: function (result) {
-                            ip = result.data.myip;
+                            ip = result;
                             $("#ips").fadeOut("0.3s");
                         },
                         error: function () {

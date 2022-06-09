@@ -10,6 +10,7 @@ package fun.imiku.live.dao;
 
 import fun.imiku.live.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface RoomDAO extends JpaRepository<Room, Integer> {
     List<Room> findById(int id);
 
     List<Room> findByName(String name);
+
+    @Query(nativeQuery = true, value = "SELECT * from room where open=1")
+    List<Room> getAllOpenRooms();
 }

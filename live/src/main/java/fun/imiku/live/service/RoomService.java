@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,6 +47,14 @@ public class RoomService {
     @Autowired
     SocketIOService socketIOService;
     private final HashSet<Integer> roomsToClose = new HashSet<>();
+
+    @PostConstruct
+    private void initRoomsToClose() {
+        List<Room> tar = roomDAO.getAllOpenRooms();
+        for (Room i : tar)
+            i.setOpen(0);
+        roomDAO.saveAllAndFlush(tar);
+    }
 
     public boolean pageByNickname(String nick, Model model) {
         List<User> res = userDAO.findByNickname(nick);
@@ -164,6 +173,7 @@ public class RoomService {
         String time = Long.toString(System.currentTimeMillis() / 1000L + 3600 * 24 * 2);
         String rStr = "/" + tar.getApp() + "/" + rid + "-" + time + "-" + rtmpSecret;
         tar.setSign(time + "-" + DigestUtils.md5DigestAsHex(rStr.getBytes(StandardCharsets.UTF_8)));
+        tar.setOpen(1);
         roomDAO.saveAndFlush(tar);
         socketIOService.openRoom(rid);
         ret.put("result", true);
@@ -180,6 +190,9 @@ public class RoomService {
             ret.put("message", "Internal Server Error");
             return;
         }
+        Room tar = roomDAO.findById(rid).get(0);
+        tar.setOpen(0);
+        roomDAO.saveAndFlush(tar);
         socketIOService.closeRoom(rid);
         ret.put("result", true);
     }

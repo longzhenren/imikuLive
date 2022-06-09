@@ -88,14 +88,14 @@ public class NMS {
             ResponseEntity<Map> result = restTemplate.exchange
                     (nmsHttpUrl + "/api/server", HttpMethod.GET, httpEntityWithBasicAuth(), Map.class);
             if (result.getStatusCodeValue() == 200) {
-                serverLoad.setCpuLoad(((Map) result.getBody().get("cpu")).get("load") + "%");
+                serverLoad.setCpuLoad((Integer) ((Map) result.getBody().get("cpu")).get("load"));
                 Long now = ((Integer) ((Map) result.getBody().get("net")).get("outbytes")).longValue();
                 float loadUp = (now - serverLoad.getOutBytes()) / nmsSpeedUp / 2500;
                 serverLoad.setOutBytes(now);
                 now = ((Integer) ((Map) result.getBody().get("net")).get("inbytes")).longValue();
                 float loadDn = (now - serverLoad.getInBytes()) / nmsSpeedDn / 2500;
                 serverLoad.setInBytes(now);
-                serverLoad.setNetLoad((loadDn > loadUp ? Math.round(loadDn) : Math.round(loadUp)) + "%");
+                serverLoad.setNetLoad((loadDn > loadUp ? Math.round(loadDn) : Math.round(loadUp)));
             }
         } catch (Exception ignored) {
         }
@@ -125,8 +125,8 @@ public class NMS {
 
 @Data
 class ServerLoad {
-    private String cpuLoad;
-    private String netLoad;
+    private int cpuLoad;
+    private int netLoad;
     private Long inBytes = 0L;
     private Long outBytes = 0L;
 }

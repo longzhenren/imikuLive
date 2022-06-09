@@ -25,7 +25,6 @@ public class PullRouter {
     @Value("${nms.http}")
     String nmsHttpUrl;
 
-    // 并不持久化房间的开启情况，在每次重启时所有房间默认关闭
     private final HashSet<Integer> roomsOpen = new HashSet<>();
     private static final String addRouteReq = "{\"id\":\"@RID\",\"predicates\":[{\"name\":\"Path\",\"args\":{\"_gen" +
             "key_0\":\"/stream/@RID/**\"}}],\"filters\":[{\"name\":\"StripPrefix\",\"args\":{\"_genkey_0\":\"2\"}}," +
