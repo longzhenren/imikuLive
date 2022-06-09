@@ -222,6 +222,10 @@ label {
 .dplayer-danmaku .dplayer-danmaku-item {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
+.dplayer-fulled {
+    position: fixed !important;
+    top: 0 !important;
+}
 .dc-c {
     text-align: left;
     margin-bottom: 5px;

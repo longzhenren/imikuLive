@@ -90,10 +90,10 @@ public class NMS {
             if (result.getStatusCodeValue() == 200) {
                 serverLoad.setCpuLoad(((Map) result.getBody().get("cpu")).get("load") + "%");
                 Long now = ((Integer) ((Map) result.getBody().get("net")).get("outbytes")).longValue();
-                float loadUp = (now - serverLoad.getOutBytes()) / 2500 / nmsSpeedUp;
+                float loadUp = (now - serverLoad.getOutBytes()) / nmsSpeedUp / 2500;
                 serverLoad.setOutBytes(now);
                 now = ((Integer) ((Map) result.getBody().get("net")).get("inbytes")).longValue();
-                float loadDn = (now - serverLoad.getInBytes()) / 2500 / nmsSpeedDn;
+                float loadDn = (now - serverLoad.getInBytes()) / nmsSpeedDn / 2500;
                 serverLoad.setInBytes(now);
                 serverLoad.setNetLoad((loadDn > loadUp ? Math.round(loadDn) : Math.round(loadUp)) + "%");
             }

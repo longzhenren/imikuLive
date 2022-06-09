@@ -73,6 +73,20 @@ function initDanS(e) {
                 type: "flv",
             },
         });
+        dp.on("fullscreen", function () {
+            document.getElementById("dplayer").style["border-width"] = 0;
+        });
+        dp.on("webfullscreen", function () {
+            document.getElementById("dplayer").style["border-width"] = 0;
+        });
+        dp.on("fullscreen_cancel", function () {
+            document.getElementById("dplayer").style["border-width"] =
+                "2px 0 2px 0";
+        });
+        dp.on("webfullscreen_cancel", function () {
+            document.getElementById("dplayer").style["border-width"] =
+                "2px 0 2px 0";
+        });
         dp.play();
     } else {
         $("#danmaku-i").attr(
