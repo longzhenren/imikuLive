@@ -104,6 +104,7 @@ public class AccountService {
         session.setAttribute("nickname", tar.getNickname());
         session.setAttribute("avatar", tar.getAvatar());
         session.setAttribute("room", tar.getRoom());
+        session.setAttribute("gender", tar.getGender());
         tar.setIp(ip);
         userDAO.saveAndFlush(tar);
         ret.put("result", true);
@@ -283,6 +284,7 @@ public class AccountService {
         ret.put("nickname", session.getAttribute("nickname"));
         ret.put("avatar", session.getAttribute("avatar"));
         ret.put("room", session.getAttribute("room"));
+        ret.put("gender", session.getAttribute("gender"));
     }
 
     public void setAvatar(HttpSession session, MultipartFile file)

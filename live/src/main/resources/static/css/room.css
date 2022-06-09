@@ -239,6 +239,18 @@ label {
     margin: 0 15px 0 30px;
     color: antiquewhite;
 }
+#dbg-logo {
+    position: absolute;
+    top: 0px;
+    left: 150px;
+    height: 20px;
+}
+#mbg-logo {
+    position: absolute;
+    bottom: 35px;
+    right: 30px;
+    height: 24px;
+}
 @media screen and (max-width: 768px) {
     .mbg {
         background-color: rgba(0, 0, 0, 0.85);
@@ -338,5 +350,11 @@ label {
     }
     #abg {
         overflow: hidden;
+    }
+    #dbg-logo {
+        display: none;
+    }
+    #mbg-logo {
+        display: none;
     }
 }

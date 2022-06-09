@@ -23,6 +23,7 @@ public class SocketIOService {
     @Autowired
     SocketIOServer socketIOServer;
     private final HashMap<SocketIOClient, String> roomMap = new HashMap<>();
+    private final HashMap<SocketIOClient, Integer> duplicateClients = new HashMap<>();
 
     @PostConstruct
     private void autoStartup() {
@@ -39,20 +40,29 @@ public class SocketIOService {
         String id = client.getHandshakeData().getSingleUrlParam("room");
         client.joinRoom(id);
         roomMap.put(client, id);
-        BroadcastOperations room = client.getNamespace().getRoomOperations(id);
+        if (duplicateClients.containsKey(client))
+            duplicateClients.put(client, duplicateClients.get(client) + 1);
+        else
+            duplicateClients.put(client, 1);
+        BroadcastOperations room = socketIOServer.getRoomOperations(id);
         room.sendEvent("audience_num", room.getClients().size());
     }
 
     @OnDisconnect
     public void onDisconnect(SocketIOClient client) {
-        BroadcastOperations room = client.getNamespace().getRoomOperations(roomMap.get(client));
-        room.sendEvent("audience_num", room.getClients().size());
-        roomMap.remove(client);
+        if (duplicateClients.get(client) == 1) {
+            BroadcastOperations room = socketIOServer.getRoomOperations(roomMap.get(client));
+            room.sendEvent("audience_num", room.getClients().size());
+            roomMap.remove(client);
+            duplicateClients.remove(client);
+        } else {
+            duplicateClients.put(client, duplicateClients.get(client) - 1);
+        }
     }
 
     @OnEvent(value = "danmaku")
     public void danmaku(SocketIOClient client, AckRequest request, String data) {
-        client.getNamespace().getRoomOperations(roomMap.get(client)).sendEvent("danmaku", client, data);
+        socketIOServer.getRoomOperations(roomMap.get(client)).sendEvent("danmaku", client, data);
     }
 
     public void openRoom(int rid) {

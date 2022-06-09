@@ -137,6 +137,8 @@ function cog(e) {
     setTimeout(shut, 180000);
 }
 function room_sw() {
+    $("#room-sw-i").text("");
+    $("#room-sw-l").show();
     if ($("#d-open").text() === "1") {
         $.ajax({
             method: "POST",
@@ -156,6 +158,8 @@ function room_sw() {
                     },
                     "0.3s"
                 );
+                $("#room-sw-l").hide();
+                $("#room-sw-l").animate({ left: "-=120px" }, "0.3s");
                 $("#room-sw-i").text("OFF");
                 $("#room-sw-i").animate({ color: "aliceblue" });
                 $("#room-sw-t").animate(
@@ -184,6 +188,8 @@ function room_sw() {
                     $("#card-mail-i").attr("value", result.message);
                     return;
                 }
+                $("#room-sw-l").hide();
+                $("#room-sw-l").animate({ left: "+=120px" }, "0.3s");
                 $("#d-open").text("1");
                 shutx = 0;
                 cog_view();

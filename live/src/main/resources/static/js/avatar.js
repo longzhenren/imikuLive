@@ -77,7 +77,6 @@ function geneHead(f) {
             }
             lgd = true;
             lgs_r = result;
-            lgs_r.gender = document.getElementById("d-gender").textContent;
             sNick = result.nickname;
             $(".ava").attr(
                 "src",
@@ -94,18 +93,21 @@ function geneHead(f) {
 }
 function ifg(f) {
     geneHead(f);
-    $("#card-i").attr(
-        "src",
-        geneAvatar(
-            document.getElementById("d-avatar").textContent,
-            document.getElementById("d-uid").textContent,
-            document.getElementById("d-nickname").textContent
-        )
-    );
-    if (document.getElementById("d-room").textContent == "0") {
-        document.getElementById("card-room").textContent = "该用户没有直播间";
-        document.getElementById("card-room").classList.remove("card-btn");
-    }
+    try {
+        $("#card-i").attr(
+            "src",
+            geneAvatar(
+                document.getElementById("d-avatar").textContent,
+                document.getElementById("d-uid").textContent,
+                document.getElementById("d-nickname").textContent
+            )
+        );
+        if (document.getElementById("d-room").textContent == "0") {
+            document.getElementById("card-room").textContent =
+                "该用户没有直播间";
+            document.getElementById("card-room").classList.remove("card-btn");
+        }
+    } catch (e) {}
 }
 window.addEventListener("wheel", function (e) {
     if (ss1) {
@@ -132,15 +134,15 @@ function toSelf() {
 }
 function toMR() {
     if ($("#d-room").text() === "0")
-        window.location.href = url + "/r/" + $("#d-nickname").text();
-    window.location.href = url + "/c/" + $("#d-nickname").text();
+        window.location.href = url + "/r/" + lgs_r.nickname;
+    window.location.href = url + "/c/" + lgs_r.nickname;
 }
 function toUR() {
     if ($("#d-room").text() != "0")
-        window.location.href = url + "/r/" + $("#d-nickname").text();
+        window.location.href = url + "/r/" + lgs_r.nickname;
 }
 function toCC() {
-    window.location.href = url + "/c/" + $("#d-nickname").text();
+    window.location.href = url + "/c/" + lgs_r.nickname;
 }
 function logout() {
     $.ajax({
