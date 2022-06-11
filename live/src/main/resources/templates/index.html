@@ -30,8 +30,8 @@
             rel="stylesheet"
         />
         <link
-            href="../static/css/user.css"
-            th:href="@{/css/user.css}"
+            href="../static/css/homepage.css"
+            th:href="@{/css/homepage.css}"
             rel="stylesheet"
         />
     </head>
@@ -232,6 +232,57 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div id="ct">
+                <div class="video-ct" id="open-ct">
+                    <div class="video-ct-h">
+                        <hr style="width: 30px; flex: unset; margin-left: 0" />
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="#3ba8ab"
+                            class="video-ct-svg bi bi-play-circle"
+                            viewBox="0 0 16 16"
+                        >
+                            <path
+                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                            />
+                            <path
+                                d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"
+                            />
+                        </svg>
+                        直播中
+                        <hr />
+                        <div class="ct-count">
+                            <c id="open-count">0</c>
+                            个房间
+                        </div>
+                    </div>
+                    <div class="video-ct-l">
+                        <div class="video-card">
+                            <div class="card-cover">
+                                <div class="card-user">
+                                    <img
+                                        class="card-user-ava"
+                                        onclick="toUser($(this).next().text())"
+                                    />
+                                    <c
+                                        class="card-user-nick"
+                                        onclick="toUser($(this).text())"
+                                        >Administrator</c
+                                    >
+                                </div>
+                            </div>
+                            <div class="card-name">
+                                <div class="card-name-t">
+                                    你是一个 一个一个哼哼哼房间啊啊啊啊
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-ct" id="close-ct"></div>
             </div>
         </div>
     </body>

@@ -1,0 +1,124 @@
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: aliceblue;
+    border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 8px;
+}
+#ct {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100vh - 60px);
+    position: relative;
+    z-index: -2;
+}
+.video-ct {
+    width: 75vw;
+    margin: 60px 0 60px 20vw;
+    padding: 10px 30px 10px 30px;
+    backdrop-filter: blur(20px);
+    border-radius: 10px;
+    box-shadow: 0 0 2vh 1vh #3ba8ab;
+}
+#close-ct {
+    box-shadow: 0 0 2vh 1vh #f07d58;
+}
+.video-ct-h {
+    display: flex;
+    align-items: center;
+    color: #3ba8ab;
+    font-size: large;
+    font-weight: bold;
+}
+.video-ct-svg {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+.ct-count {
+    color: antiquewhite;
+    font-size: small;
+}
+hr {
+    margin: 0 20px 0 20px;
+    flex: auto;
+    border-color: #3ba8ab;
+    border-width: 3px;
+}
+.video-ct-l {
+    margin: 8px 0 0 0px;
+}
+.video-card {
+    width: calc(160px + 8vw);
+    height: calc(130px + 4.5vw);
+}
+.video-ct * {
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.card-cover {
+    background-position: center, center;
+    background-size: cover;
+    background-color: #f07d58;
+    width: inherit;
+    overflow: hidden;
+    height: calc(90px + 4.5vw);
+    border-radius: 10px;
+}
+.card-name {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    font-size: medium;
+    width: inherit;
+}
+.card-name-t {
+    color: antiquewhite;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card-user {
+    position: relative;
+    display: flex;
+    align-items: center;
+    top: calc(50px + 4.5vw);
+    width: inherit;
+    height: 40px;
+    background-image: linear-gradient(transparent, rgb(0, 0, 0, 0.8));
+    color: aliceblue;
+}
+.card-user-nick {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card-user-ava {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 20px 0 10px;
+}
+.card-user-nick:hover,
+.card-cover:hover,
+.card-user-ava:hover,
+.card-name-t:hover {
+    cursor: pointer;
+    color: #f07d58;
+}
+.card-user-nick:hover,
+.card-name-t:hover {
+    text-decoration: underline;
+}
+.video-card:hover {
+    transform: scale(1.05);
+}
