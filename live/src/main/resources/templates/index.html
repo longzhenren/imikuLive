@@ -261,7 +261,10 @@
                     </div>
                     <div class="video-ct-l">
                         <div class="video-card">
-                            <div class="card-cover">
+                            <div
+                                class="card-cover"
+                                onclick="toRoom($(this).find('c').text())"
+                            >
                                 <div class="card-user">
                                     <img
                                         class="card-user-ava"
@@ -275,7 +278,10 @@
                                 </div>
                             </div>
                             <div class="card-name">
-                                <div class="card-name-t">
+                                <div
+                                    class="card-name-t"
+                                    onclick="toRoom($(this).parent().prev().find('c').text())"
+                                >
                                     你是一个 一个一个哼哼哼房间啊啊啊啊
                                 </div>
                             </div>

@@ -119,6 +119,7 @@ hr {
 .card-name-t:hover {
     text-decoration: underline;
 }
+.video-ct-svg:hover,
 .video-card:hover {
     transform: scale(1.05);
 }

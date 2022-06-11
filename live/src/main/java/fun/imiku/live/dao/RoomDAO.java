@@ -9,6 +9,8 @@ package fun.imiku.live.dao;
 
 
 import fun.imiku.live.entity.Room;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -21,4 +23,6 @@ public interface RoomDAO extends JpaRepository<Room, Integer> {
 
     @Query(nativeQuery = true, value = "SELECT * from room where open=1")
     List<Room> getAllOpenRooms();
+
+    Page<Room> findByOpen(int open, Pageable pageable);
 }
