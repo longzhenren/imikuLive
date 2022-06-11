@@ -52,11 +52,19 @@ hr {
     border-width: 3px;
 }
 .video-ct-l {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
     margin: 8px 0 0 0px;
 }
 .video-card {
+    flex: 0 0 auto;
+    margin: 10px;
     width: calc(160px + 8vw);
     height: calc(130px + 4.5vw);
+}
+.card-dummy {
+    height: 0;
 }
 .video-ct * {
     -webkit-transition: all 0.3s;
@@ -122,4 +130,28 @@ hr {
 .video-ct-svg:hover,
 .video-card:hover {
     transform: scale(1.05);
+}
+.ct-more {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+    border-width: 4px 0 4px 0;
+    border-style: solid;
+    font-size: larger;
+    font-weight: bold;
+    border-image: linear-gradient(
+        to right,
+        transparent,
+        #3ba8ab 50%,
+        transparent
+    );
+    border-image-slice: 1;
+    color: #3ba8ab;
+}
+.ct-more:hover {
+    cursor: pointer;
+    font-size: x-large;
+    border-image: unset;
+    border-image-slice: unset;
+    border-color: #3ba8ab;
 }

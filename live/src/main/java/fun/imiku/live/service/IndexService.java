@@ -46,6 +46,8 @@ public class IndexService {
             x.put("avatar", aut.getAvatar());
             x.put("name", i.getName());
             x.put("cover", i.getCover());
+            x.put("rid", i.getId());
+            x.put("uid", aut.getId());
             room.add(x);
         }
         ret.put("room", room);

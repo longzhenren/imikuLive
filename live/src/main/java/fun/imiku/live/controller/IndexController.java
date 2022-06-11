@@ -10,14 +10,12 @@ package fun.imiku.live.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fun.imiku.live.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 public class IndexController {
     @Autowired
@@ -31,10 +29,10 @@ public class IndexController {
     }
 
     @GetMapping("/api/getOpenRoomsPaged")
-    public String getOpenRoomsPaged(@RequestBody Map<String, Object> param) {
+    public String getOpenRoomsPaged(@RequestParam Map<String, Object> param) {
         HashMap<String, Object> ret = new HashMap<>();
         try {
-            indexService.getRoomsByOpenPaged(1, (Integer) param.get("page"), ret);
+            indexService.getRoomsByOpenPaged(1, Integer.parseInt((String) param.get("page")), ret);
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,10 +41,10 @@ public class IndexController {
     }
 
     @GetMapping("/api/getCloseRoomsPaged")
-    public String getCloseRoomsPaged(@RequestBody Map<String, Object> param) {
+    public String getCloseRoomsPaged(@RequestParam Map<String, Object> param) {
         HashMap<String, Object> ret = new HashMap<>();
         try {
-            indexService.getRoomsByOpenPaged(0, (Integer) param.get("page"), ret);
+            indexService.getRoomsByOpenPaged(0, Integer.parseInt((String) param.get("page")), ret);
             return objectMapper.writeValueAsString(ret);
         } catch (Exception e) {
             e.printStackTrace();
