@@ -253,3 +253,16 @@ function shut() {
     $(".shutxb").attr("value", "已过期，请刷新页面");
     $(".shutxb").attr("data-content", "信息已过期，请刷新页面");
 }
+function copyShare() {
+    var link = $("#card-mail-i").val();
+    $("#card-mail-i").val(
+        "【imikuLive】" +
+            $("#d-name").text() +
+            "\n" +
+            link +
+            "\n欢迎来我的 imikuLive 直播间围观~"
+    );
+    document.getElementById("card-mail-i").select();
+    document.execCommand("copy");
+    $("#card-mail-i").val(link);
+}

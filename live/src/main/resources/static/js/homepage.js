@@ -53,9 +53,9 @@ function getMoreOpen() {
             result.room.forEach((element) => {
                 $("#video-ct-l-open").append(processNR(element));
             });
+            $("#open-count").text(result.total);
             if (6 * pageOpen + result.room.length >= 3)
-                $("#open-count").text(result.total);
-            appendDummy($("#video-ct-l-open"));
+                appendDummy($("#video-ct-l-open"));
             pageOpen += 1;
         },
     });

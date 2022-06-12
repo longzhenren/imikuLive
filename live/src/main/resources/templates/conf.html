@@ -275,7 +275,7 @@
                             data-content="已复制"
                             class="btn btn-default shutxb i-data i-data-b"
                             type="button"
-                            onclick="if(shutx==1)return;navigator.clipboard.writeText($('#card-rtmp-i').val())"
+                            onclick="if(shutx==1)return;document.getElementById('card-rtmp-i').select();document.execCommand('copy');"
                         >
                             复制
                         </button>
@@ -298,7 +298,7 @@
                             class="btn btn-default shutxb i-data i-data-b"
                             type="button"
                             value="sadfasdfasf"
-                            onclick="if(shutx==1)return;navigator.clipboard.writeText($('#card-rtmpkey-i').val())"
+                            onclick="if(shutx==1)return;document.getElementById('card-rtmpkey-i').select();document.execCommand('copy');"
                         >
                             复制
                         </button>
@@ -357,7 +357,7 @@
                             data-content="已复制"
                             class="btn btn-default i-data i-data-b"
                             type="button"
-                            onclick="navigator.clipboard.writeText('【imikuLive】' + $('#d-name').text() + '\n' + url + '/r/' + $('#d-nickname').text() + '\n欢迎来我的 imikuLive 直播间围观~')"
+                            onclick="copyShare()"
                         >
                             复制
                         </button>
