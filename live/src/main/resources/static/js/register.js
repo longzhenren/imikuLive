@@ -156,8 +156,11 @@ function submit() {
                 loading(false);
                 return;
             }
-            $(".forg").animate({ top: "+=50%" }, "1s");
+            $(".forg").animate({ top: "+=36%" }, "1s");
             loading(false);
+            setTimeout(function () {
+                window.location.href = url;
+            }, 3000);
         },
     });
 }

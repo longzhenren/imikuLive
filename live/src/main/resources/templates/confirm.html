@@ -15,6 +15,7 @@
             th:href="@{/css/login.css}"
             rel="stylesheet"
         />
+        <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
         <script src="../static/js/url.js" th:src="@{/js/url.js}"></script>
         <script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
     </head>
@@ -39,13 +40,16 @@
                         >&ensp;imiku<b style="color: #f07d58">Live&ensp;</b></b
                     >
                     <div>
-                        <div id="ts" style="font-size: 10vw; color: #3ba8ab">
+                        <div
+                            id="ts"
+                            style="font-size: calc(64px + 5vw); color: #3ba8ab"
+                        >
                             认证成功
                         </div>
                         <br />
                         <div
                             id="tx"
-                            style="font-size: 6vw; color: #f07d58"
+                            style="font-size: calc(32px + 3vw); color: #f07d58"
                             th:text="${email}"
                         >
                             email

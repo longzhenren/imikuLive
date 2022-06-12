@@ -186,7 +186,7 @@ hr {
 }
 .load-bar {
     display: block;
-    margin-left: 20px;
+    margin-left: 64px;
     height: 20px;
     width: 240px;
     display: flex;
@@ -220,5 +220,8 @@ hr {
     }
     #sload {
         padding: 0 20px 0 20px;
+    }
+    .load-bar {
+        margin-left: 20px;
     }
 }

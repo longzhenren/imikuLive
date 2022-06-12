@@ -139,7 +139,7 @@ function toMR() {
 }
 function toUR() {
     if ($("#d-room").text() != "0")
-        window.location.href = url + "/r/" + lgs_r.nickname;
+        window.location.href = url + "/r/" + $("#d-nickname").text();
 }
 function toCC() {
     window.location.href = url + "/c/" + lgs_r.nickname;

@@ -141,9 +141,8 @@ function fail(s) {
 function jpo() {
     setTimeout(function () {
         $("#succ").animate({ left: "+=200%" }, "2s");
-        window.location.href =
-            url + "/login?e=" + document.getElementById("e").textContent;
-    }, 2000);
+        window.location.href = url + "/login?e=" + $("#e").text();
+    }, 1000);
 }
 function loading(e) {
     if (e === true) {
