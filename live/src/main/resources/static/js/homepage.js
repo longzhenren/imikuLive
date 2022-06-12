@@ -9,9 +9,13 @@ function toUser(e) {
 function toRoom(e) {
     window.open(url + "/r/" + e);
 }
+function toTerms() {
+    window.open(url + "/terms");
+}
 function initReqRooms() {
     getMoreOpen();
     getMoreClose();
+    setInterval(getServerLoad(), 2000);
 }
 function processNR(element) {
     var ncd = $(
@@ -75,4 +79,31 @@ function getMoreClose() {
             pageClose += 1;
         },
     });
+}
+function getServerLoad() {
+    $.ajax({
+        method: "GET",
+        url: url + "/api/serverLoad",
+        success: function (result) {
+            result = JSON.parse(result);
+            if (result.result === false) return;
+            $("#cpu-v").text(result.cpu + " %");
+            $("#net-v").text(result.net + " %");
+            var w = 5 + result.cpu * 1.5;
+            $("#cpu-b").animate({ width: w + "px" }, "1.8s");
+            w = 5 + result.net * 1.5;
+            $("#net-b").animate({ width: w + "px" }, "1.8s");
+            if (result.cpu <= 45)
+                $("#cpu-b").animate({ borderColor: "#3ba8ab" }, "1.8s");
+            else if (result.cpu < 75)
+                $("#cpu-b").animate({ borderColor: "#f07d58" }, "1.8s");
+            else $("#cpu-b").animate({ borderColor: "firebrick" }, "1.8s");
+            if (result.net <= 45)
+                $("#net-b").animate({ borderColor: "#3ba8ab" }, "1.8s");
+            else if (result.net < 75)
+                $("#net-b").animate({ borderColor: "#f07d58" }, "1.8s");
+            else $("#net-b").animate({ borderColor: "firebrick" }, "1.8s");
+        },
+    });
+    return getServerLoad;
 }

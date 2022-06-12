@@ -23,7 +23,7 @@ public class IndexController {
     @Autowired
     ObjectMapper objectMapper;
 
-    @PostMapping("/api/serverLoad")
+    @GetMapping("/api/serverLoad")
     public String serverLoad() {
         return indexService.getServerLoad();
     }

@@ -64,12 +64,12 @@ function geneHead(f) {
         url: url + "/api/loginState",
         success: function (result) {
             result = JSON.parse(result);
-            result = {
-                uid: 100000,
-                email: "145@1456.15",
-                nickname: "SuperUser",
-                avatar: "auto",
-            };
+            // result = {
+            //     uid: 100000,
+            //     email: "145@1456.15",
+            //     nickname: "SuperUser",
+            //     avatar: "auto",
+            // };
             if (result.result === false) {
                 if (typeof f === "undefined") return;
                 f(false);

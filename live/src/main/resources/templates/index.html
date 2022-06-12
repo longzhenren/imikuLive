@@ -14,6 +14,7 @@
         <script src="../static/js/url.js" th:src="@{/js/url.js}"></script>
         <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/identicon.js/2.3.3/identicon.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
         <script src="https://cdn.staticfile.org/flv.js/1.5.0/flv.min.js"></script>
@@ -301,6 +302,28 @@
                     >
                         加载更多
                     </div>
+                </div>
+            </div>
+            <div id="sload">
+                <div>站点负载</div>
+                <div style="display: block">
+                    <div class="load-bar" id="cpu-bar">
+                        <div class="bar-t">计算</div>
+                        <div style="display: block">
+                            <hr class="bar-b" id="cpu-b" />
+                        </div>
+                        <div class="bar-v" id="cpu-v">0 %</div>
+                    </div>
+                    <div class="load-bar" id="cpu-bar">
+                        <div class="bar-t">网络</div>
+                        <div style="display: block">
+                            <hr class="bar-b" id="net-b" />
+                        </div>
+                        <div class="bar-v" id="net-v">0 %</div>
+                    </div>
+                </div>
+                <div style="display: block">
+                    <div class="index-terms" onclick="toTerms()">使用条款</div>
                 </div>
             </div>
         </div>
