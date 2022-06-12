@@ -25,7 +25,7 @@ function processNR(element) {
     );
     ncd.find(".card-user-ava").attr(
         "src",
-        geneAvatar(result.avatar, result.uid, result.nickname)
+        geneAvatar(element.avatar, element.uid, element.nickname)
     );
     return ncd;
 }
@@ -45,12 +45,14 @@ function getMoreOpen() {
             result = JSON.parse(result);
             if (result.result === false) return;
             if (result.more === true) $("#ct-more-open").show();
-            pageOpen += 1;
             $("#video-ct-l-open .card-dummy").remove();
             result.room.forEach((element) => {
                 $("#video-ct-l-open").append(processNR(element));
             });
+            if (6 * pageOpen + result.room.length >= 3)
+                $("#open-count").text(result.total);
             appendDummy($("#video-ct-l-open"));
+            pageOpen += 1;
         },
     });
 }
@@ -63,12 +65,14 @@ function getMoreClose() {
             result = JSON.parse(result);
             if (result.result === false) return;
             if (result.more === true) $("#ct-more-close").show();
-            pageClose += 1;
             $("#video-ct-l-close .card-dummy").remove();
             result.room.forEach((element) => {
                 $("#video-ct-l-close").append(processNR(element));
             });
-            appendDummy($("#video-ct-l-close"));
+            $("#close-count").text(result.total);
+            if (6 * pageClose + result.room.length >= 3)
+                appendDummy($("#video-ct-l-close"));
+            pageClose += 1;
         },
     });
 }

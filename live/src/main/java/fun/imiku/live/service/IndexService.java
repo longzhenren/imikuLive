@@ -51,6 +51,7 @@ public class IndexService {
             room.add(x);
         }
         ret.put("room", room);
+        ret.put("total", res.getTotalElements());
         ret.put("result", true);
     }
 }
