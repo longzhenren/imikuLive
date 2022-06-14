@@ -7,12 +7,12 @@
  */
 package fun.imiku.live.service;
 
+import fun.imiku.live.component.FileResource;
 import fun.imiku.live.component.PullRouter;
 import fun.imiku.live.dao.RoomDAO;
 import fun.imiku.live.dao.UserDAO;
 import fun.imiku.live.entity.Room;
 import fun.imiku.live.entity.User;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -32,8 +31,8 @@ import java.util.Map;
 
 @Service
 public class RoomService {
-    @Value("${site.files}")
-    String localFile;
+    @Autowired
+    FileResource fileResource;
     @Value("${nms.rtmp}")
     String rtmpUrl;
     @Value("${nms.secret}")
@@ -115,10 +114,7 @@ public class RoomService {
         int innerCode = (int) (System.currentTimeMillis() % 1000000000 + Math.round(Math.random() % 1000000000));
         String filename = DigestUtils.md5DigestAsHex(Integer.toString(innerCode)
                 .getBytes(StandardCharsets.UTF_8)).substring(5, 30);
-        FileOutputStream fileOutputStream =
-                new FileOutputStream(localFile + "/covers/" + filename);
-        IOUtils.copy(file.getInputStream(), fileOutputStream);
-        fileOutputStream.close();
+        fileResource.saveAndDeletePrev(file, "/covers/", filename, tar.getCover());
         tar.setCover(filename);
         roomDAO.save(tar);
     }

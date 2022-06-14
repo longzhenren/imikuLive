@@ -7,6 +7,7 @@
  */
 package fun.imiku.live.service;
 
+import fun.imiku.live.component.FileResource;
 import fun.imiku.live.dao.UserDAO;
 import fun.imiku.live.entity.User;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -36,14 +37,14 @@ public class AccountService {
     String url;
     @Value(value = "#{'${site.nicksBanned:}'.split(',')}")
     Set<String> nicksBanned;
-    @Value("${site.files}")
-    String localFile;
     @Autowired
     UserDAO userDAO;
     @Autowired
     JavaMailSender mailSender;
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    FileResource fileResource;
 
     private static final Pattern mailPt = Pattern.compile("^\\w+((-\\w+)|(\\.\\w+))*@[A-Za-z0-9]+(([.\\-])[A-Za-z0-9]+)" +
             "*\\.[A-Za-z0-9]+$");
@@ -287,18 +288,13 @@ public class AccountService {
         ret.put("gender", session.getAttribute("gender"));
     }
 
-    public void setAvatar(HttpSession session, MultipartFile file)
-            throws IOException {
+    public void setAvatar(HttpSession session, MultipartFile file) throws IOException {
         List<User> res = userDAO.findByNickname((String) session.getAttribute("nickname"));
-        if (res.size() == 0) throw new IOException();
         User tar = res.get(0);
         int innerCode = (int) (System.currentTimeMillis() % 1000000000 + Math.round(Math.random() % 1000000000));
         String filename = DigestUtils.md5DigestAsHex(Integer.toString(innerCode)
                 .getBytes(StandardCharsets.UTF_8)).substring(5, 30);
-        FileOutputStream fileOutputStream =
-                new FileOutputStream(localFile + "/avatars/" + filename);
-        IOUtils.copy(file.getInputStream(), fileOutputStream);
-        fileOutputStream.close();
+        fileResource.saveAndDeletePrev(file, "/avatars/", filename, tar.getAvatar());
         tar.setAvatar(filename);
         userDAO.save(tar);
         session.setAttribute("avatar", filename);
