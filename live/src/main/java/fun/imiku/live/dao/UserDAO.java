@@ -8,7 +8,11 @@
 package fun.imiku.live.dao;
 
 import fun.imiku.live.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -21,4 +25,8 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     List<User> findByNickname(String nickname);
 
     List<User> findByRoom(int id);
+
+    @Query(nativeQuery = true,
+            value = "SELECT * FROM room WHERE email LIKE %:key% OR nickname like %:key% OR intro LIKE %:key%")
+    Page<User> searchByKeyword(@Param("key") String keyword, Pageable pageable);
 }

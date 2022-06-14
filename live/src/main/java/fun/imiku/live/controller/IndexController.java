@@ -51,4 +51,28 @@ public class IndexController {
             return "{\"result\":false,\"message\":\"Bad Request\"}";
         }
     }
+
+    @GetMapping("/api/searchRoomsPaged")
+    public String searchRoomsPaged(@RequestParam Map<String, Object> param) {
+        HashMap<String, Object> ret = new HashMap<>();
+        try {
+            indexService.searchRoomsPaged(Integer.parseInt((String) param.get("page")), (String) param.get("key"), ret);
+            return objectMapper.writeValueAsString(ret);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        }
+    }
+
+    @GetMapping("/api/searchUsersPaged")
+    public String searchUsersPaged(@RequestParam Map<String, Object> param) {
+        HashMap<String, Object> ret = new HashMap<>();
+        try {
+            indexService.searchUsersPaged(Integer.parseInt((String) param.get("page")), (String) param.get("key"), ret);
+            return objectMapper.writeValueAsString(ret);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"result\":false,\"message\":\"Bad Request\"}";
+        }
+    }
 }
