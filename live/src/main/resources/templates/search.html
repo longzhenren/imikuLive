@@ -9,7 +9,7 @@
                                      maximum-scale=1.0, 
                                      user-scalable=no"
         />
-        <title th:text="${title}">直播间 - imikuLive</title>
+        <title>搜索结果 - imikuLive</title>
         <link
             href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
             rel="stylesheet"
@@ -21,15 +21,13 @@
         <script src="../static/js/url.js" th:src="@{/js/url.js}"></script>
         <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/identicon.js/2.3.3/identicon.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-        <script src="https://cdn.staticfile.org/flv.js/1.5.0/flv.min.js"></script>
-        <script src="https://cdn.staticfile.org/dplayer/1.26.0/DPlayer.min.js"></script>
-        <script src="https://cdn.staticfile.org/socket.io/2.3.1/socket.io.min.js"></script>
         <script src="../static/js/avatar.js" th:src="@{/js/avatar.js}"></script>
         <script
-            src="../static/js/danmaku.js"
-            th:src="@{/js/danmaku.js}"
+            src="../static/js/homepage.js"
+            th:src="@{/js/homepage.js}"
         ></script>
         <link
             href="../static/css/index.css"
@@ -37,21 +35,16 @@
             rel="stylesheet"
         />
         <link
-            href="../static/css/user.css"
-            th:href="@{/css/user.css}"
-            rel="stylesheet"
-        />
-        <link
-            href="../static/css/room.css"
-            th:href="@{/css/room.css}"
+            href="../static/css/homepage.css"
+            th:href="@{/css/homepage.css}"
             rel="stylesheet"
         />
     </head>
-    <body onload="ifg(initDanS)">
+    <body onload="ifg(initSearch)">
         <div
             id="bg"
-            style="background-image: url('../static/img/bg.jpg')"
-            th:style="'background-image: url('+'/img/bg.jpg'+')'"
+            style="background-image: url('../static/img/bgb.jpg')"
+            th:style="'background-image: url('+'/img/bgb.jpg'+')'"
         >
             <div id="head">
                 <svg
@@ -245,83 +238,72 @@
                     </div>
                 </div>
             </div>
-            <div id="abg">
-                <div class="mbg" id="pbg">
-                    <img id="uavatar" class="touser" onclick="toUser()" />
-                    <div id="roomn" th:text="${name}">
-                        SuperUser用来测试的SuperRoom
+            <div id="ct">
+                <div class="video-ct" id="open-ct">
+                    <div class="video-ct-h">
+                        <hr class="ct-h-hr" />
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="video-ct-svg bi bi-display"
+                            viewBox="0 0 16 16"
+                        >
+                            <path
+                                d="M0 4s0-2 2-2h12s2 0 2 2v6s0 2-2 2h-4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75c.167-.333.25-.833.25-1.5H2s-2 0-2-2V4zm1.398-.855a.758.758 0 0 0-.254.302A1.46 1.46 0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757 0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3H2c-.325 0-.502.078-.602.145z"
+                            />
+                        </svg>
+                        房间
+                        <hr />
+                        <div class="ct-count">
+                            <c id="open-count">0</c>
+                            个结果
+                        </div>
                     </div>
+                    <div class="video-ct-l" id="video-ct-l-open"></div>
                     <div
-                        id="unick"
-                        class="touser"
-                        th:text="${nickname}"
-                        onclick="toUser()"
+                        class="ct-more"
+                        id="ct-more-open"
+                        onclick="getMoreOpen()"
                     >
-                        SuperUser
+                        加载更多
                     </div>
-                    <div id="dplayer"></div>
-                    <div id="intron">简介</div>
-                    <div id="introt" th:text="${intro}">
-                        主播懒得写简介ヾ(≧▽≦*)o
-                    </div>
-                    <div id="openst"></div>
-                    <img
-                        src="../static/img/logo.png"
-                        th:src="'/img/logo.png'"
-                        alt="logo"
-                        id="mbg-logo"
-                    />
-                    <div id="openstxt">当前未开播</div>
-                    <img
-                        id="openstimg"
-                        src="../static/img/loading.gif"
-                        th:src="'/img/loading.gif'"
-                    />
                 </div>
-                <div class="mbg" id="dbg">
-                    <div id="dbg-c">
-                        <div id="dbg-co">
-                            当前有
-                            <div id="current-n">0</div>
-                            人在看
+                <div class="video-ct" id="close-ct">
+                    <div class="video-ct-h">
+                        <hr class="ct-h-hr" />
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="video-ct-svg bi bi-person-circle"
+                            viewBox="0 0 16 16"
+                        >
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                            <path
+                                fill-rule="evenodd"
+                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                            />
+                        </svg>
+                        用户
+                        <hr />
+                        <div class="ct-count">
+                            <c id="close-count">0</c>
+                            个结果
                         </div>
-                        <div id="dbg-cc">现在没有开播啊</div>
-                        <img
-                            src="../static/img/logo.png"
-                            th:src="'/img/logo.png'"
-                            alt="logo"
-                            id="dbg-logo"
-                        />
                     </div>
-                    <div id="dc">
-                        <div class="dc-c" id="dc-admin">
-                            <div class="dc-cn">Administrator</div>
-                            <div class="dc-ct">
-                                文明发言，理性讨论ヾ(^▽^*)))
-                            </div>
-                        </div>
+                    <div class="video-ct-l" id="video-ct-l-close"></div>
+                    <div
+                        class="ct-more"
+                        id="ct-more-close"
+                        onclick="getMoreClose()"
+                    >
+                        加载更多
                     </div>
-                    <input
-                        type="text"
-                        id="danmaku-i"
-                        maxlength="30"
-                        placeholder="发条弹幕  ( •̀ .̫ •́ )✧"
-                        disabled="disabled"
-                        onkeydown="if(event.keyCode==13){sendDanS()}"
-                    />
-                    <div id="danmaku-s"></div>
                 </div>
             </div>
         </div>
-        <data id="d-nickname" th:text="${nickname}">Administrator</data>
-        <data id="d-avatar" th:text="${avatar}">auto</data>
-        <data id="d-uid" th:text="${uid}">100000</data>
-        <data id="d-room" th:text="${rid}">10000000</data>
-        <data id="d-name" th:text="${name}">SuperRoom</data>
-        <data id="d-cover" th:text="${cover}">auto</data>
-        <data id="d-intro" th:text="${intro}">什么都不会有的房间</data>
-        <data id="d-open" th:text="${open}">0</data>
-        <data id="d-lock" th:text="${lock}">0</data>
-        <data id="d-gender" th:text="${gend}">2</data>
     </body>
 </html>

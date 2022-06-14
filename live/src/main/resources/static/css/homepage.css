@@ -214,6 +214,17 @@ hr {
     cursor: pointer;
     text-decoration: underline;
 }
+.user-card {
+    width: calc(130px + 4.5vw);
+    height: calc(170px + 4.5vw);
+}
+.card-avatar {
+    border-radius: 50%;
+    height: calc(130px + 4.5vw);
+}
+.card-nick {
+    justify-content: center;
+}
 @media screen and (max-width: 768px) {
     .ct-h-hr {
         display: none;

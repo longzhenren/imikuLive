@@ -86,6 +86,7 @@ public class IndexService {
             HashMap<String, Object> x = new HashMap<>();
             x.put("nickname", i.getNickname());
             x.put("avatar", i.getAvatar());
+            x.put("uid", i.getId());
             user.add(x);
         }
         ret.put("user", user);

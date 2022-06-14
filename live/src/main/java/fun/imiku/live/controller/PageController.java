@@ -61,6 +61,11 @@ public class PageController {
         return "terms";
     }
 
+    @RequestMapping("/search")
+    public String searchPage() {
+        return "search";
+    }
+
     @RequestMapping("/u/**")
     public String userPage(HttpServletRequest request, Model model, HttpSession session) throws UnsupportedEncodingException {
         String nick = URLDecoder.decode(request.getRequestURI().substring(3), "utf-8");

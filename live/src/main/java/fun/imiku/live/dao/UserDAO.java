@@ -27,6 +27,6 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     List<User> findByRoom(int id);
 
     @Query(nativeQuery = true,
-            value = "SELECT * FROM room WHERE email LIKE %:key% OR nickname like %:key% OR intro LIKE %:key%")
+            value = "SELECT * FROM user WHERE email LIKE %:key% OR nickname like %:key% OR intro LIKE %:key%")
     Page<User> searchByKeyword(@Param("key") String keyword, Pageable pageable);
 }

@@ -187,8 +187,7 @@ function opsw(e) {
     }
 }
 function search() {
-    var con = document.getElementById("head-sr").value;
-    alert(con);
+    window.open(url + "/search?key=" + $("#head-sr").val());
 }
 function mofold() {
     if (!opn) {
