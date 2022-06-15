@@ -187,6 +187,7 @@ function opsw(e) {
     }
 }
 function search() {
+    if ($("#head-sr").val().length === 0) return;
     window.open(url + "/search?key=" + $("#head-sr").val());
 }
 function mofold() {

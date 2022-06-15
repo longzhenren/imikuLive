@@ -263,4 +263,7 @@ select:-webkit-autofill {
     .mo-tc {
         display: block;
     }
+    #op-btn {
+        left: 52vw;
+    }
 }
