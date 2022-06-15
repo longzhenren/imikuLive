@@ -125,7 +125,7 @@ function toUser(t) {
 }
 function initSearch() {
     searchKey = window.location.href.toString().split("?key=")[1];
-    $("#head-sr").val(searchKey);
+    $(".head-sr").val(searchKey);
     searchMoreRooms();
     searchMoreUsers();
 }

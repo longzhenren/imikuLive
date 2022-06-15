@@ -179,10 +179,12 @@
                 <div class="head-sc" id="head-xy-sc">
                     <input
                         class="head-sr"
-                        id="head-sr"
+                        id="head-sr-m"
                         type="text"
                         onkeydown="if(event.keyCode==13){search()}"
                         placeholder="搜点什么~"
+                        oninput="$('#head-sr').val(this.value)"
+                        onporpertychange="$('#head-sr').val(this.value)"
                     />
                     <svg
                         viewBox="0 0 16 16"
