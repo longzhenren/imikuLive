@@ -44,3 +44,31 @@
 -   [x] 拉流鉴权
 -   [x] 主页
 -   [x] 搜索功能和页面
+
+#### 部署方法
+
+软件分为三部分，包括 Spring 部分、数据库部分和 [Node-Media-Server](https://github.com/illuspas/Node-Media-Server) （以后简称 NMS）流媒体服务器部分。
+
+##### Spring 部分
+
+依照自身服务器配置情况，修改 `gateway/src/main/resources/sample_application.yml` 和 `live/src/main/resources/sample_application.yml` 中的配置项，并各自在同目录下另存为或重命名为 `application.yml`。文件的注释中应当详细描述了应当填写的配置项及其意义。
+
+项目目前配置为 JDK11，可以根据需要修改响应 `pom.xml`。
+完成配置后，使用 Maven 打包两个项目并按常规方法部署。
+
+TODO：配置文件隔离和热修改
+TODO：编写 Dockerfile
+
+##### 数据库部分
+
+任意数据库实例，导入项目根目录的 `live.sql` 即可。注意配置文件中的数据源应当同步修改。
+
+##### 流媒体服务器部分
+
+参照 [Node-Media-Server](https://github.com/illuspas/Node-Media-Server) 进行部署。
+参照文档对 `app.js` 进行编辑，必须启用 api 以进行服务器负载查询。注意配置文件中的 NMS 相关项应当同步修改。
+
+#### 目前的问题
+
+-   直播间关闭后，推流地址依然可以继续工作。
+-   上一次（但未超过 48 小时失效时限）的推流地址依然可以继续工作。与上一个问题的解决方案类似，即当房间手动或自动关闭时，应该让 NMS 拒绝这些地址的传入连接。但是 NMS 并没有提供拒绝连接的 api，因此这些问题的解决可能需要对 NMS 进行二次开发或者更换流媒体服务器。
