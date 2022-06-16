@@ -133,8 +133,7 @@ function toSelf() {
     window.location.href = url + "/u/" + sNick;
 }
 function toMR() {
-    if ($("#d-room").text() === "0")
-        window.location.href = url + "/r/" + lgs_r.nickname;
+    if (lgs_r.room === "0") window.location.href = url + "/r/" + lgs_r.nickname;
     window.location.href = url + "/c/" + lgs_r.nickname;
 }
 function toUR() {

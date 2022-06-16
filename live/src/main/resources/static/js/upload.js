@@ -88,7 +88,7 @@ function info_post() {
             uid: lgs_r.uid,
             nickname: lgs_r.nickname,
             intro: lgs_r.intro,
-            gender: lgs_r.gender,
+            gender: lgs_r.gender.toString(),
         }),
         success: function (result) {
             result = JSON.parse(result);

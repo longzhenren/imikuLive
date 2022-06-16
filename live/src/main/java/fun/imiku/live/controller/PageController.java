@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Controller
@@ -62,13 +62,14 @@ public class PageController {
     }
 
     @RequestMapping("/search")
-    public String searchPage() {
+    public String searchPage(@RequestParam Map<String, Object> param, Model model) {
+        model.addAttribute("key", param.get("key"));
         return "search";
     }
 
     @RequestMapping("/u/**")
-    public String userPage(HttpServletRequest request, Model model, HttpSession session) throws UnsupportedEncodingException {
-        String nick = URLDecoder.decode(request.getRequestURI().substring(3), "utf-8");
+    public String userPage(HttpServletRequest request, Model model, HttpSession session) {
+        String nick = URLDecoder.decode(request.getRequestURI().substring(3), StandardCharsets.UTF_8);
         if (accountService.pageByNickname(nick, model)) {
             if (nick.equals(session.getAttribute("nickname")))
                 return "self";
@@ -78,8 +79,8 @@ public class PageController {
     }
 
     @RequestMapping("/r/**")
-    public String userRoom(HttpServletRequest request, Model model, HttpSession session) throws UnsupportedEncodingException {
-        String nick = URLDecoder.decode(request.getRequestURI().substring(3), "utf-8");
+    public String userRoom(HttpServletRequest request, Model model, HttpSession session) {
+        String nick = URLDecoder.decode(request.getRequestURI().substring(3), StandardCharsets.UTF_8);
         if (roomService.pageByNickname(nick, model))
             return "room";
         if (nick.equals(session.getAttribute("nickname"))) {
@@ -91,8 +92,8 @@ public class PageController {
     }
 
     @RequestMapping("/c/**")
-    public String configRoom(HttpServletRequest request, Model model, HttpSession session) throws UnsupportedEncodingException {
-        String nick = URLDecoder.decode(request.getRequestURI().substring(3), "utf-8");
+    public String configRoom(HttpServletRequest request, Model model, HttpSession session) {
+        String nick = URLDecoder.decode(request.getRequestURI().substring(3), StandardCharsets.UTF_8);
         if (!nick.equals(session.getAttribute("nickname")))
             return "/error/404";
         if (roomService.pageByNickname(nick, model))

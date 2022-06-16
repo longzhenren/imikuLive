@@ -308,7 +308,7 @@ public class AccountService {
         }
         if (param.containsKey("intro"))
             tar.setIntro((String) param.get("intro"));
-        tar.setGender(Integer.parseInt((String) param.get("gender")));
+        tar.setGender(Integer.parseInt(param.get("gender").toString()));
         userDAO.saveAndFlush(tar);
         session.setAttribute("nickname", param.get("nickname"));
         ret.put("result", true);

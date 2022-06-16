@@ -69,6 +69,7 @@
                 <div class="head-sc" id="scd">
                     <input
                         class="head-sr"
+                        th:value="${key}"
                         type="text"
                         id="head-sr"
                         onkeydown="if(event.keyCode==13){search()}"
@@ -170,6 +171,7 @@
                 <div class="head-sc" id="head-xy-sc">
                     <input
                         class="head-sr"
+                        th:value="${key}"
                         id="head-sr-m"
                         type="text"
                         onkeydown="if(event.keyCode==13){search()}"
